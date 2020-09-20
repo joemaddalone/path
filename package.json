@@ -1,10 +1,10 @@
 {
-  "name": "pather",
+  "name": "@joemaddalone/path",
   "version": "1.0.0",
   "description": "a simple svg path generation utility",
-  "main": "dist/pather.min.js",
+  "main": "dist/path.min.js",
   "module": "src/index.js",
-  "browser": "dist/pather.min.js",
+  "browser": "dist/path.min.js",
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
@@ -21,14 +21,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/joemaddalone/pather.git"
+    "url": "git+https://github.com/joemaddalone/path.git"
   },
   "author": "Joe Maddalone",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/joemaddalone/pather/issues"
+    "url": "https://github.com/joemaddalone/path/issues"
   },
-  "homepage": "https://github.com/joemaddalone/pather#readme",
+  "homepage": "https://github.com/joemaddalone/path#readme",
   "devDependencies": {
     "@babel/core": "^7.11.6",
     "@babel/plugin-proposal-class-properties": "^7.10.4",
