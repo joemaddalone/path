@@ -1,4 +1,4 @@
-import Path from '../../web_modules/path.js';
+import Path from '../web_modules/path.js';
 import dagSetup from './dagSetup.js';
 
 const dag = dagSetup();

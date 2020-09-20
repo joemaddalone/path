@@ -1,4 +1,4 @@
-import Path from '../../web_modules/path.js';
+import Path from '../web_modules/path.js';
 
 Path.macro('square', function (size, x, y) {
   if (x && y) {

@@ -1,4 +1,4 @@
-import dagre from '../../web_modules/dagre.js';
+import dagre from '../web_modules/dagre.js';
 
 const setupDag = () => {
   var g = new dagre.graphlib.Graph();
