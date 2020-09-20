@@ -9,7 +9,7 @@ const polarToCartesian = (centerX, centerY, radius, angleInDegrees) => {
   };
 };
 
-export default class Path {
+export default class Pather {
   constructor() {
     this.pathData = [];
     this.attributes = {};
@@ -177,7 +177,7 @@ export default class Path {
 
 /** Macros **/
 
-Path.macro('rect', function (width, height, cx, cy) {
+Pather.macro('rect', function (width, height, cx, cy) {
   this.M(cx - width / 2, cy - height / 2)
     .right(width)
     .down(height)
@@ -187,15 +187,15 @@ Path.macro('rect', function (width, height, cx, cy) {
   return this;
 });
 
-Path.macro('square', function (size, cx, cy) {
+Pather.macro('square', function (size, cx, cy) {
   return this.regPolygon(size, 4, cx, cy);
 });
 
-Path.macro('circle', function (size, cx, cy) {
+Pather.macro('circle', function (size, cx, cy) {
   return this.ellipse(size, size, cx, cy);
 });
 
-Path.macro('ellipse', function (width, height, cx, cy) {
+Pather.macro('ellipse', function (width, height, cx, cy) {
   const rx = width / 2;
   const ry = height / 2;
 
@@ -207,7 +207,7 @@ Path.macro('ellipse', function (width, height, cx, cy) {
   return this;
 });
 
-Path.macro('polyline', function (points, relative = false) {
+Pather.macro('polyline', function (points, relative = false) {
   const clone = [...points];
   const start = clone.shift();
   const move = relative ? this.m : this.M;
@@ -219,12 +219,12 @@ Path.macro('polyline', function (points, relative = false) {
   return this;
 });
 
-Path.macro('polygon', function (points) {
+Pather.macro('polygon', function (points) {
   this.polyline(points).close();
   return this;
 });
 
-Path.macro('regPolygon', function (size, sides, cx, cy) {
+Pather.macro('regPolygon', function (size, sides, cx, cy) {
   const angle = 360 / sides;
   const vertexIndices = Array.from(Array(sides).keys());
   const offsetDeg = 90 - (180 - angle) / 2;
@@ -244,7 +244,7 @@ Path.macro('regPolygon', function (size, sides, cx, cy) {
   return this.polygon(points).M(cx, cy);
 });
 
-Path.macro('triangle', function (size, cx, cy) {
+Pather.macro('triangle', function (size, cx, cy) {
   const sq3 = Math.sqrt(3);
   const a = [cx, cy - (sq3 / 3) * size];
   const b = [cx - size / 2, cy + (sq3 / 6) * size];
@@ -252,7 +252,7 @@ Path.macro('triangle', function (size, cx, cy) {
   return this.polygon([a, b, c]).M(cx, cy);
 });
 
-Path.macro('sector', function (cx, cy, radius, startAngle, endAngle) {
+Pather.macro('sector', function (cx, cy, radius, startAngle, endAngle) {
   const start = polarToCartesian(cx, cy, radius, endAngle);
   const end = polarToCartesian(cx, cy, radius, startAngle);
   const arcSweep = endAngle - startAngle <= 180 ? 0 : 1;
@@ -265,7 +265,7 @@ Path.macro('sector', function (cx, cy, radius, startAngle, endAngle) {
   return this;
 });
 
-Path.macro('segment', function (cx, cy, radius, startAngle, endAngle) {
+Pather.macro('segment', function (cx, cy, radius, startAngle, endAngle) {
   const start = polarToCartesian(cx, cy, radius, endAngle);
   const end = polarToCartesian(cx, cy, radius, startAngle);
   const arcSweep = endAngle - startAngle <= 180 ? 0 : 1;
