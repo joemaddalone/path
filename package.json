@@ -17,6 +17,13 @@
     "predeploy": "cd demo && npm install && npx snowpack build",
     "deploy": "gh-pages -d demo/build"
   },
+  "keywords": [
+    "svg",
+    "path",
+    "arc",
+    "quadratic curve",
+    "cubic curve"
+  ],
   "files": [
     "dist/**/*.js",
     "src/**/*.js"
