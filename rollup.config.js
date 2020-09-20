@@ -4,8 +4,8 @@ import { terser } from 'rollup-plugin-terser';
 const config = {
   input: 'src/index.js',
   output: {
-    file: `dist/pather.min.js`,
-    name: 'pather',
+    file: `dist/path.min.js`,
+    name: 'path',
     format: 'umd',
     indent: false,
     extend: true,
