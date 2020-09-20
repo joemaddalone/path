@@ -1,0 +1,6 @@
+{
+  "imports": {
+    "dagre": "./dagre.js",
+    "path": "./path.js"
+  }
+}
