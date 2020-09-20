@@ -69,7 +69,7 @@ describe('Path', () => {
     expect(path.attributes.fill).toBe('white');
   });
 
-  ['fill', 'stroke', 'strokeWidth', 'style'].forEach((shortcut, index) => {
+  ['fill', 'stroke', 'style'].forEach((shortcut, index) => {
     it(`correctly populates attr with shortcut ${shortcut}`, () => {
       path[shortcut](index);
       expect(path.attributes[shortcut]).toBe(index);
