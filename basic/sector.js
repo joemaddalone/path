@@ -1,10 +1,9 @@
 import Path from '../web_modules/path.js';
-import { svg, g } from '../helpers/svg.js';
 import docs from './docs.js';
 
 export default {
-	...docs.sector,
-	name: 'sector',
+  ...docs.sector,
+  name: 'sector',
   w: 140,
   h: 120,
   paths: [

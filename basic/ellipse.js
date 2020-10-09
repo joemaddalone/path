@@ -1,10 +1,9 @@
 import Path from '../web_modules/path.js';
-import { svg, g } from '../helpers/svg.js';
 import docs from './docs.js';
 
 export default {
-	...docs.ellipse,
-	name: 'ellipse',
+  ...docs.ellipse,
+  name: 'ellipse',
   w: 155,
   h: 120,
   paths: [
@@ -12,7 +11,10 @@ export default {
       path: new Path().ellipse(150, 75, 80, 50).toElement(),
     },
     {
-      path: new Path().ellipse(15, 7.5, 80, 50).attr('class', 'filled').toElement(),
+      path: new Path()
+        .ellipse(15, 7.5, 80, 50)
+        .attr('class', 'filled')
+        .toElement(),
     },
   ],
 };

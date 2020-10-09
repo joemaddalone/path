@@ -1,5 +1,4 @@
 import Path from '../web_modules/path.js';
-import { svg, g } from '../helpers/svg.js';
 import docs from './docs.js';
 
 export default {
