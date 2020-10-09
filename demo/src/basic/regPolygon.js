@@ -3,8 +3,8 @@ import { svg, g } from '../helpers/svg';
 import docs from './docs';
 
 export default {
-	...docs.regPolygon,
-	name: 'regPolygon',
+  ...docs.regPolygon,
+  name: 'regPolygon',
   w: 140,
   h: 120,
   paths: [
@@ -12,7 +12,10 @@ export default {
       path: new Path().regPolygon(100, 6, 50, 50).toElement(),
     },
     {
-      path: new Path().regPolygon(10, 6, 50, 50).attr('class', 'filled').toElement(),
+      path: new Path()
+        .regPolygon(10, 6, 50, 50)
+        .attr('class', 'filled')
+        .toElement(),
     },
   ],
 };

@@ -3,8 +3,8 @@ import { svg, g } from '../helpers/svg';
 import docs from './docs';
 
 export default {
-	...docs.segment,
-	name: 'segment',
+  ...docs.segment,
+  name: 'segment',
   w: 140,
   h: 120,
   paths: [

@@ -25,25 +25,25 @@ const makeBasicShapes = (target) => {
   ];
 
   shapes.forEach((shape) => {
-    const span = document.createElement('span')
-		const s = svg(shape.w, shape.h);
+    const span = document.createElement('span');
+    const s = svg(shape.w, shape.h);
     shape.paths.forEach((p) => {
       s.appendChild(p.path);
     });
-    const title = document.createElement('h3')
-    title.className = 'ui-header'
+    const title = document.createElement('h3');
+    title.className = 'ui-header';
     title.innerText = shape.sig;
-    const description = document.createElement('p')
+    const description = document.createElement('p');
     description.innerText = shape.description;
-    const source = document.createElement('a')
-    source.href =`https://github.com/joemaddalone/path/blob/master/demo/src/basic/${shape.name}.js`
-    source.setAttribute('rel', 'noopener noreferrer')
-    source.setAttribute('target', '_blank')
-    source.innerText = 'source'
-    span.appendChild(title)
-    span.appendChild(description)
-    span.appendChild(s)
-    span.appendChild(source)
+    const source = document.createElement('a');
+    source.href = `https://github.com/joemaddalone/path/blob/master/demo/src/basic/${shape.name}.js`;
+    source.setAttribute('rel', 'noopener noreferrer');
+    source.setAttribute('target', '_blank');
+    source.innerText = 'source';
+    span.appendChild(title);
+    span.appendChild(description);
+    span.appendChild(s);
+    span.appendChild(source);
     target.appendChild(span);
   });
 };

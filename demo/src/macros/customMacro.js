@@ -33,7 +33,7 @@ const customMacros = () => {
     .circleTest(15, 160, 40)
     .circleTest(25, 225, 40)
     .triangleTest(25, 25, 220, 30)
-    .triangleTest(65, 50, 265, 15)
+    .triangleTest(65, 50, 265, 15);
   return p.toElement({ stroke: '#222' });
 };
 
