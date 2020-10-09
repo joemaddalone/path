@@ -1,5 +1,4 @@
 import Path from 'path';
-import { svg, g } from '../helpers/svg';
 import docs from './docs';
 
 const pointsAbsolute = [
