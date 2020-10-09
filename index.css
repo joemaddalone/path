@@ -1,3 +1,6 @@
+body {
+}
+
 #root {
   max-width: 800px;
   margin: 0 auto;
@@ -6,16 +9,20 @@
   flex-direction: column;
 }
 
-#root > div {
-  margin-top: 20px;
-}
-
 svg {
   background-color: #fff;
-  box-shadow: 0 0 16px rgba(0, 0, 0, 0.3);
+  border: 1px solid #ccc;
 }
 
 path {
+  shape-rendering: geometricPrecision;
+}
+
+.example {
+  margin-bottom: 15px;
+}
+
+.dag path {
   fill: none;
   stroke-width: 0.5;
 }
@@ -30,16 +37,40 @@ path.square-node {
   cursor: pointer;
 }
 
+#basic-shapes path {
+  fill: none;
+  stroke: rebeccapurple;
+  stroke-width: 1;
+  shape-rendering: geometricPrecision;
+}
+
+#basic-shapes svg,
+.complex svg {
+  border: 0;
+  margin: 15px 0;
+}
+
+#basic-shapes path.filled {
+  fill: #ddd;
+  stroke-width: 0;
+}
+
+#basic-shapes a,
+.complex a {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.complex path {
+  stroke-width: none;
+}
+
 p,
 li {
   font-size: 16px;
   line-height: 1.4;
   margin-top: 10px;
   margin-bottom: 10px;
-}
-
-.example {
-  margin-bottom: 25px;
 }
 
 h3 {

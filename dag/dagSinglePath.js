@@ -22,7 +22,7 @@ const dagSinglePath = () => {
   p.stroke('#222');
 
   return {
-    el: p.toElement(),
+    nodes: p.toElement(),
     w: dag.graph.width,
     h: dag.graph.height,
   };
