@@ -1,6 +1,6 @@
 import Path from 'path';
 
-Path.macro('square', function (size, x, y) {
+Path.macro('squareTest', function (size, x, y) {
   if (x && y) {
     this.M(x, y); // only move if x & y are defined
   }
@@ -8,7 +8,7 @@ Path.macro('square', function (size, x, y) {
   return this;
 });
 
-Path.macro('circle', function (radius, x, y) {
+Path.macro('circleTest', function (radius, x, y) {
   if (x && y) {
     this.M(x, y); // only move if x & y are defined
   }
@@ -18,7 +18,7 @@ Path.macro('circle', function (radius, x, y) {
   return this;
 });
 
-Path.macro('triangle', function (w, h, x, y) {
+Path.macro('triangleTest', function (w, h, x, y) {
   this.M(x, y) // only move if x & y are defined
     .l(-w / 2, h)
     .right(w)
@@ -28,13 +28,12 @@ Path.macro('triangle', function (w, h, x, y) {
 
 const customMacros = () => {
   const p = new Path();
-  p.square(30, 25, 25)
-    .square(50, 60, 15)
-    .circle(15, 160, 40)
-    .circle(25, 225, 40)
-    .triangle(25, 25, 220, 30)
-    .triangle(65, 50, 265, 15)
-    .triangle(25, 25, 310, 30);
+  p.squareTest(30, 25, 25)
+    .squareTest(50, 60, 15)
+    .circleTest(15, 160, 40)
+    .circleTest(25, 225, 40)
+    .triangleTest(25, 25, 220, 30)
+    .triangleTest(65, 50, 265, 15)
   return p.toElement({ stroke: '#222' });
 };
 
