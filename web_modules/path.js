@@ -102,7 +102,7 @@ class Path {
     this.cCurve(cx1, cy1, cx2, cy2, ex, ey, true);
 
   cCurve = (cx1, cy1, cx2, cy2, ex, ey, relative = false) => {
-    this.pathData.push(`${relative ? 'c' : 'C'}${cx1} ${cy2}`);
+    this.pathData.push(`${relative ? 'c' : 'C'}${cx1} ${cy1}`);
     this.pathData.push(`${cx2} ${cy2}`);
     this.pathData.push(`${ex} ${ey}`);
     return this;
