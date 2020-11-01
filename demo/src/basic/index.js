@@ -8,6 +8,7 @@ import sector from './sector';
 import polygon from './polygon';
 import regPolygon from './regPolygon';
 import polyline from './polyline';
+import star from './star';
 import { svg, g } from '../helpers/svg';
 
 const makeBasicShapes = (target) => {
@@ -22,6 +23,7 @@ const makeBasicShapes = (target) => {
     polygon,
     regPolygon,
     polyline,
+    star,
   ];
 
   shapes.forEach((shape) => {

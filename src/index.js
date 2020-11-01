@@ -243,6 +243,20 @@ Path.macro('regPolygon', function (size, sides, cx, cy) {
   return this.polygon(points).M(cx, cy);
 });
 
+Path.macro('star', function (size, points, cx, cy, innerRadius) {
+  innerRadius = innerRadius || size / 5;
+  const outerRadius = size / 2;
+  const increment = 360 / (points * 2);
+  const vertexIndices = Array.from({ length: points * 2 });
+  const verts = vertexIndices.map((p, i) => {
+    let radius = i % 2 == 0 ? outerRadius : innerRadius;
+    let degrees = increment * i;
+    const { x, y } = polarToCartesian(cx, cy, radius, degrees);
+    return [x, y];
+  });
+  return this.polygon(verts).M(cx, cy);
+});
+
 Path.macro('triangle', function (size, cx, cy) {
   const sq3 = Math.sqrt(3);
   const a = [cx, cy - (sq3 / 3) * size];

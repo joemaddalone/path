@@ -19,6 +19,11 @@ export default {
     description:
       '.regPolygon is drawn from center point (cx & cy). The cursor is then moved to the center point.',
   },
+  star: {
+    sig: '.star(size, points, cx, cy, innerRadius = size/5)',
+    description:
+      '.start is drawn from center point (cx & cy). The cursor is then moved to the center point.',
+  },
   ellipse: {
     sig: '.ellipse(width, height, cx, cy)',
     description:
@@ -48,5 +53,10 @@ export default {
     sig: '.polygon([points])',
     description:
       '.polygon accepts an array of [x, y] coordinates and then draws lines connecting those points.  The path will start from the first point and end on the first point - closing the shape.',
+  },
+  polygram: {
+    sig: '.polygram(size, sides, cx, cy)',
+    description:
+      '.polygram is drawn from center point (cx & cy). The cursor is then moved to the center point.',
   },
 };
