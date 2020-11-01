@@ -22,7 +22,12 @@ export default {
   star: {
     sig: '.star(size, points, cx, cy, innerRadius = size/5)',
     description:
-      '.start is drawn from center point (cx & cy). The cursor is then moved to the center point.',
+      '.star is drawn from center point (cx & cy). The cursor is then moved to the center point.',
+  },
+  radialLines: {
+    sig: '.radialLines(innerSize, outerSize, points, cx, cy)',
+    description:
+      '.radialLines is drawn from center point (cx & cy). The cursor is then moved to the center point.',
   },
   ellipse: {
     sig: '.ellipse(width, height, cx, cy)',

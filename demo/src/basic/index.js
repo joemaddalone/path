@@ -9,6 +9,7 @@ import polygon from './polygon';
 import regPolygon from './regPolygon';
 import polyline from './polyline';
 import star from './star';
+import radialLines from './radialLines';
 import { svg, g } from '../helpers/svg';
 
 const makeBasicShapes = (target) => {
@@ -24,6 +25,7 @@ const makeBasicShapes = (target) => {
     regPolygon,
     polyline,
     star,
+    radialLines,
   ];
 
   shapes.forEach((shape) => {

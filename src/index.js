@@ -9,6 +9,23 @@ const polarToCartesian = (centerX, centerY, radius, angleInDegrees) => {
   };
 };
 
+const radialPoints = (radius, cx, cy, points) => {
+  const angle = 360 / points;
+  const vertexIndices = Array.from(Array(points).keys());
+  const offset = angleInRadians(angle);
+  return vertexIndices
+    .map((index) => {
+      return {
+        theta: offset + angleInRadians(angle * index),
+        r: radius,
+      };
+    })
+    .map(({ r, theta }) => [
+      cx + r * Math.cos(theta),
+      cy + r * Math.sin(theta),
+    ]);
+};
+
 export default class Path {
   constructor() {
     this.pathData = [];
@@ -225,22 +242,17 @@ Path.macro('polygon', function (points) {
 });
 
 Path.macro('regPolygon', function (size, sides, cx, cy) {
-  const angle = 360 / sides;
-  const vertexIndices = Array.from(Array(sides).keys());
-  const offset = angleInRadians(angle);
-  const radius = size / 2;
-  const points = vertexIndices
-    .map((index) => {
-      return {
-        theta: offset + angleInRadians(angle * index),
-        r: radius,
-      };
-    })
-    .map(({ r, theta }) => [
-      cx + r * Math.cos(theta),
-      cy + r * Math.sin(theta),
-    ]);
-  return this.polygon(points).M(cx, cy);
+  return this.polygon(radialPoints(size / 2, cx, cy, sides)).M(cx, cy);
+});
+
+Path.macro('radialLines', function (innerSize, outerSize, points, cx, cy) {
+  const inner = radialPoints(innerSize / 2, cx, cy, points);
+  const outer = radialPoints(outerSize / 2, cx, cy, points);
+
+  inner.forEach((coords, index) => {
+    this.M(coords[0], coords[1]).L(outer[index][0], outer[index][1]);
+  });
+  return this.M(cx, cy);
 });
 
 Path.macro('star', function (size, points, cx, cy, innerRadius) {

@@ -1,13 +1,6 @@
 import Path from 'path';
 import docs from './docs';
 
-const points = [
-  [10, 60],
-  [40, 0],
-  [70, 60],
-  [40, 120],
-];
-
 export default {
   ...docs.star,
   name: 'star',
