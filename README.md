@@ -171,6 +171,10 @@ These are so handy we have included a bunch!
   - .polyline accepts an array of [x, y] coordinates and then draws lines connecting those points.  The path will start from the first point and end on the last.  points can be absolute or relative.
 - **.polygon**(_[points]_)
   - .polygon accepts an array of [x, y] coordinates and then draws lines connecting those points.  The path will start from the first point and end on the first point - closing the shape.
+- **.star**(size, points, cx, cy, innerRadius = size/5)
+  - .star is drawn from center point (cx & cy). The cursor is then moved to the center point.
+- **.radialLines**(innerSize, outerSize, points, cx, cy)
+  - .radialLines is drawn from center point (cx & cy). The cursor is then moved to the center point.  
 
 ## License
 
