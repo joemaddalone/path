@@ -1,37 +1,39 @@
-const angleInRadians = (angle) => ((angle - 90) * Math.PI) / 180.0;
-
-const polarToCartesian = (centerX, centerY, radius, angleInDegrees) => {
-  const radians = angleInRadians(angleInDegrees);
-
-  return {
-    x: centerX + radius * Math.cos(radians),
-    y: centerY + radius * Math.sin(radians),
-  };
-};
-
-const radialPoints = (radius, cx, cy, points) => {
-  const angle = 360 / points;
-  const vertexIndices = Array.from(Array(points).keys());
-  const offset = angleInRadians(angle);
-  return vertexIndices
-    .map((index) => {
-      return {
-        theta: offset + angleInRadians(angle * index),
-        r: radius,
-      };
-    })
-    .map(({ r, theta }) => [
-      cx + r * Math.cos(theta),
-      cy + r * Math.sin(theta),
-    ]);
-};
-
 export default class Path {
   constructor() {
     this.pathData = [];
     this.attributes = {};
     return this;
   }
+
+  static angleInRadians = (angle) => ((angle - 90) * Math.PI) / 180.0;
+
+  static polarToCartesian = (centerX, centerY, radius, angleInDegrees) => {
+    const radians = Path.angleInRadians(angleInDegrees);
+
+    return {
+      x: centerX + radius * Math.cos(radians),
+      y: centerY + radius * Math.sin(radians),
+    };
+  };
+
+  static radialPoints = (
+    radius,
+    cx,
+    cy,
+    numOfPoints,
+    offsetAngle = -0.5 * Math.PI,
+    nonConvex = 1,
+  ) => {
+    const baseAngle = (2 * Math.PI * nonConvex) / numOfPoints;
+    const vertexIndices = Array.from(Array(numOfPoints).keys());
+    return vertexIndices.map((_, index) => {
+      const currentAngle = index * baseAngle + offsetAngle;
+      return [
+        cx + radius * Math.cos(currentAngle),
+        cy + radius * Math.sin(currentAngle),
+      ];
+    });
+  };
 
   static macro = (name, fn) => {
     this.prototype[name] = fn;
@@ -241,13 +243,22 @@ Path.macro('polygon', function (points) {
   return this;
 });
 
-Path.macro('regPolygon', function (size, sides, cx, cy) {
-  return this.polygon(radialPoints(size / 2, cx, cy, sides)).M(cx, cy);
+Path.macro('regPolygon', function (
+  size,
+  sides,
+  cx,
+  cy,
+  offsetAngle,
+  nonConvex,
+) {
+  return this.polygon(
+    Path.radialPoints(size / 2, cx, cy, sides, offsetAngle, nonConvex),
+  ).M(cx, cy);
 });
 
 Path.macro('radialLines', function (innerSize, outerSize, points, cx, cy) {
-  const inner = radialPoints(innerSize / 2, cx, cy, points);
-  const outer = radialPoints(outerSize / 2, cx, cy, points);
+  const inner = Path.radialPoints(innerSize / 2, cx, cy, points);
+  const outer = Path.radialPoints(outerSize / 2, cx, cy, points);
 
   inner.forEach((coords, index) => {
     this.M(coords[0], coords[1]).L(outer[index][0], outer[index][1]);
@@ -263,7 +274,7 @@ Path.macro('star', function (size, points, cx, cy, innerRadius) {
   const verts = vertexIndices.map((p, i) => {
     let radius = i % 2 == 0 ? outerRadius : innerRadius;
     let degrees = increment * i;
-    const { x, y } = polarToCartesian(cx, cy, radius, degrees);
+    const { x, y } = Path.polarToCartesian(cx, cy, radius, degrees);
     return [x, y];
   });
   return this.polygon(verts).M(cx, cy);
@@ -278,8 +289,8 @@ Path.macro('triangle', function (size, cx, cy) {
 });
 
 Path.macro('sector', function (cx, cy, radius, startAngle, endAngle) {
-  const start = polarToCartesian(cx, cy, radius, endAngle);
-  const end = polarToCartesian(cx, cy, radius, startAngle);
+  const start = Path.polarToCartesian(cx, cy, radius, endAngle);
+  const end = Path.polarToCartesian(cx, cy, radius, startAngle);
   const arcSweep = endAngle - startAngle <= 180 ? 0 : 1;
 
   this.M(start.x, start.y)
@@ -291,8 +302,8 @@ Path.macro('sector', function (cx, cy, radius, startAngle, endAngle) {
 });
 
 Path.macro('segment', function (cx, cy, radius, startAngle, endAngle) {
-  const start = polarToCartesian(cx, cy, radius, endAngle);
-  const end = polarToCartesian(cx, cy, radius, startAngle);
+  const start = Path.polarToCartesian(cx, cy, radius, endAngle);
+  const end = Path.polarToCartesian(cx, cy, radius, startAngle);
   const arcSweep = endAngle - startAngle <= 180 ? 0 : 1;
 
   this.M(start.x, start.y)
