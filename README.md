@@ -152,29 +152,29 @@ These are so handy we have included a bunch!
 ## Shapes
 
 - **.circle**(_size, cx, cy_)
- - .circle is drawn from center points (cx & cy). The cursor is then moved to the center points.
+   - .circle is drawn from center points (cx & cy). The cursor is then moved to the center points.
 - **.ellipse**(_width, height, cx, cy_)
- - .ellipse is drawn from center point (cx & cy). The cursor is then moved to the center point.
+   - .ellipse is drawn from center point (cx & cy). The cursor is then moved to the center point.
 - **.polygon**(_[points]_)
- - .polygon accepts an array of [x, y] coordinates and then draws lines connecting those points.  The path will start from the first point and end on the first point - closing the shape.
+   - .polygon accepts an array of [x, y] coordinates and then draws lines connecting those points.  The path will start from the first point and end on the first point - closing the shape.
 - **.polygram**(_size, points, cx, cy, vertexSkip = 2_)
- - .polygram is drawn from center point (cx & cy). The first outer point of the shape will always be at top center. The cursor is then moved to the center point.  Skipping a vertex is what makes a polygram appear as intersecting lines, a vertexSkip of 1 will result in a regular polygon.
+   - .polygram is drawn from center point (cx & cy). The first outer point of the shape will always be at top center. The cursor is then moved to the center point.  Skipping a vertex is what makes a polygram appear as intersecting lines, a vertexSkip of 1 will result in a regular polygon.
 - **.polyline**(_[points], relative = false_)
- - .polyline accepts an array of [x, y] coordinates and then draws lines connecting those points.  The path will start from the first point and end on the last.  points can be absolute or relative.
+   - .polyline accepts an array of [x, y] coordinates and then draws lines connecting those points.  The path will start from the first point and end on the last.  points can be absolute or relative.
 - **.radialLines**(_outerSize, innerSize, points, cx, cy_)
- - .radialLines is drawn from center point (cx & cy). The first outer point of the shape will always be at top center. The cursor is then moved to the center point.
+   - .radialLines is drawn from center point (cx & cy). The first outer point of the shape will always be at top center. The cursor is then moved to the center point.
 - **.rect**(_width, height, cx, cy_)
- - .rect is drawn from center point (cx & cy). The cursor is then moved to the center point.
+   - .rect is drawn from center point (cx & cy). The cursor is then moved to the center point.
 - **.regPolygon**(_size, sides, cx, cy_)
- - .regPolygon is drawn from center point (cx & cy). The first outer point of the shape will always be at top center. The cursor is then moved to the center point.
+   - .regPolygon is drawn from center point (cx & cy). The first outer point of the shape will always be at top center. The cursor is then moved to the center point.
 - **.sector**(_cx, cy, size, startAngle, endAngle_)
- - .sector is drawn from center point (cx & cy). The cursor is then moved to the center point.
+   - .sector is drawn from center point (cx & cy). The cursor is then moved to the center point.
 - **.segment**(_cx, cy, size, startAngle, endAngle_)
- - .segment is drawn from center point (cx & cy). The cursor is then moved to the center point.
+   - .segment is drawn from center point (cx & cy). The cursor is then moved to the center point.
 - **.square**(_size, cx, cy_)
- - .square is drawn from center point (cx & cy). The cursor is then moved to the center point.
+   - .square is drawn from center point (cx & cy). The cursor is then moved to the center point.
 - **.star**(_outerSize, innerSize, points, cx, cy_)
- - .star is drawn from center point (cx & cy). The first outer point of the shape will always be at top center. The cursor is then moved to the center point.
+   - .star is drawn from center point (cx & cy). The first outer point of the shape will always be at top center. The cursor is then moved to the center point.
 - **.triangle**(_size, cx, cy_)
   - .triangle draws an equilateral triangle from center point (cx & cy). The cursor is then moved to the center point.  
 
