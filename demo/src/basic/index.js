@@ -9,6 +9,7 @@ import polygon from './polygon';
 import regPolygon from './regPolygon';
 import polyline from './polyline';
 import star from './star';
+import polygram from './polygram';
 import radialLines from './radialLines';
 import { svg, g } from '../helpers/svg';
 
@@ -23,6 +24,7 @@ const makeBasicShapes = (target) => {
     sector,
     polygon,
     regPolygon,
+    polygram,
     polyline,
     star,
     radialLines,
