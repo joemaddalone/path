@@ -8,7 +8,7 @@ const pie = ({ size, cx, cy, data }) => {
     const startAngle = percentToDegree(total);
     const endAngle = percentToDegree(total + d.percent);
     const p = new Path();
-    p.sector(cx, cy, size / 2, startAngle, endAngle);
+    p.sector(cx, cy, size, startAngle, endAngle);
     sectors.push(p.toElement({ fill: d.color }));
     total = total + d.percent;
   });

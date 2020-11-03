@@ -8,7 +8,7 @@ export default {
   h: 120,
   paths: [
     {
-      path: new Path().radialLines(50, 120, 8, 70, 60).toElement(),
+      path: new Path().radialLines(120, 60, 8, 70, 60).toElement(),
     },
   ],
 };
