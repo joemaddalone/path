@@ -279,7 +279,8 @@ Path.macro('triangle', function (size, cx, cy) {
   return this.polygon([a, b, c]).M(cx, cy);
 });
 
-Path.macro('sector', function (cx, cy, radius, startAngle, endAngle) {
+Path.macro('sector', function (cx, cy, size, startAngle, endAngle) {
+  const radius = size / 2;
   const start = Path.polarToCartesian(cx, cy, radius, endAngle - 90);
   const end = Path.polarToCartesian(cx, cy, radius, startAngle - 90);
   const arcSweep = endAngle - startAngle <= 180 ? 0 : 1;
@@ -292,7 +293,8 @@ Path.macro('sector', function (cx, cy, radius, startAngle, endAngle) {
   return this;
 });
 
-Path.macro('segment', function (cx, cy, radius, startAngle, endAngle) {
+Path.macro('segment', function (cx, cy, size, startAngle, endAngle) {
+  const radius = size / 2;
   const start = Path.polarToCartesian(cx, cy, radius, endAngle - 90);
   const end = Path.polarToCartesian(cx, cy, radius, startAngle - 90);
   const arcSweep = endAngle - startAngle <= 180 ? 0 : 1;

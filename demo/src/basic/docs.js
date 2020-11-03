@@ -40,12 +40,12 @@ export default {
       '.circle is drawn from center points (cx & cy). The cursor is then moved to the center points.',
   },
   sector: {
-    sig: '.sector(cx, cy, radius, startAngle, endAngle)',
+    sig: '.sector(cx, cy, size, startAngle, endAngle)',
     description:
       '.sector is drawn from center point (cx & cy). The cursor is then moved to the center point.',
   },
   segment: {
-    sig: '.segment(cx, cy, radius, startAngle, endAngle)',
+    sig: '.segment(cx, cy, size, startAngle, endAngle)',
     description:
       '.segment is drawn from center point (cx & cy). The cursor is then moved to the center point.',
   },
