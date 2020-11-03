@@ -38,7 +38,8 @@ const makeBasicShapes = (target) => {
     });
     const title = document.createElement('h3');
     title.className = 'ui-header';
-    title.innerText = shape.sig;
+    title.innerHTML = `<span class="func">${shape.method}</span>(<i class="args">${shape.args}</i>)`;
+    // title.innerText = shape.sig;
     const description = document.createElement('p');
     description.innerText = shape.description;
     const source = document.createElement('a');
