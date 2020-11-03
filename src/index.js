@@ -5,7 +5,7 @@ export default class Path {
     return this;
   }
 
-  static angleInRadians = (angle) => ((angle - 90) * Math.PI) / 180.0;
+  static angleInRadians = (angle) => (angle * Math.PI) / 180;
 
   static polarToCartesian = (centerX, centerY, radius, angleInDegrees) => {
     const radians = Path.angleInRadians(angleInDegrees);
@@ -243,20 +243,11 @@ Path.macro('polygon', function (points) {
   return this;
 });
 
-Path.macro('regPolygon', function (
-  size,
-  sides,
-  cx,
-  cy,
-  offsetAngle,
-  nonConvex,
-) {
-  return this.polygon(
-    Path.radialPoints(size / 2, cx, cy, sides, offsetAngle, nonConvex),
-  ).M(cx, cy);
+Path.macro('regPolygon', function (size, sides, cx, cy) {
+  return this.polygon(Path.radialPoints(size / 2, cx, cy, sides)).M(cx, cy);
 });
 
-Path.macro('radialLines', function (innerSize, outerSize, points, cx, cy) {
+Path.macro('radialLines', function (outerSize, innerSize, points, cx, cy) {
   const inner = Path.radialPoints(innerSize / 2, cx, cy, points);
   const outer = Path.radialPoints(outerSize / 2, cx, cy, points);
 
@@ -266,14 +257,14 @@ Path.macro('radialLines', function (innerSize, outerSize, points, cx, cy) {
   return this.M(cx, cy);
 });
 
-Path.macro('star', function (size, points, cx, cy, innerRadius) {
-  innerRadius = innerRadius || size / 5;
-  const outerRadius = size / 2;
+Path.macro('star', function (outerSize, innerSize, points, cx, cy) {
+  const innerRadius = innerSize / 2;
+  const outerRadius = outerSize / 2;
   const increment = 360 / (points * 2);
   const vertexIndices = Array.from({ length: points * 2 });
   const verts = vertexIndices.map((p, i) => {
     let radius = i % 2 == 0 ? outerRadius : innerRadius;
-    let degrees = increment * i;
+    let degrees = increment * i - 90;
     const { x, y } = Path.polarToCartesian(cx, cy, radius, degrees);
     return [x, y];
   });
@@ -289,8 +280,8 @@ Path.macro('triangle', function (size, cx, cy) {
 });
 
 Path.macro('sector', function (cx, cy, radius, startAngle, endAngle) {
-  const start = Path.polarToCartesian(cx, cy, radius, endAngle);
-  const end = Path.polarToCartesian(cx, cy, radius, startAngle);
+  const start = Path.polarToCartesian(cx, cy, radius, endAngle - 90);
+  const end = Path.polarToCartesian(cx, cy, radius, startAngle - 90);
   const arcSweep = endAngle - startAngle <= 180 ? 0 : 1;
 
   this.M(start.x, start.y)
@@ -302,8 +293,8 @@ Path.macro('sector', function (cx, cy, radius, startAngle, endAngle) {
 });
 
 Path.macro('segment', function (cx, cy, radius, startAngle, endAngle) {
-  const start = Path.polarToCartesian(cx, cy, radius, endAngle);
-  const end = Path.polarToCartesian(cx, cy, radius, startAngle);
+  const start = Path.polarToCartesian(cx, cy, radius, endAngle - 90);
+  const end = Path.polarToCartesian(cx, cy, radius, startAngle - 90);
   const arcSweep = endAngle - startAngle <= 180 ? 0 : 1;
 
   this.M(start.x, start.y)

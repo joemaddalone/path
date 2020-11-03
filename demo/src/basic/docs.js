@@ -20,7 +20,7 @@ export default {
       '.regPolygon is drawn from center point (cx & cy). The cursor is then moved to the center point.',
   },
   star: {
-    sig: '.star(size, points, cx, cy, innerRadius = size/5)',
+    sig: '.star(outerSize, innerSize, points, cx, cy)',
     description:
       '.star is drawn from center point (cx & cy). The cursor is then moved to the center point.',
   },
