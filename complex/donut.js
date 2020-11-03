@@ -8,7 +8,7 @@ const donut = ({ size, width, cx, cy, data }) => {
     const startAngle = percentToDegree(total);
     const endAngle = percentToDegree(total + d.percent);
     const p = new Path();
-    p.segment(cx, cy, (size - width) / 2, startAngle, endAngle);
+    p.segment(cx, cy, size - width, startAngle, endAngle);
     segments.push(
       p.toElement({
         'stroke-width': width,

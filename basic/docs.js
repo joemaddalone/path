@@ -1,67 +1,80 @@
 export default {
   rect: {
-    sig: '.rect(width, height, cx, cy)',
+    method: '.rect',
+    args: 'width, height, cx, cy',
     description:
       '.rect is drawn from center point (cx & cy). The cursor is then moved to the center point.',
   },
   square: {
-    sig: '.square(size, cx, cy)',
+    method: '.square',
+    args: 'size, cx, cy',
     description:
       '.square is drawn from center point (cx & cy). The cursor is then moved to the center point.',
   },
   triangle: {
-    sig: '.triangle(size, cx, cy)',
+    method: '.triangle',
+    args: 'size, cx, cy',
     description:
       '.triangle draws an equilateral triangle from center point (cx & cy). The cursor is then moved to the center point.',
   },
   regPolygon: {
-    sig: '.regPolygon(size, sides, cx, cy)',
+    method: '.regPolygon',
+    args: 'size, sides, cx, cy',
     description:
-      '.regPolygon is drawn from center point (cx & cy). The cursor is then moved to the center point.',
+      '.regPolygon is drawn from center point (cx & cy). The first outer point of the shape will always be at top center. The cursor is then moved to the center point.',
+  },
+  polygram: {
+    method: '.polygram',
+    args: 'size, points, cx, cy, vertexSkip = 2',
+    description:
+      '.polygram is drawn from center point (cx & cy). The first outer point of the shape will always be at top center. The cursor is then moved to the center point.  Skipping a vertex is what makes a polygram appear as intersecting lines, a vertexSkip of 1 will result in a regular polygon.',
   },
   star: {
-    sig: '.star(size, points, cx, cy, innerRadius = size/5)',
+    method: '.star',
+    args: 'outerSize, innerSize, points, cx, cy',
     description:
-      '.star is drawn from center point (cx & cy). The cursor is then moved to the center point.',
+      '.star is drawn from center point (cx & cy). The first outer point of the shape will always be at top center. The cursor is then moved to the center point.',
   },
   radialLines: {
-    sig: '.radialLines(innerSize, outerSize, points, cx, cy)',
+    method: '.radialLines',
+    args: 'outerSize, innerSize, points, cx, cy',
     description:
-      '.radialLines is drawn from center point (cx & cy). The cursor is then moved to the center point.',
+      '.radialLines is drawn from center point (cx & cy). The first outer point of the shape will always be at top center. The cursor is then moved to the center point.',
   },
   ellipse: {
-    sig: '.ellipse(width, height, cx, cy)',
+    method: '.ellipse',
+    args: 'width, height, cx, cy',
     description:
       '.ellipse is drawn from center point (cx & cy). The cursor is then moved to the center point.',
   },
   circle: {
-    sig: '.circle(size, cx, cy)',
+    method: '.circle',
+    args: 'size, cx, cy',
     description:
       '.circle is drawn from center points (cx & cy). The cursor is then moved to the center points.',
   },
   sector: {
-    sig: '.sector(cx, cy, radius, startAngle, endAngle)',
+    method: '.sector',
+    args: 'cx, cy, size, startAngle, endAngle',
     description:
       '.sector is drawn from center point (cx & cy). The cursor is then moved to the center point.',
   },
   segment: {
-    sig: '.segment(cx, cy, radius, startAngle, endAngle)',
+    method: '.segment',
+    args: 'cx, cy, size, startAngle, endAngle',
     description:
       '.segment is drawn from center point (cx & cy). The cursor is then moved to the center point.',
   },
   polyline: {
-    sig: '.polyline([points], relative = false)',
+    method: '.polyline',
+    args: '[points], relative = false',
     description:
       '.polyline accepts an array of [x, y] coordinates and then draws lines connecting those points.  The path will start from the first point and end on the last.  points can be absolute or relative.',
   },
   polygon: {
-    sig: '.polygon([points])',
+    method: '.polygon',
+    args: '[points]',
     description:
       '.polygon accepts an array of [x, y] coordinates and then draws lines connecting those points.  The path will start from the first point and end on the first point - closing the shape.',
-  },
-  polygram: {
-    sig: '.polygram(size, sides, cx, cy)',
-    description:
-      '.polygram is drawn from center point (cx & cy). The cursor is then moved to the center point.',
   },
 };

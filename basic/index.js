@@ -9,6 +9,7 @@ import polygon from './polygon.js';
 import regPolygon from './regPolygon.js';
 import polyline from './polyline.js';
 import star from './star.js';
+import polygram from './polygram.js';
 import radialLines from './radialLines.js';
 import { svg, g } from '../helpers/svg.js';
 
@@ -23,6 +24,7 @@ const makeBasicShapes = (target) => {
     sector,
     polygon,
     regPolygon,
+    polygram,
     polyline,
     star,
     radialLines,
@@ -36,7 +38,8 @@ const makeBasicShapes = (target) => {
     });
     const title = document.createElement('h3');
     title.className = 'ui-header';
-    title.innerText = shape.sig;
+    title.innerHTML = `<span class="func">${shape.method}</span>(<i class="args">${shape.args}</i>)`;
+    // title.innerText = shape.sig;
     const description = document.createElement('p');
     description.innerText = shape.description;
     const source = document.createElement('a');

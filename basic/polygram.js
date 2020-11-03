@@ -2,13 +2,15 @@ import Path from '../web_modules/path.js';
 import docs from './docs.js';
 
 export default {
-  ...docs.radialLines,
-  name: 'radialLines',
+  ...docs.polygram,
+  name: 'polygram',
   w: 140,
   h: 120,
   paths: [
     {
-      path: new Path().radialLines(60, 120, 8, 70, 60).toElement(),
+      path: new Path().polygram(100, 7, 50, 50).toElement(),
     },
   ],
 };
+
+// size, points, cx, cy, conn = 1
