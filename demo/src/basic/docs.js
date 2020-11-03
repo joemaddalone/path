@@ -17,7 +17,12 @@ export default {
   regPolygon: {
     sig: '.regPolygon(size, sides, cx, cy)',
     description:
-      '.regPolygon is drawn from center point (cx & cy). The cursor is then moved to the center point.',
+      '.regPolygon is drawn from center point (cx & cy). The first outer point of the shape will always be at top center. The cursor is then moved to the center point.',
+  },
+  polygram: {
+    sig: '.polygram(size, points, cx, cy, vertexSkip = 2)',
+    description:
+      '.polygram is drawn from center point (cx & cy). The first outer point of the shape will always be at top center. The cursor is then moved to the center point.  Skipping a vertex is what makes a polygram appear as intersecting lines, a vertexSkip of 1 will result in a regular polygon.',
   },
   star: {
     sig: '.star(outerSize, innerSize, points, cx, cy)',
@@ -58,10 +63,5 @@ export default {
     sig: '.polygon([points])',
     description:
       '.polygon accepts an array of [x, y] coordinates and then draws lines connecting those points.  The path will start from the first point and end on the first point - closing the shape.',
-  },
-  polygram: {
-    sig: '.polygram(size, sides, cx, cy)',
-    description:
-      '.polygram is drawn from center point (cx & cy). The cursor is then moved to the center point.',
   },
 };

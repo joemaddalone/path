@@ -21,16 +21,18 @@ export default class Path {
     cx,
     cy,
     numOfPoints,
-    offsetAngle = -0.5 * Math.PI,
-    nonConvex = 1,
+    offsetAngle,
+    vertexSkip = 1,
   ) => {
-    const baseAngle = (2 * Math.PI * nonConvex) / numOfPoints;
+    offsetAngle = offsetAngle || -0.5 * Math.PI;
+    const baseAngle = (2 * Math.PI * vertexSkip) / numOfPoints;
     const vertexIndices = Array.from(Array(numOfPoints).keys());
+    const precision = Math.max(0, 4 - Math.floor(Math.log10(radius)));
     return vertexIndices.map((_, index) => {
       const currentAngle = index * baseAngle + offsetAngle;
       return [
-        cx + radius * Math.cos(currentAngle),
-        cy + radius * Math.sin(currentAngle),
+        (cx + radius * Math.cos(currentAngle)).toFixed(precision),
+        (cy + radius * Math.sin(currentAngle)).toFixed(precision),
       ];
     });
   };
@@ -245,6 +247,12 @@ Path.macro('polygon', function (points) {
 
 Path.macro('regPolygon', function (size, sides, cx, cy) {
   return this.polygon(Path.radialPoints(size / 2, cx, cy, sides)).M(cx, cy);
+});
+
+Path.macro('polygram', function (size, points, cx, cy, vertexSkip = 2) {
+  return this.polygon(
+    Path.radialPoints(size / 2, cx, cy, points, null, vertexSkip),
+  ).M(cx, cy);
 });
 
 Path.macro('radialLines', function (outerSize, innerSize, points, cx, cy) {
