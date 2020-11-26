@@ -75,4 +75,83 @@ describe('Path', () => {
       expect(path.attributes[shortcut]).toBe(index);
     });
   });
+
+  it(`correctly populates strokeWidth attr with shortcut`, () => {
+    path.strokeWidth(5);
+    expect(path.attributes['stroke-width']).toBe(5);
+  });
+
+  it('angleInRadians', () => {
+    expect(Path.angleInRadians(10)).toBe((10 * Math.PI) / 180);
+  });
+
+  it('polarToCartesian', () => {
+    expect(Path.polarToCartesian(0, 0, 10, 270).x).toBe(
+      0 + 10 * Math.cos(Path.angleInRadians(270)),
+    );
+    expect(Path.polarToCartesian(0, 0, 10, 270).y).toBe(
+      0 + 10 * Math.sin(Path.angleInRadians(270)),
+    );
+  });
+
+  it('radialPoints', () => {
+    expect(Path.radialPoints(0, 0, 0, 4, 0, 1).length).toBe(4);
+  });
+
+  it('down', () => {
+    expect(path.down(5).toString()).toBe('v5');
+  });
+
+  it('up', () => {
+    expect(path.up(5).toString()).toBe('v-5');
+  });
+
+  it('right', () => {
+    expect(path.right(5).toString()).toBe('h5');
+  });
+
+  it('left', () => {
+    expect(path.left(5).toString()).toBe('h-5');
+  });
+
+  ['square', 'circle', 'triangle'].forEach((shape) => {
+    it(`${shape} ends at center cx, cy`, () => {
+      const s = path[shape](100, 10, 10).toArray();
+      expect(s[s.length - 1]).toBe('M10 10');
+    });
+  });
+
+  ['rect', 'ellipse'].forEach((shape) => {
+    it(`${shape} ends at center cx, cy`, () => {
+      const s = path[shape](100, 100, 10, 10).toArray();
+      expect(s[s.length - 1]).toBe('M10 10');
+    });
+  });
+
+  ['sector', 'segment'].forEach((shape) => {
+    it(`${shape} ends at center cx, cy`, () => {
+      const s = path[shape](10, 10, 50, 0, 270).toArray();
+      expect(s[s.length - 1]).toBe('M10 10');
+    });
+  });
+
+  ['star', 'radialLines'].forEach((shape) => {
+    it(`${shape} ends at center cx, cy`, () => {
+      const s = path[shape](100, 50, 5, 10, 10).toArray();
+      expect(s[s.length - 1]).toBe('M10 10');
+    });
+  });
+  ['regPolygon', 'polygram'].forEach((shape) => {
+    it(`${shape} ends at center cx, cy`, () => {
+      const s = path[shape](100, 5, 10, 10).toArray();
+      expect(s[s.length - 1]).toBe('M10 10');
+    });
+  });
+
+  it('toElement', () => {
+    expect(path.left(5).toElement().getAttribute('d')).toBe('h-5');
+    expect(path.left(5).toElement({ stroke: 10 }).getAttribute('stroke')).toBe(
+      '10',
+    );
+  });
 });
