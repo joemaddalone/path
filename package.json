@@ -1,6 +1,6 @@
 {
   "name": "@joemaddalone/path",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "a simple svg path generation utility",
   "main": "dist/path.min.js",
   "module": "src/index.js",
