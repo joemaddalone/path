@@ -121,10 +121,24 @@ describe('Path', () => {
     });
   });
 
+  ['square', 'circle', 'triangle'].forEach((shape) => {
+    it(`${shape} does not end at center cx, cy when overridden`, () => {
+      const s = path[shape](100, 10, 10, false).toArray();
+      expect(s[s.length - 1]).not.toBe('M10 10');
+    });
+  });
+
   ['rect', 'ellipse'].forEach((shape) => {
     it(`${shape} ends at center cx, cy`, () => {
       const s = path[shape](100, 100, 10, 10).toArray();
       expect(s[s.length - 1]).toBe('M10 10');
+    });
+  });
+
+  ['rect', 'ellipse'].forEach((shape) => {
+    it(`${shape} does not end at center cx, cy when overridden`, () => {
+      const s = path[shape](100, 100, 10, 10, false).toArray();
+      expect(s[s.length - 1]).not.toBe('M10 10');
     });
   });
 
@@ -135,16 +149,38 @@ describe('Path', () => {
     });
   });
 
+  ['sector', 'segment'].forEach((shape) => {
+    it(`${shape} does not end at center cx, cy when overridden`, () => {
+      const s = path[shape](10, 10, 50, 0, 270, false).toArray();
+      expect(s[s.length - 1]).not.toBe('M10 10');
+    });
+  });
+
   ['star', 'radialLines'].forEach((shape) => {
     it(`${shape} ends at center cx, cy`, () => {
       const s = path[shape](100, 50, 5, 10, 10).toArray();
       expect(s[s.length - 1]).toBe('M10 10');
     });
   });
+
+  ['star', 'radialLines'].forEach((shape) => {
+    it(`${shape} does not end at center cx, cy when overridden`, () => {
+      const s = path[shape](100, 50, 5, 10, 10, false).toArray();
+      expect(s[s.length - 1]).not.toBe('M10 10');
+    });
+  });
+
   ['regPolygon', 'polygram'].forEach((shape) => {
     it(`${shape} ends at center cx, cy`, () => {
       const s = path[shape](100, 5, 10, 10).toArray();
       expect(s[s.length - 1]).toBe('M10 10');
+    });
+  });
+
+  ['regPolygon', 'polygram'].forEach((shape) => {
+    it(`${shape} does not end at center cx, cy when overridden`, () => {
+      const s = path[shape](100, 5, 10, 10, false).toArray();
+      expect(s[s.length - 1]).not.toBe('M10 10');
     });
   });
 
