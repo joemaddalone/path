@@ -177,11 +177,14 @@ describe('Path', () => {
     });
   });
 
-  ['regPolygon', 'polygram'].forEach((shape) => {
-    it(`${shape} does not end at center cx, cy when overridden`, () => {
-      const s = path[shape](100, 5, 10, 10, false).toArray();
-      expect(s[s.length - 1]).not.toBe('M10 10');
-    });
+  it(`regPolygon does not end at center cx, cy when overridden`, () => {
+    const s = path.regPolygon(100, 5, 10, 10, false).toArray();
+    expect(s[s.length - 1]).not.toBe('M10 10');
+  });
+
+  it(`polygram does not end at center cx, cy when overridden`, () => {
+    const s = path.polygram(100, 5, 10, 10, null, false).toArray();
+    expect(s[s.length - 1]).not.toBe('M10 10');
   });
 
   it('toElement', () => {

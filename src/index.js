@@ -308,13 +308,7 @@ Path.macro('star', function (
   const verts = vertexIndices.map((p, i) => {
     let radius = i % 2 == 0 ? outerRadius : innerRadius;
     let degrees = increment * i - 90;
-    const { x, y } = Path.polarToCartesian(
-      cx,
-      cy,
-      radius,
-      degrees,
-      (centerEnd = true),
-    );
+    const { x, y } = Path.polarToCartesian(cx, cy, radius, degrees, centerEnd);
     return [x, y];
   });
   this.polygon(verts);
