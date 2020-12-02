@@ -27,7 +27,9 @@ export default class Path {
     offsetAngle = offsetAngle || -0.5 * Math.PI;
     radius = radius || 0.0000000001;
     const baseAngle = (2 * Math.PI * vertexSkip) / numOfPoints;
-    const vertexIndices = Array.from(Array(numOfPoints).keys());
+    const vertexIndices = Array.from(
+      Array(numOfPoints >= 0 ? numOfPoints : 0).keys(),
+    );
     const precision = Math.max(0, 4 - Math.floor(Math.log10(radius)));
     return vertexIndices.map((_, index) => {
       const currentAngle = index * baseAngle + offsetAngle;
