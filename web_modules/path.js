@@ -186,7 +186,7 @@ class Path {
   /**
    * Return joined pathData array.
    */
-  toString = () => this.pathData.join(' ');
+  toString = () => this.pathData.join('');
 
   toElement = (attributes = {}) => {
     const addAttributes = { ...this.attributes, ...attributes };
