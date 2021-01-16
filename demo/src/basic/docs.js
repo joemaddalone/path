@@ -77,4 +77,28 @@ export default {
     description:
       '.polygon accepts an array of [x, y] coordinates and then draws lines connecting those points.  The path will start from the first point and end on the first point - closing the shape.',
   },
+  symX: {
+    method: '.symX',
+    args: 'width, height, cx, cy',
+    description:
+      '.X draws an X shape.',
+  },
+  symH: {
+    method: '.symH',
+    args: 'width, height, cx, cy',
+    description:
+      '.symH draws an H shape.',
+  },
+  symI: {
+    method: '.symI',
+    args: 'width, height, cx, cy',
+    description:
+      '.symI draws an I shape.',
+  },
+  cross: {
+    method: '.cross',
+    args: 'width, height, cx, cy',
+    description:
+      '.cross draws a cross shape.',
+  },
 };

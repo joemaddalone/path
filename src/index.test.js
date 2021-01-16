@@ -128,14 +128,14 @@ describe('Path', () => {
     });
   });
 
-  ['rect', 'ellipse'].forEach((shape) => {
+  ['rect', 'ellipse', 'symX', 'symI', 'symH', 'cross'].forEach((shape) => {
     it(`${shape} ends at center cx, cy`, () => {
       const s = path[shape](100, 100, 10, 10).toArray();
       expect(s[s.length - 1]).toBe('M10 10');
     });
   });
 
-  ['rect', 'ellipse'].forEach((shape) => {
+  ['rect', 'ellipse', 'symX', 'symI', 'symH', 'cross'].forEach((shape) => {
     it(`${shape} does not end at center cx, cy when overridden`, () => {
       const s = path[shape](100, 100, 10, 10, false).toArray();
       expect(s[s.length - 1]).not.toBe('M10 10');
