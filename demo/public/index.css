@@ -1,5 +1,3 @@
-body {
-}
 
 #root {
   max-width: 800px;
@@ -77,6 +75,7 @@ h3 {
   margin-bottom: 20px;
   padding-top: 20px;
   border-top: 1px solid #ddd;
+  font-family: monospace;
 }
 
 code {
