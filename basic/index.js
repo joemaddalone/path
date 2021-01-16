@@ -1,7 +1,7 @@
 import rect from './rect.js';
 import square from './square.js';
 import triangle from './triangle.js';
-import circle from './circle.js';
+import circle from './circle.js';35
 import ellipse from './ellipse.js';
 import segment from './segment.js';
 import sector from './sector.js';
@@ -11,6 +11,10 @@ import polyline from './polyline.js';
 import star from './star.js';
 import polygram from './polygram.js';
 import radialLines from './radialLines.js';
+import symX from './symX.js';
+import symH from './symH.js';
+import symI from './symI.js';
+import cross from './cross.js';
 import { svg, g } from '../helpers/svg.js';
 
 const makeBasicShapes = (target) => {
@@ -28,6 +32,10 @@ const makeBasicShapes = (target) => {
     polyline,
     star,
     radialLines,
+    cross,
+    symX,
+    symH,
+    symI,
   ];
 
   shapes.forEach((shape) => {
