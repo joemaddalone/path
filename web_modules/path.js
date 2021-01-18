@@ -103,8 +103,7 @@ class Path {
   Q = (cx, cy, ex, ey) => this.qCurve(cx, cy, ex, ey);
   q = (cx, cy, ex, ey) => this.qCurve(cx, cy, ex, ey, true);
   qCurve = (cx, cy, ex, ey, relative = false) => {
-    this.pathData.push(`${relative ? 'q' : 'Q'}${cx} ${cy}`);
-    this.pathData.push(`${ex} ${ey}`);
+    this.pathData.push(`${relative ? 'q' : 'Q'}${cx} ${cy} ${ex} ${ey}`);
     return this;
   };
 
@@ -126,9 +125,7 @@ class Path {
     this.cCurve(cx1, cy1, cx2, cy2, ex, ey, true);
 
   cCurve = (cx1, cy1, cx2, cy2, ex, ey, relative = false) => {
-    this.pathData.push(`${relative ? 'c' : 'C'}${cx1} ${cy1}`);
-    this.pathData.push(`${cx2} ${cy2}`);
-    this.pathData.push(`${ex} ${ey}`);
+    this.pathData.push(`${relative ? 'c' : 'C'}${cx1} ${cy1} ${cx2} ${cy2} ${ex} ${ey}`);
     return this;
   };
 
@@ -138,8 +135,7 @@ class Path {
   S = (cx, cy, ex, ey) => this.sCurveTo(cx, cy, ex, ey);
   s = (cx, cy, ex, ey) => this.sCurveTo(cx, cy, ex, ey, true);
   sCurveTo = (cx, cy, ex, ey, relative = false) => {
-    this.pathData.push(`${relative ? 's' : 'S'}${cx} ${cy}`);
-    this.pathData.push(`${ex} ${ey}`);
+    this.pathData.push(`${relative ? 's' : 'S'}${cx} ${cy} ${ex} ${ey}`);
     return this;
   };
 
