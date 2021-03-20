@@ -5,11 +5,23 @@ export default {
     description:
       '.rect is drawn from center point (cx & cy). The cursor is then moved to the center point.',
   },
+  roundedRect: {
+    method: '.roundedRect',
+    args: 'width, height, radius, cx, cy',
+    description:
+      '.roundedRect is drawn from center point (cx & cy). The cursor is then moved to the center point.',
+  },
   square: {
     method: '.square',
     args: 'size, cx, cy',
     description:
       '.square is drawn from center point (cx & cy). The cursor is then moved to the center point.',
+  },
+  roundedSquare: {
+    method: '.roundedSquare',
+    args: 'size, radius, cx, cy',
+    description:
+      '.roundedSquare is drawn from center point (cx & cy). The cursor is then moved to the center point.',
   },
   triangle: {
     method: '.triangle',
