@@ -153,6 +153,8 @@ These are so handy we have included a bunch!
 
 - **.circle**(_size, cx, cy_)
    - .circle is drawn from center points (cx & cy). The cursor is then moved to the center points.
+- **.cross**(_width, height, cx, cy_)
+   - .cross is drawn from center points (cx & cy). The cursor is then moved to the center points.   
 - **.ellipse**(_width, height, cx, cy_)
    - .ellipse is drawn from center point (cx & cy). The cursor is then moved to the center point.
 - **.polygon**(_[points]_)
@@ -167,6 +169,10 @@ These are so handy we have included a bunch!
    - .rect is drawn from center point (cx & cy). The cursor is then moved to the center point.
 - **.regPolygon**(_size, sides, cx, cy_)
    - .regPolygon is drawn from center point (cx & cy). The first outer point of the shape will always be at top center. The cursor is then moved to the center point.
+- **.roundedRect**(width, height, radius, cx, cy_)
+   - .roundedRect is drawn from center point (cx & cy). The cursor is then moved to the center point.      
+- **.roundedSquare**(_size, radius, cx, cy_)
+   - .roundedSquare is drawn from center point (cx & cy). The cursor is then moved to the center point.   
 - **.sector**(_cx, cy, size, startAngle, endAngle_)
    - .sector is drawn from center point (cx & cy). The cursor is then moved to the center point.
 - **.segment**(_cx, cy, size, startAngle, endAngle_)
@@ -175,6 +181,12 @@ These are so handy we have included a bunch!
    - .square is drawn from center point (cx & cy). The cursor is then moved to the center point.
 - **.star**(_outerSize, innerSize, points, cx, cy_)
    - .star is drawn from center point (cx & cy). The first outer point of the shape will always be at top center. The cursor is then moved to the center point.
+- **.symH**(_width, height, cx, cy_)
+   - .symH is drawn from center points (cx & cy). The cursor is then moved to the center points.         
+- **.symI**(_width, height, cx, cy_)
+   - .symI is drawn from center points (cx & cy). The cursor is then moved to the center points.            
+- **.symX**(_width, height, cx, cy_)
+   - .symX is drawn from center points (cx & cy). The cursor is then moved to the center points.      
 - **.triangle**(_size, cx, cy_)
   - .triangle draws an equilateral triangle from center point (cx & cy). The cursor is then moved to the center point.  
 

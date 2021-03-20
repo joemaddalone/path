@@ -125,7 +125,9 @@ export default class Path {
     this.cCurve(cx1, cy1, cx2, cy2, ex, ey, true);
 
   cCurve = (cx1, cy1, cx2, cy2, ex, ey, relative = false) => {
-    this.pathData.push(`${relative ? 'c' : 'C'}${cx1} ${cy1} ${cx2} ${cy2} ${ex} ${ey}`);
+    this.pathData.push(
+      `${relative ? 'c' : 'C'}${cx1} ${cy1} ${cx2} ${cy2} ${ex} ${ey}`,
+    );
     return this;
   };
 
@@ -211,6 +213,43 @@ Path.macro('rect', function (width, height, cx, cy, centerEnd = true) {
 
 Path.macro('square', function (size, cx, cy, centerEnd = true) {
   return this.rect(size, size, cx, cy, centerEnd);
+});
+
+Path.macro('roundedSquare', function (size, radius, cx, cy, centerEnd = true) {
+  return this.roundedRect(size, size, radius, cx, cy, centerEnd);
+});
+
+Path.macro('roundedRect', function (
+  width,
+  height,
+  radius,
+  cx,
+  cy,
+  centerEnd = true,
+) {
+  const p = new Path();
+  const wr = width - radius;
+  const hr = height - radius;
+  const rq = radius / 2;
+  const top = cy - height / 2;
+  const left = cx - width / 2;
+  const right = left + width;
+  const bottom = top + height;
+
+  this.M(left + rq, top)
+    .right(wr)
+    .Q(right, top, right, top + rq)
+    .down(hr)
+    .Q(right, bottom, right - rq, bottom)
+    .left(wr)
+    .Q(left, bottom, left, bottom - rq)
+    .up(hr)
+    .Q(left, top, left + rq, top)
+    .M(left, top);
+  if (centerEnd) {
+    this.M(cx, cy);
+  }
+  return this;
 });
 
 Path.macro('circle', function (size, cx, cy, centerEnd = true) {
@@ -380,7 +419,7 @@ Path.macro('cross', function (width, height, cx, cy, centerEnd = true) {
   if (centerEnd) {
     this.M(cx, cy);
   }
-  return this
+  return this;
 });
 
 Path.macro('symH', function (width, height, cx, cy, centerEnd = true) {
@@ -388,11 +427,11 @@ Path.macro('symH', function (width, height, cx, cy, centerEnd = true) {
   const r = l + width;
   const t = cy - height / 2;
   const b = t + height;
-  this.M(l, t).L(l, b).M(l, cy).L(r, cy).M(r, t).L(r, b)
+  this.M(l, t).L(l, b).M(l, cy).L(r, cy).M(r, t).L(r, b);
   if (centerEnd) {
     this.M(cx, cy);
   }
-  return this
+  return this;
 });
 
 Path.macro('symI', function (width, height, cx, cy, centerEnd = true) {
@@ -400,11 +439,11 @@ Path.macro('symI', function (width, height, cx, cy, centerEnd = true) {
   const r = l + width;
   const t = cy - height / 2;
   const b = t + height;
-  this.M(l, t).L(r, t).M(cx, t).L(cx, b).M(l, b).L(r, b)
+  this.M(l, t).L(r, t).M(cx, t).L(cx, b).M(l, b).L(r, b);
   if (centerEnd) {
     this.M(cx, cy);
   }
-  return this
+  return this;
 });
 
 Path.macro('symX', function (width, height, cx, cy, centerEnd = true) {
@@ -416,5 +455,5 @@ Path.macro('symX', function (width, height, cx, cy, centerEnd = true) {
   if (centerEnd) {
     this.M(cx, cy);
   }
-  return this
+  return this;
 });

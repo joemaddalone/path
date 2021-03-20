@@ -1,7 +1,10 @@
 import rect from './rect';
+import roundedRect from './roundedRect';
 import square from './square';
+import roundedSquare from './roundedSquare';
 import triangle from './triangle';
-import circle from './circle';35
+import circle from './circle';
+35;
 import ellipse from './ellipse';
 import segment from './segment';
 import sector from './sector';
@@ -20,7 +23,9 @@ import { svg, g } from '../helpers/svg';
 const makeBasicShapes = (target) => {
   const shapes = [
     rect,
+    roundedRect,
     square,
+    roundedSquare,
     triangle,
     circle,
     ellipse,
