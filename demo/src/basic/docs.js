@@ -92,25 +92,26 @@ export default {
   symX: {
     method: '.symX',
     args: 'width, height, cx, cy',
-    description:
-      '.X draws an X shape.',
+    description: '.X draws an X shape.',
   },
   symH: {
     method: '.symH',
     args: 'width, height, cx, cy',
-    description:
-      '.symH draws an H shape.',
+    description: '.symH draws an H shape.',
   },
   symI: {
     method: '.symI',
     args: 'width, height, cx, cy',
-    description:
-      '.symI draws an I shape.',
+    description: '.symI draws an I shape.',
   },
   cross: {
     method: '.cross',
     args: 'width, height, cx, cy',
-    description:
-      '.cross draws a cross shape.',
+    description: '.cross draws a cross shape.',
+  },
+  lens: {
+    method: '.lens',
+    args: 'width, height, cx, cy',
+    description: '.lens draws a lens shape.',
   },
 };

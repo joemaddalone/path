@@ -270,6 +270,16 @@ Path.macro('ellipse', function (width, height, cx, cy, centerEnd = true) {
   return this;
 });
 
+Path.macro('lens', function (width, height, cx, cy, centerEnd = true) {
+  this.M(cx - width / 2, cy)
+    .Q(cx, cy - height, cx + width / 2, cy)
+    .Q(cx, cy + height, cx - width / 2, cy);
+  if (centerEnd) {
+    this.M(cx, cy);
+  }
+  return this;
+});
+
 Path.macro('polyline', function (points, relative = false) {
   const clone = [...points];
   const start = clone.shift();
