@@ -157,6 +157,8 @@ These are so handy we have included a bunch!
    - .cross is drawn from center points (cx & cy). The cursor is then moved to the center points.   
 - **.ellipse**(_width, height, cx, cy_)
    - .ellipse is drawn from center point (cx & cy). The cursor is then moved to the center point.
+- **.lens**(_width, height, cx, cy_)
+   - .lens is drawn from center point (cx & cy). The cursor is then moved to the center point.   
 - **.polygon**(_[points]_)
    - .polygon accepts an array of [x, y] coordinates and then draws lines connecting those points.  The path will start from the first point and end on the first point - closing the shape.
 - **.polygram**(_size, points, cx, cy, vertexSkip = 2_)

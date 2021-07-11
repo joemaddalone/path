@@ -148,7 +148,7 @@ describe('Path', () => {
     expect(s[s.length - 1]).toBe('M10 10');
   });
 
-  ['rect', 'ellipse', 'symX', 'symI', 'symH', 'cross'].forEach((shape) => {
+  ['rect', 'ellipse', 'symX', 'symI', 'symH', 'cross', 'lens'].forEach((shape) => {
     it(`${shape} ends at center cx, cy`, () => {
       const s = path[shape](100, 100, 10, 10).toArray();
       expect(s[s.length - 1]).toBe('M10 10');

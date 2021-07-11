@@ -27,16 +27,37 @@ const rounded = (width, height, radius, cx, cy, centerEnd = true) => {
     .Q(left, top, left + rq, top)
     .M(left, top)
     .circle(radius, left + rq, top + rq)
-	.circle(radius, right - rq, top + rq)
-	.circle(radius, right - rq, bottom - rq)
-	.circle(radius, left + rq, bottom - rq)
+    .circle(radius, right - rq, top + rq)
+    .circle(radius, right - rq, bottom - rq)
+    .circle(radius, left + rq, bottom - rq)
     .toElement({ fill: 'none', stroke: '#222' });
 };
 
-const rect = new Path()
-  .rect(150, 100, 250, 250)
-  .toElement({ fill: 'none', stroke: 'rgba(0,0,0,0.2)' });
-document.getElementById('svg').appendChild(rect);
+const lens = function (width, height, cx, cy, centerEnd = true) {
+  const rx = width / 2;
+  const ry = height / 2;
 
-const shape = rounded(400, 200, 45, 250, 250);
+  const s = new Path()
+    .M(cx - width / 2, cy)
+    .Q(cx, cy - height, cx + width / 2, cy)
+    .Q(cx, cy + height, cx - width / 2, cy);
+
+  return s.toElement({ fill: 'none', stroke: '#222' });
+};
+
+// const rect = new Path()
+//   .rect(150, 100, 250, 250)
+//   .toElement({ fill: 'none', stroke: 'rgba(0,0,0,0.2)' });
+// document.getElementById('svg').appendChild(rect);
+
+// const shape = rounded(400, 200, 45, 250, 250);
+const shape = lens(100, 50, 250, 250);
+// const c = new Path()
+//   .circle(100, 250, 250)
+//   .toElement({ fill: 'none', stroke: '#222' });
+// const c2 = new Path()
+//   .circle(35, 250, 250)
+//   .toElement({ fill: '#222', stroke: '#222' });
 document.getElementById('svg').appendChild(shape);
+// document.getElementById('svg').appendChild(c);
+// document.getElementById('svg').appendChild(c2);
