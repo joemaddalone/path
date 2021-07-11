@@ -22,7 +22,6 @@ import { svg, g } from '../helpers/svg';
 
 const makeBasicShapes = (target) => {
   const shapes = [
-    lens,
     rect,
     roundedRect,
     square,
@@ -30,6 +29,7 @@ const makeBasicShapes = (target) => {
     triangle,
     circle,
     ellipse,
+    lens,
     segment,
     sector,
     polygon,

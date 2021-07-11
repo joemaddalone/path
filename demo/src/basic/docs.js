@@ -112,6 +112,7 @@ export default {
   lens: {
     method: '.lens',
     args: 'width, height, cx, cy',
-    description: '.lens draws a lens shape.',
+    description:
+      '.lens is drawn from center point (cx & cy). The cursor is then moved to the center point.',
   },
 };
