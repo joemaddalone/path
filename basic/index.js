@@ -4,8 +4,8 @@ import square from './square.js';
 import roundedSquare from './roundedSquare.js';
 import triangle from './triangle.js';
 import circle from './circle.js';
-35;
 import ellipse from './ellipse.js';
+import lens from './lens.js';
 import segment from './segment.js';
 import sector from './sector.js';
 import polygon from './polygon.js';
@@ -29,6 +29,7 @@ const makeBasicShapes = (target) => {
     triangle,
     circle,
     ellipse,
+    lens,
     segment,
     sector,
     polygon,
