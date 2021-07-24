@@ -40,6 +40,27 @@ export default class Path {
     });
   };
 
+  static positionByArray = (size, shape, sx, sy) => {
+    const response = [];
+    const halfSize = size / 2;
+    shape.forEach((r, ri) => {
+      r.forEach((c, ci) => {
+        if (c) {
+          response.push({
+            size,
+            cx: ci * size + halfSize + sx,
+            cy: ri * size + halfSize + sy,
+            ri,
+            ci,
+            value: c,
+          });
+        }
+      });
+    });
+
+    return response;
+  };
+
   static macro = (name, fn) => {
     this.prototype[name] = fn;
   };
@@ -466,4 +487,40 @@ Path.macro('symX', function (width, height, cx, cy, centerEnd = true) {
     this.M(cx, cy);
   }
   return this;
+});
+
+Path.macro('omino', function (size, shape, sx, sy, lined = false) {
+  const arrangement = this.positionByArray(size, shape, sx, sy);
+  arrangement.forEach((r, index, arr) => {
+    const { cx, cy, ri, ci, size } = r;
+    const halfSize = size / 2;
+    const hasLeftSib = arr.find((a) => a.ri === ri && a.ci === ci - 1);
+    const hasRightSib = arr.find((a) => a.ri === ri && a.ci === ci + 1);
+    const hasUpSib = arr.find((a) => a.ri === ri - 1 && a.ci === ci);
+    const hasDownSib = arr.find((a) => a.ri === ri + 1 && a.ci === ci);
+    const left = cx - halfSize;
+    const right = cx + halfSize;
+    const top = cy - halfSize;
+    const bottom = cy + halfSize;
+    if (!hasLeftSib || lined) {
+      // draw left line
+      this.M(left, top);
+      this.v(size);
+    }
+    if (!hasRightSib) {
+      // draw right line
+      this.M(right, top);
+      this.v(size);
+    }
+    if (!hasUpSib || lined) {
+      // draw top line
+      this.M(left, top);
+      this.h(size);
+    }
+    if (!hasDownSib) {
+      // draw bottom line
+      this.M(left, bottom);
+      this.h(size);
+    }
+  });
 });
