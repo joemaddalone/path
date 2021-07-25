@@ -115,4 +115,10 @@ export default {
     description:
       '.lens is drawn from center point (cx & cy). The cursor is then moved to the center point.',
   },
+  omino: {
+    method: '.omino',
+    args: 'size, [shape], sx, sy, lined = false',
+    description:
+      '.omino is drawn based on the positive values positioned in an 2d array.  Think Tetris pieces.',
+  },
 };
