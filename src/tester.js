@@ -2,62 +2,95 @@ import Path from './index.js';
 
 console.log('LOADED!');
 
-const rounded = (width, height, radius, cx, cy, centerEnd = true) => {
+const cycloid = (size, cx, cy, k, centerEdge = true) => {
   const p = new Path();
-  const wr = width - radius;
-  const hr = height - radius;
-  const rq = radius / 2;
-  const top = cy - height / 2;
-  const left = cx - width / 2;
-  const right = left + width;
-  const bottom = top + height;
-  // move to top left.
-
-  const s = new Path();
-
-  return s
-    .M(left + rq, top)
-    .right(width - radius)
-    .Q(right, top, right, top + rq)
-    .down(hr)
-    .Q(right, bottom, right - rq, bottom)
-    .left(wr)
-    .Q(left, bottom, left, bottom - rq)
-    .up(hr)
-    .Q(left, top, left + rq, top)
-    .M(left, top)
-    .circle(radius, left + rq, top + rq)
-    .circle(radius, right - rq, top + rq)
-    .circle(radius, right - rq, bottom - rq)
-    .circle(radius, left + rq, bottom - rq)
-    .toElement({ fill: 'none', stroke: '#222' });
+  var R = parseFloat(1);
+  var r = parseFloat(k);
+  for (var j = 0; j < 360 * decimalToFraction(k).num; ++j) {
+    p.M(
+      (calcHypocycloidX(R, r, calcRadian(j)) * size) / 2,
+      (calcHypocycloidY(R, r, calcRadian(j)) * size) / 2,
+    ).L(
+      (calcHypocycloidX(R, r, calcRadian(j + 1)) * size) / 2,
+      (calcHypocycloidY(R, r, calcRadian(j + 1)) * size) / 2,
+    );
+  }
+  console.log(p.toString());
+  return p.toElement({ fill: 'none', stroke: '#222' });
 };
 
-const lens = function (width, height, cx, cy, centerEnd = true) {
-  const rx = width / 2;
-  const ry = height / 2;
+const positionByArray = (size, shape, sx, sy) => {
+  const response = [];
+  const halfSize = size / 2;
+  shape.forEach((r, ri) => {
+    r.forEach((c, ci) => {
+      if (c) {
+        response.push({
+          size,
+          cx: ci * size + halfSize + sx,
+          cy: ri * size + halfSize + sy,
+          ri,
+          ci,
+          value: c,
+        });
+      }
+    });
+  });
 
-  const s = new Path()
-    .M(cx - width / 2, cy)
-    .Q(cx, cy - height, cx + width / 2, cy)
-    .Q(cx, cy + height, cx - width / 2, cy);
-
-  return s.toElement({ fill: 'none', stroke: '#222' });
+  return response;
 };
 
-// const rect = new Path()
-//   .rect(150, 100, 250, 250)
-//   .toElement({ fill: 'none', stroke: 'rgba(0,0,0,0.2)' });
-// document.getElementById('svg').appendChild(rect);
+const omino = (size, shape, sx, sy, lined = false) => {
+  const arrangement = positionByArray(size, shape, sx, sy);
+  const p = new Path();
+  arrangement.forEach((r, index, arr) => {
+    const { cx, cy, ri, ci, size } = r;
+    const halfSize = size / 2;
+    const hasLeftSib = arr.find((a) => a.ri === ri && a.ci === ci - 1);
+    const hasRightSib = arr.find((a) => a.ri === ri && a.ci === ci + 1);
+    const hasUpSib = arr.find((a) => a.ri === ri - 1 && a.ci === ci);
+    const hasDownSib = arr.find((a) => a.ri === ri + 1 && a.ci === ci);
+    const left = cx - halfSize;
+    const right = cx + halfSize;
+    const top = cy - halfSize;
+    const bottom = cy + halfSize;
+    if (!hasLeftSib || lined) {
+      // draw left line
+      p.M(left, top);
+      p.v(size);
+    }
+    if (!hasRightSib) {
+      // draw right line
+      p.M(right, top);
+      p.v(size);
+    }
+    if (!hasUpSib || lined) {
+      // draw top line
+      p.M(left, top);
+      p.h(size);
+    }
+    if (!hasDownSib) {
+      // draw bottom line
+      p.M(left, bottom);
+      p.h(size);
+    }
+  });
 
-// const shape = rounded(400, 200, 45, 250, 250);
-const shape = lens(100, 50, 250, 250);
-// const c = new Path()
-//   .circle(100, 250, 250)
-//   .toElement({ fill: 'none', stroke: '#222' });
-// const c2 = new Path()
-//   .circle(35, 250, 250)
-//   .toElement({ fill: '#222', stroke: '#222' });
-document.getElementById('svg').appendChild(shape);
-// document.getElementById('svg').appendChild(c);
-// document.getElementById('svg').appendChild(c2);
+  return p.toElement({ fill: 'none', stroke: '#222' });
+};
+
+// const oshape = [[1], [1], [1]];
+
+const oshape = [
+  [1, 1, 1],
+  [1, 0, 1],
+  [1, 0, 1],
+  [1, 1, 1],
+];
+const osize = 35;
+const ocx = 0;
+const ocy = 0;
+
+const o = omino(osize, oshape, ocx, ocy, true);
+
+document.getElementById('svg').appendChild(o);

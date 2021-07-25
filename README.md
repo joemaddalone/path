@@ -159,6 +159,8 @@ These are so handy we have included a bunch!
    - .ellipse is drawn from center point (cx & cy). The cursor is then moved to the center point.
 - **.lens**(_width, height, cx, cy_)
    - .lens is drawn from center point (cx & cy). The cursor is then moved to the center point.   
+- **.omino**(_size, shape, sx, sy, lined = false_)
+   - .omino is drawn based on the positive values positioned in an 2d array.  Think Tetris pieces.
 - **.polygon**(_[points]_)
    - .polygon accepts an array of [x, y] coordinates and then draws lines connecting those points.  The path will start from the first point and end on the first point - closing the shape.
 - **.polygram**(_size, points, cx, cy, vertexSkip = 2_)
