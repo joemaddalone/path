@@ -148,12 +148,14 @@ describe('Path', () => {
     expect(s[s.length - 1]).toBe('M10 10');
   });
 
-  ['rect', 'ellipse', 'symX', 'symI', 'symH', 'cross', 'lens'].forEach((shape) => {
-    it(`${shape} ends at center cx, cy`, () => {
-      const s = path[shape](100, 100, 10, 10).toArray();
-      expect(s[s.length - 1]).toBe('M10 10');
-    });
-  });
+  ['rect', 'ellipse', 'symX', 'symI', 'symH', 'cross', 'lens'].forEach(
+    (shape) => {
+      it(`${shape} ends at center cx, cy`, () => {
+        const s = path[shape](100, 100, 10, 10).toArray();
+        expect(s[s.length - 1]).toBe('M10 10');
+      });
+    },
+  );
 
   ['rect', 'ellipse', 'symX', 'symI', 'symH', 'cross'].forEach((shape) => {
     it(`${shape} does not end at center cx, cy when overridden`, () => {
@@ -205,6 +207,28 @@ describe('Path', () => {
   it(`polygram does not end at center cx, cy when overridden`, () => {
     const s = path.polygram(100, 5, 10, 10, null, false).toArray();
     expect(s[s.length - 1]).not.toBe('M10 10');
+  });
+
+  it('returns valid positions', () => {
+    const size = 10;
+    const s = Path.positionByArray(size, [[1], [0, 1]], 0, 0);
+    expect(s[0].size).toEqual(size);
+    expect(s[0].cx).toEqual(size / 2);
+    expect(s[0].cy).toEqual(size / 2);
+  });
+
+  it('returns valid omino', () => {
+    const shape = [
+      [1, 1],
+      [1, 0],
+      [1, 1],
+    ];
+    const size = 35;
+    const sx = 0;
+    const sy = 0;
+
+    const s = path.omino(size, shape, sx, sy).toArray();
+    expect(s[0]).toBe('M0 0');
   });
 
   it('toElement', () => {

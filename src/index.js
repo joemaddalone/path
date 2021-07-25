@@ -490,7 +490,7 @@ Path.macro('symX', function (width, height, cx, cy, centerEnd = true) {
 });
 
 Path.macro('omino', function (size, shape, sx, sy, lined = false) {
-  const arrangement = this.positionByArray(size, shape, sx, sy);
+  const arrangement = Path.positionByArray(size, shape, sx, sy);
   arrangement.forEach((r, index, arr) => {
     const { cx, cy, ri, ci, size } = r;
     const halfSize = size / 2;
@@ -523,4 +523,5 @@ Path.macro('omino', function (size, shape, sx, sy, lined = false) {
       this.h(size);
     }
   });
+  return this;
 });
