@@ -8,6 +8,7 @@ import ellipse from './ellipse.js';
 import lens from './lens.js';
 import segment from './segment.js';
 import sector from './sector.js';
+import omino from './omino.js';
 import polygon from './polygon.js';
 import regPolygon from './regPolygon.js';
 import polyline from './polyline.js';
@@ -42,6 +43,7 @@ const makeBasicShapes = (target) => {
     symX,
     symH,
     symI,
+    omino,
   ];
 
   shapes.forEach((shape) => {
