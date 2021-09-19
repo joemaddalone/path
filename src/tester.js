@@ -91,6 +91,20 @@ const osize = 35;
 const ocx = 0;
 const ocy = 0;
 
-const o = omino(osize, oshape, ocx, ocy, true);
+const r = 9;
+const w = 150;
+const h = 50;
+const cx = 100;
+const cy = 100;
+const p = new Path();
+const o2 = p
+  .roundedRect(w, h, r, cx, cy)
+  .toElement({ fill: 'none', stroke: 'red' });
+document.getElementById('svg').appendChild(o2);
 
-document.getElementById('svg').appendChild(o);
+const rect = document.getElementById('rect');
+rect.setAttribute('rx', r);
+rect.setAttribute('width', w);
+rect.setAttribute('height', h);
+rect.setAttribute('x', cx + 200 - w / 2);
+rect.setAttribute('y', cy - h / 2);

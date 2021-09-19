@@ -248,24 +248,26 @@ Path.macro('roundedRect', function (
   cy,
   centerEnd = true,
 ) {
-  const p = new Path();
-  const wr = width - radius;
-  const hr = height - radius;
-  const rq = radius / 2;
   const top = cy - height / 2;
   const left = cx - width / 2;
   const right = left + width;
   const bottom = top + height;
+  let rx = Math.min(radius, width / 2);
+  rx = rx < 0 ? 0 : rx;
+  let ry = Math.min(radius, height / 2);
+  ry = ry < 0 ? 0 : ry;
+  const wr = Math.max(width - rx * 2, 0);
+  const hr = Math.max(height - ry * 2, 0);
 
-  this.M(left + rq, top)
+  this.M(left + rx, top)
     .right(wr)
-    .Q(right, top, right, top + rq)
+    .A(rx, ry, 0, 0, 1, right, top + ry)
     .down(hr)
-    .Q(right, bottom, right - rq, bottom)
+    .A(rx, ry, 0, 0, 1, right - rx, bottom)
     .left(wr)
-    .Q(left, bottom, left, bottom - rq)
+    .A(rx, ry, 0, 0, 1, left, bottom - ry)
     .up(hr)
-    .Q(left, top, left + rq, top)
+    .A(rx, ry, 0, 0, 1, left + rx, top)
     .M(left, top);
   if (centerEnd) {
     this.M(cx, cy);
