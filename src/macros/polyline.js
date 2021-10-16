@@ -3,6 +3,7 @@
  * @function
  * @param  {number[]} points - Array of points
  * @param  {boolean} [relative=false] - If true, the points are relative to the current position
+ * @return {Path} the path object for chaining
  */
 const polyline = function (points, relative = false) {
   const clone = [...points];

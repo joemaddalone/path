@@ -7,6 +7,7 @@
  * @param  {number} cy - The y-coordinate of the center of the polygram.
  * @param  {number} [vertexSkip=2] - The number of vertices to skip.
  * @param  {boolean} [centerEnd=true] - if false, the final position of the cursor is at the end of the path
+ * @return {Path} the path object for chaining
  */
 const polygram = function (
   size,

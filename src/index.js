@@ -29,6 +29,7 @@ export default class Path {
      * array of path data.
      * @name Path#pathData
      * @type {string[]}
+     * @default []
      */
     this.pathData = [];
 
@@ -36,6 +37,7 @@ export default class Path {
      * path attributes.
      * @name Path#attributes
      * @type {object[]}
+     * @default []
      */
     this.attributes = {};
     return this;
@@ -46,6 +48,7 @@ export default class Path {
    * @memberof Path
    * @static
    * @param {number} angle - angle in degrees
+   * @returns {number} angle in radians
    */
   static angleInRadians = (angle) => (angle * Math.PI) / 180;
 
@@ -57,6 +60,7 @@ export default class Path {
    * @param {number} cy - center y coordinate
    * @param {number} radius - radius
    * @param {number} angleInDegrees - angle in degrees
+   * @returns {object} cartesian coordinates
    */
   static polarToCartesian = (cx, cy, radius, angleInDegrees) => {
     const radians = Path.angleInRadians(angleInDegrees);
@@ -77,6 +81,7 @@ export default class Path {
    * @param {number} numOfPoints - number of points
    * @param {number} offsetAngle - offset angle
    * @param {number} [vertexSkip=1] - vertex skip
+   * @returns {object[]} array of points
    */
   static radialPoints = (
     radius,
@@ -110,6 +115,7 @@ export default class Path {
    * @param {any[]} shape - shape
    * @param {number} sx - start x coordinate
    * @param {number} sy - start y coordinate
+   * @returns {object[]} array of points
    */
   static positionByArray = (size, shape, sx, sy) => {
     const response = [];
@@ -138,6 +144,7 @@ export default class Path {
    * @static
    * @param {string} name - name of the macro
    * @param {function} fn - function to be executed
+   * @returns {function} macro function
    */
   static macro = (name, fn) => {
     this.prototype[name] = fn;
@@ -149,7 +156,6 @@ export default class Path {
    * @static
    * @param {string} key - key of the attribute
    * @param {any} val - value of the attribute
-   *
    */
   attr = (key, val) => {
     this.attributes[key] = val;
@@ -161,6 +167,7 @@ export default class Path {
    * @name Path#fill
    * @function
    * @param {string|number} val - value for fill attribute
+   * @returns {Path} this
    */
   fill = (val) => this.attr('fill', val);
 
@@ -169,6 +176,7 @@ export default class Path {
    * @name Path#stroke
    * @function
    * @param {string} val - value for stroke attribute
+   * @returns {Path} this
    */
   stroke = (val) => this.attr('stroke', val);
 
@@ -177,6 +185,7 @@ export default class Path {
    * @name Path#strokeWidth
    * @function
    * @param {string|number} val - value for stroke-width attribute
+   * @returns {Path} this
    */
   strokeWidth = (val) => this.attr('stroke-width', val);
 
@@ -185,6 +194,7 @@ export default class Path {
    * @name Path#style
    * @function
    * @param {string} val - value for style attribute
+   * @returns {Path} this
    */
   style = (val) => this.attr('style', val);
 
@@ -195,9 +205,6 @@ export default class Path {
    * @param {number} x - x coordinate
    * @param {number} y - y coordinate
    * @return {Path}
-   * @example
-   * const path = new Path();
-   * path.m(10, 10);
    */
   m = (x, y) => this.moveTo(x, y, true);
 
@@ -207,6 +214,7 @@ export default class Path {
    * @function
    * @param {number} x - x coordinate
    * @param {number} y - y coordinate
+   * @return {Path}
    */
   M = (x, y) => this.moveTo(x, y);
 
@@ -217,6 +225,7 @@ export default class Path {
    * @param {number} x - x coordinate
    * @param {number} y - y coordinate
    * @param {boolean} [relative=false] - relative move
+   * @return {Path}
    */
   moveTo = (x, y, relative = false) => {
     this.pathData.push(`${relative ? 'm' : 'M'}${x} ${y}`);
@@ -229,6 +238,7 @@ export default class Path {
    * @function
    * @param {number} x - x coordinate
    * @param {number} y - y coordinate
+   * @return {Path}
    */
   l = (x, y) => this.lineTo(x, y, true);
 
@@ -238,6 +248,7 @@ export default class Path {
    * @function
    * @param {number} x - x coordinate
    * @param {number} y - y coordinate
+   * @return {Path}
    */
   L = (x, y) => this.lineTo(x, y);
 
@@ -248,6 +259,7 @@ export default class Path {
    * @param {number} x - x coordinate
    * @param {number} y - y coordinate
    * @param {boolean} [relative=false]
+   * @return {Path}
    */
   lineTo = (x, y, relative = false) => {
     this.pathData.push(`${relative ? 'l' : 'L'}${x} ${y}`);
@@ -259,6 +271,7 @@ export default class Path {
    * @name Path#H
    * @function
    * @param {number} x - x coordinate
+   * @return {Path}
    */
   H = (x) => this.horizontalTo(x);
 
@@ -267,6 +280,7 @@ export default class Path {
    * @name Path#h
    * @function
    * @param {number} x - x coordinate
+   * @return {Path}
    */
   h = (x) => this.horizontalTo(x, true);
 
@@ -276,6 +290,7 @@ export default class Path {
    * @function
    * @param {number} x - x coordinate
    * @param {boolean} [relative=false] - relative move
+   * @return {Path}
    */
   horizontalTo = (x, relative = false) => {
     this.pathData.push(`${relative ? 'h' : 'H'}${x}`);
@@ -287,6 +302,7 @@ export default class Path {
    * @name Path#V
    * @function
    * @param {number} y - y coordinate
+   * @return {Path}
    */
   V = (y) => this.verticalTo(y);
 
@@ -295,6 +311,7 @@ export default class Path {
    * @name Path#v
    * @function
    * @param {number} y - y coordinate
+   * @return {Path}
    */
   v = (y) => this.verticalTo(y, true);
 
@@ -304,6 +321,7 @@ export default class Path {
    * @function
    * @param {number} y - y coordinate
    * @param {boolean} [relative=false] - relative move
+   * @return {Path}
    */
   verticalTo = (x, relative = false) => {
     this.pathData.push(`${relative ? 'v' : 'V'}${x}`);
@@ -318,6 +336,7 @@ export default class Path {
    * @param {number} cy - center y coordinate
    * @param {number} ex - end x coordinate
    * @param {number} ey - end y coordinate
+   * @return {Path}
    */
   Q = (cx, cy, ex, ey) => this.qCurve(cx, cy, ex, ey);
 
@@ -329,6 +348,7 @@ export default class Path {
    * @param {number} cy - center y coordinate
    * @param {number} ex - end x coordinate
    * @param {number} ey - end y coordinate
+   * @return {Path}
    */
   q = (cx, cy, ex, ey) => this.qCurve(cx, cy, ex, ey, true);
 
@@ -341,6 +361,7 @@ export default class Path {
    * @param {number} ex - end x coordinate
    * @param {number} ey - end y coordinate
    * @param {boolean} [relative=false] - relative move
+   * @return {Path}
    */
   qCurve = (cx, cy, ex, ey, relative = false) => {
     this.pathData.push(`${relative ? 'q' : 'Q'}${cx} ${cy} ${ex} ${ey}`);
@@ -353,6 +374,7 @@ export default class Path {
    * @function
    * @param {number} x - x coordinate
    * @param {number} y - y coordinate
+   * @return {Path}
    */
   T = (ex, ey) => this.tCurveTo(ex, ey);
 
@@ -362,6 +384,7 @@ export default class Path {
    * @function
    * @param {number} x - x coordinate
    * @param {number} y - y coordinate
+   * @return {Path}
    */
   t = (ex, ey) => this.tCurveTo(ex, ey, true);
 
@@ -372,6 +395,7 @@ export default class Path {
    * @param {number} x - x coordinate
    * @param {number} y - y coordinate
    * @param {boolean} [relative=false] - relative move
+   * @return {Path}
    */
   tCurveTo = (ex, ey, relative = false) => {
     this.pathData.push(`${relative ? 't' : 'T'}${ex} ${ey}`);
@@ -386,8 +410,9 @@ export default class Path {
    * @param {number} cy1 - first control point y coordinate
    * @param {number} cx2 - second control point x coordinate
    * @param {number} cy2 - second control point y coordinate
-   * @param {number} ex
-   * @param {number} ey
+   * @param {number} ex - end x coordinate
+   * @param {number} ey - end y coordinate
+   * @return {Path}
    */
   C = (cx1, cy1, cx2, cy2, ex, ey) => this.cCurve(cx1, cy1, cx2, cy2, ex, ey);
 
@@ -401,6 +426,7 @@ export default class Path {
    * @param {number} cy2 - second control point y coordinate
    * @param {number} ex - end x coordinate
    * @param {number} ey - end y coordinate
+   * @return {Path}
    */
   c = (cx1, cy1, cx2, cy2, ex, ey) =>
     this.cCurve(cx1, cy1, cx2, cy2, ex, ey, true);
@@ -416,6 +442,7 @@ export default class Path {
    * @param {number} ex - end x coordinate
    * @param {number} ey - end y coordinate
    * @param {boolean} [relative=false] - relative move
+   * @return {Path}
    */
   cCurve = (cx1, cy1, cx2, cy2, ex, ey, relative = false) => {
     this.pathData.push(
@@ -432,6 +459,7 @@ export default class Path {
    * @param {number} cy - control point y coordinate
    * @param {number} ex - end x coordinate
    * @param {number} ey - end y coordinate
+   * @return {Path}
    */
   S = (cx, cy, ex, ey) => this.sCurveTo(cx, cy, ex, ey);
 
@@ -443,6 +471,7 @@ export default class Path {
    * @param {number} cy - control point y coordinate
    * @param {number} ex - end x coordinate
    * @param {number} ey - end y coordinate
+   * @return {Path}
    */
   s = (cx, cy, ex, ey) => this.sCurveTo(cx, cy, ex, ey, true);
 
@@ -455,6 +484,7 @@ export default class Path {
    * @param {number} ex - end x coordinate
    * @param {number} ey - end y coordinate
    * @param {boolean} [relative=false] - relative move
+   * @return {Path}
    */
   sCurveTo = (cx, cy, ex, ey, relative = false) => {
     this.pathData.push(`${relative ? 's' : 'S'}${cx} ${cy} ${ex} ${ey}`);
@@ -472,6 +502,7 @@ export default class Path {
    * @param {boolean} sweep - sweep flag
    * @param {number} ex - end x coordinate
    * @param {number} ey - end y coordinate
+   * @return {Path}
    */
   A = (rx, ry, rotation, arc, sweep, ex, ey) =>
     this.arc(rx, ry, rotation, arc, sweep, ex, ey);
@@ -487,6 +518,7 @@ export default class Path {
    * @param {boolean} sweep - sweep flag
    * @param {number} ex - end x coordinate
    * @param {number} ey - end y coordinate
+   * @return {Path}
    */
   a = (rx, ry, rotation, arc, sweep, ex, ey) =>
     this.arc(rx, ry, rotation, arc, sweep, ex, ey, true);
@@ -503,6 +535,7 @@ export default class Path {
    * @param {number} ex - end x coordinate
    * @param {number} ey - end y coordinate
    * @param {boolean} [relative=false] - relative move
+   * @return {Path}
    */
   arc = (rx, ry, rotation, arc, sweep, ex, ey, relative = false) => {
     this.pathData.push(
@@ -518,6 +551,7 @@ export default class Path {
    * @name Path#down
    * @function
    * @param {number} px - number of pixels to move down
+   * @return {Path}
    */
   down = (px) => this.v(px);
 
@@ -526,6 +560,7 @@ export default class Path {
    * @name Path#up
    * @function
    * @param {number} px - number of pixels to move up
+   * @return {Path}
    */
   up = (px) => this.v(px * -1);
 
@@ -534,6 +569,7 @@ export default class Path {
    * @name Path#right
    * @function
    * @param {number} px - number of pixels to move right
+   * @return {Path}
    */
   right = (px) => this.h(px);
 
@@ -542,6 +578,7 @@ export default class Path {
    * @name Path#left
    * @function
    * @param {number} px - number of pixels to move left
+   * @return {Path}
    */
   left = (px) => this.h(px * -1);
 
@@ -549,6 +586,7 @@ export default class Path {
    * Close path.
    * @name Path#toArray
    * @function
+   * @return {Path}
    */
   close = () => {
     this.pathData.push('z');
@@ -559,6 +597,7 @@ export default class Path {
    * Return pathData array.
    * @name Path#toArray
    * @function
+   * @return {Array}
    */
   toArray = () => this.pathData;
 
@@ -566,6 +605,7 @@ export default class Path {
    * Return joined pathData array.
    * @name Path#toString
    * @function
+   * @return {string}
    */
   toString = () => this.pathData.join('');
 
@@ -574,6 +614,7 @@ export default class Path {
    * @name Path#toElement
    * @function
    * @param {object} [attributes={}]
+   * @return {Element}
    */
   toElement = (attributes = {}) => {
     const addAttributes = { ...this.attributes, ...attributes };

@@ -5,6 +5,7 @@
  * @param  {number} cx - center x coordinate
  * @param  {number} cy - center y coordinate
  * @param  {boolean} [centerEnd=true] - if false, the final position of the cursor is at the end of the path
+ * @return {Path} the path object for chaining
  */
 const circle = function (size, cx, cy, centerEnd = true) {
   return this.ellipse(size, size, cx, cy, centerEnd);

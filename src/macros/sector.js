@@ -7,6 +7,7 @@
  * @param  {number} startAngle - The start angle of the sector.
  * @param  {number} endAngle - The end angle of the sector.
  * @param  {boolean} [centerEnd=true] - if false, the final position of the cursor is at the end of the path
+ * @return {Path} the path object for chaining
  */
 const sector = function (cx, cy, size, startAngle, endAngle, centerEnd = true) {
   const radius = size / 2;

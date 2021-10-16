@@ -6,6 +6,7 @@
  * @param  {number} cx - The x-coordinate of the center of the square.
  * @param  {number} cy - The y-coordinate of the center of the square.
  * @param  {boolean} [centerEnd=true] - if false, the final position of the cursor is at the end of the path
+ * @return {Path} the path object for chaining
  */
 const roundedSquare = function (size, radius, cx, cy, centerEnd = true) {
   return this.roundedRect(size, size, radius, cx, cy, centerEnd);

@@ -7,6 +7,7 @@
  * @param  {number[]} cx - Center x coordinates.
  * @param  {number} cy - Center y coordinates.
  * @param  {boolean} [centerEnd=true] - if false, the final position of the cursor is at the end of the path
+ * @return {Path} the path object for chaining
  */
 const radialLines = function (
   outerSize,

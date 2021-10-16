@@ -6,6 +6,7 @@
  * @param  {number} cx - The x-coordinate of the center of the symbol.
  * @param  {number} cy - The y-coordinate of the center of the symbol.
  * @param  {boolean} [centerEnd=true] - if false, the final position of the cursor is at the end of the path
+ * @return {Path} the path object for chaining
  */
 const symI = function (width, height, cx, cy, centerEnd = true) {
   const l = cx - width / 2;

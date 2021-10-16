@@ -6,6 +6,7 @@
  * @param  {number} cx - The x-coordinate of the center of the lens.
  * @param  {number} cy - The y-coordinate of the center of the lens.
  * @param  {boolean} [centerEnd=true] - if false, the final position of the cursor is at the end of the path
+ * @return {Path} the path object for chaining
  */
 const lens = function (width, height, cx, cy, centerEnd = true) {
   this.M(cx - width / 2, cy)

@@ -7,6 +7,7 @@
  * @param  {number} startAngle - The starting angle of the segment.
  * @param  {number} endAngle - The ending angle of the segment.
  * @param  {boolean} [centerEnd=true] - if false, the final position of the cursor is at the end of the path
+ * @return {Path} the path object for chaining
  */
 const segment = function (
   cx,

@@ -6,6 +6,7 @@
  * @param  {number} sx - The x-coordinate of the start point.
  * @param  {number} sy - The y-coordinate of the start point.
  * @param  {boolean} [lined=false] - Whether to draw a line between each element.
+ * @return {Path} the path object for chaining
  */
 const omino = function (size, shape, sx, sy, lined = false) {
   const arrangement = this.constructor.positionByArray(size, shape, sx, sy);

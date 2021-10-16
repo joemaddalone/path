@@ -7,6 +7,7 @@
  * @param  {number} cx - Center x coordinate.
  * @param  {number} cy - Center y coordinate.
  * @param  {boolean} [centerEnd=true] - if false, the final position of the cursor is at the end of the path
+ * @return {Path} the path object for chaining
  */
 const star = function (outerSize, innerSize, points, cx, cy, centerEnd = true) {
   const innerRadius = innerSize / 2;
