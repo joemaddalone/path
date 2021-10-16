@@ -1,21 +1,88 @@
+import circle from './macros/circle.js';
+import cross from './macros/cross.js';
+import ellipse from './macros/ellipse.js';
+import lens from './macros/lens.js';
+import omino from './macros/omino.js';
+import polygon from './macros/polygon.js';
+import polygram from './macros/polygram.js';
+import polyline from './macros/polyline.js';
+import radialLines from './macros/radialLines.js';
+import rect from './macros/rect.js';
+import regPolygon from './macros/regPolygon.js';
+import roundedRect from './macros/roundedRect.js';
+import roundedSquare from './macros/roundedSquare.js';
+import sector from './macros/sector.js';
+import segment from './macros/segment.js';
+import square from './macros/square.js';
+import star from './macros/star.js';
+import symH from './macros/symH.js';
+import symI from './macros/symI.js';
+import symX from './macros/symX.js';
+import triangle from './macros/triangle.js';
+
+/**
+ * @class Path
+ */
 export default class Path {
   constructor() {
+    /**
+     * array of path data.
+     * @name Path#pathData
+     * @type {string[]}
+     * @default []
+     */
     this.pathData = [];
+
+    /**
+     * path attributes.
+     * @name Path#attributes
+     * @type {object[]}
+     * @default []
+     */
     this.attributes = {};
     return this;
   }
 
+  /**
+   * @name angleInRadians
+   * @memberof Path
+   * @static
+   * @param {number} angle - angle in degrees
+   * @returns {number} angle in radians
+   */
   static angleInRadians = (angle) => (angle * Math.PI) / 180;
 
-  static polarToCartesian = (centerX, centerY, radius, angleInDegrees) => {
+  /**
+   * @function polarToCartesian - convert polar coordinates to cartesian
+   * @memberof Path
+   * @static
+   * @param {number} cx - center x coordinate
+   * @param {number} cy - center y coordinate
+   * @param {number} radius - radius
+   * @param {number} angleInDegrees - angle in degrees
+   * @returns {object} cartesian coordinates
+   */
+  static polarToCartesian = (cx, cy, radius, angleInDegrees) => {
     const radians = Path.angleInRadians(angleInDegrees);
 
     return {
-      x: centerX + radius * Math.cos(radians),
-      y: centerY + radius * Math.sin(radians),
+      x: cx + radius * Math.cos(radians),
+      y: cy + radius * Math.sin(radians),
     };
   };
 
+  /**
+   * @function radialPoints
+   * @memberof Path
+   * @static
+   * @param {number} radius - radius
+   * @param {number} cx - center x coordinate
+   * @param {number} cy - center y coordinate
+   * @param {number} numOfPoints - number of points
+   * @param {number} offsetAngle - offset angle
+   * @param {number} [vertexSkip=1] - vertex skip
+   * @returns {object[]} array of points
+   */
   static radialPoints = (
     radius,
     cx,
@@ -40,6 +107,16 @@ export default class Path {
     });
   };
 
+  /**
+   * @function positionByArray
+   * @memberof Path
+   * @static
+   * @param {number} size - size of each element
+   * @param {any[]} shape - shape
+   * @param {number} sx - start x coordinate
+   * @param {number} sy - start y coordinate
+   * @returns {object[]} array of points
+   */
   static positionByArray = (size, shape, sx, sy) => {
     const response = [];
     const halfSize = size / 2;
@@ -61,90 +138,312 @@ export default class Path {
     return response;
   };
 
+  /**
+   * @function macro
+   * @memberof Path
+   * @static
+   * @param {string} name - name of the macro
+   * @param {function} fn - function to be executed
+   * @returns {function} macro function
+   */
   static macro = (name, fn) => {
     this.prototype[name] = fn;
   };
 
+  /**
+   * @function attr
+   * @memberof Path
+   * @static
+   * @param {string} key - key of the attribute
+   * @param {any} val - value of the attribute
+   */
   attr = (key, val) => {
     this.attributes[key] = val;
     return this;
   };
 
   /**
-   * Common attr shortcuts
+   * fill attribute shortcut
+   * @name Path#fill
+   * @function
+   * @param {string|number} val - value for fill attribute
+   * @returns {Path} this
    */
   fill = (val) => this.attr('fill', val);
+
+  /**
+   * stroke attribute shortcut
+   * @name Path#stroke
+   * @function
+   * @param {string} val - value for stroke attribute
+   * @returns {Path} this
+   */
   stroke = (val) => this.attr('stroke', val);
+
+  /**
+   * stroke-width attribute shortcut
+   * @name Path#strokeWidth
+   * @function
+   * @param {string|number} val - value for stroke-width attribute
+   * @returns {Path} this
+   */
   strokeWidth = (val) => this.attr('stroke-width', val);
+
+  /**
+   * style attribute shortcut
+   * @name Path#style
+   * @function
+   * @param {string} val - value for style attribute
+   * @returns {Path} this
+   */
   style = (val) => this.attr('style', val);
 
   /**
-   * Move svg cursor to x, y.
+   * Move svg cursor to x, y relative to current position.
+   * @name Path#m
+   * @function
+   * @param {number} x - x coordinate
+   * @param {number} y - y coordinate
+   * @return {Path}
    */
   m = (x, y) => this.moveTo(x, y, true);
+
+  /**
+   * Move svg cursor to x, y absolute position.
+   * @name Path#M
+   * @function
+   * @param {number} x - x coordinate
+   * @param {number} y - y coordinate
+   * @return {Path}
+   */
   M = (x, y) => this.moveTo(x, y);
+
+  /**
+   * Move svg cursor to x, y. If relative is true, x, y is relative to current position.
+   * @name Path#moveTo
+   * @function
+   * @param {number} x - x coordinate
+   * @param {number} y - y coordinate
+   * @param {boolean} [relative=false] - relative move
+   * @return {Path}
+   */
   moveTo = (x, y, relative = false) => {
     this.pathData.push(`${relative ? 'm' : 'M'}${x} ${y}`);
     return this;
   };
 
   /**
-   * Draw straight line to x, y.
+   * Draw straight line to x, y relative to current position.
+   * @name Path#l
+   * @function
+   * @param {number} x - x coordinate
+   * @param {number} y - y coordinate
+   * @return {Path}
    */
   l = (x, y) => this.lineTo(x, y, true);
+
+  /**
+   * Draw straight line to x, y absolute position.
+   * @name Path#L
+   * @function
+   * @param {number} x - x coordinate
+   * @param {number} y - y coordinate
+   * @return {Path}
+   */
   L = (x, y) => this.lineTo(x, y);
+
+  /**
+   * Draw straight line to x, y. If relative is true, x, y is relative to current position.
+   * @name Path#lineTo
+   * @function
+   * @param {number} x - x coordinate
+   * @param {number} y - y coordinate
+   * @param {boolean} [relative=false]
+   * @return {Path}
+   */
   lineTo = (x, y, relative = false) => {
     this.pathData.push(`${relative ? 'l' : 'L'}${x} ${y}`);
     return this;
   };
 
   /**
-   * Draw a horizontal line to x.
+   * Draw a horizontal line to x absolute position.
+   * @name Path#H
+   * @function
+   * @param {number} x - x coordinate
+   * @return {Path}
    */
   H = (x) => this.horizontalTo(x);
+
+  /**
+   * Draw a horizontal line to x relative to current position.
+   * @name Path#h
+   * @function
+   * @param {number} x - x coordinate
+   * @return {Path}
+   */
   h = (x) => this.horizontalTo(x, true);
+
+  /**
+   * Draw a horizontal line to x. If relative is true, x is relative to current position.
+   * @name Path#horizontalTo
+   * @function
+   * @param {number} x - x coordinate
+   * @param {boolean} [relative=false] - relative move
+   * @return {Path}
+   */
   horizontalTo = (x, relative = false) => {
     this.pathData.push(`${relative ? 'h' : 'H'}${x}`);
     return this;
   };
 
   /**
-   * Draw a vertical line to y.
+   * Draw a vertical line to y absolute position.
+   * @name Path#V
+   * @function
+   * @param {number} y - y coordinate
+   * @return {Path}
    */
   V = (y) => this.verticalTo(y);
+
+  /**
+   * Draw a vertical line to y relative to current position.
+   * @name Path#v
+   * @function
+   * @param {number} y - y coordinate
+   * @return {Path}
+   */
   v = (y) => this.verticalTo(y, true);
+
+  /**
+   * Draw a vertical line to y. If relative is true, y is relative to current position.
+   * @name Path#verticalTo
+   * @function
+   * @param {number} y - y coordinate
+   * @param {boolean} [relative=false] - relative move
+   * @return {Path}
+   */
   verticalTo = (x, relative = false) => {
     this.pathData.push(`${relative ? 'v' : 'V'}${x}`);
     return this;
   };
 
   /**
-   * Draw quadratic curve to ex, ey using cx,cy as the control point.
+   * Draw quadratic curve to absolute ex, ey using absolute cx,cy as the control point.
+   * @name Path#Q
+   * @function
+   * @param {number} cx - center x coordinate
+   * @param {number} cy - center y coordinate
+   * @param {number} ex - end x coordinate
+   * @param {number} ey - end y coordinate
+   * @return {Path}
    */
   Q = (cx, cy, ex, ey) => this.qCurve(cx, cy, ex, ey);
+
+  /**
+   * Draw quadratic curve to relative ex, ey using relative cx,cy as the control point.
+   * @name Path#q
+   * @function
+   * @param {number} cx - center x coordinate
+   * @param {number} cy - center y coordinate
+   * @param {number} ex - end x coordinate
+   * @param {number} ey - end y coordinate
+   * @return {Path}
+   */
   q = (cx, cy, ex, ey) => this.qCurve(cx, cy, ex, ey, true);
+
+  /**
+   * Draw quadratic curve to ex, ey using cx,cy as the control point. If relative is true, points are relative to current position.
+   * @name Path#qCurve
+   * @function
+   * @param {number} cx - center x coordinate
+   * @param {number} cy - center y coordinate
+   * @param {number} ex - end x coordinate
+   * @param {number} ey - end y coordinate
+   * @param {boolean} [relative=false] - relative move
+   * @return {Path}
+   */
   qCurve = (cx, cy, ex, ey, relative = false) => {
     this.pathData.push(`${relative ? 'q' : 'Q'}${cx} ${cy} ${ex} ${ey}`);
     return this;
   };
 
   /**
-   * Smooth quadratic curve to
+   * Smooth quadratic curve to x, y absolute position.
+   * @name Path#T
+   * @function
+   * @param {number} x - x coordinate
+   * @param {number} y - y coordinate
+   * @return {Path}
    */
   T = (ex, ey) => this.tCurveTo(ex, ey);
+
+  /**
+   * Smooth quadratic curve to x, y relative to current position.
+   * @name Path#t
+   * @function
+   * @param {number} x - x coordinate
+   * @param {number} y - y coordinate
+   * @return {Path}
+   */
   t = (ex, ey) => this.tCurveTo(ex, ey, true);
+
+  /**
+   * Smooth quadratic curve to x, y. If relative is true, x, y is relative to current position.
+   * @name Path#tCurveTo
+   * @function
+   * @param {number} x - x coordinate
+   * @param {number} y - y coordinate
+   * @param {boolean} [relative=false] - relative move
+   * @return {Path}
+   */
   tCurveTo = (ex, ey, relative = false) => {
     this.pathData.push(`${relative ? 't' : 'T'}${ex} ${ey}`);
     return this;
   };
 
   /**
-   * Draw cubic curve to ex, ey using cx1, cy1 & cx2, cy2 as the control points.
+   * Draw cubic curve to absolute ex, ey using absolute cx1, cy1 & cx2, cy2 as the control points.
+   * @name Path#C
+   * @function
+   * @param {number} cx1 - first control point x coordinate
+   * @param {number} cy1 - first control point y coordinate
+   * @param {number} cx2 - second control point x coordinate
+   * @param {number} cy2 - second control point y coordinate
+   * @param {number} ex - end x coordinate
+   * @param {number} ey - end y coordinate
+   * @return {Path}
    */
   C = (cx1, cy1, cx2, cy2, ex, ey) => this.cCurve(cx1, cy1, cx2, cy2, ex, ey);
+
+  /**
+   * Draw cubic curve to relative ex, ey using relative cx1, cy1 & cx2, cy2 as the control points.
+   * @name Path#c
+   * @function
+   * @param {number} cx1 - first control point x coordinate
+   * @param {number} cy1 - first control point y coordinate
+   * @param {number} cx2 - second control point x coordinate
+   * @param {number} cy2 - second control point y coordinate
+   * @param {number} ex - end x coordinate
+   * @param {number} ey - end y coordinate
+   * @return {Path}
+   */
   c = (cx1, cy1, cx2, cy2, ex, ey) =>
     this.cCurve(cx1, cy1, cx2, cy2, ex, ey, true);
 
+  /**
+   * Draw cubic curve to ex, ey using cx1, cy1 & cx2, cy2 as the control points. If relative is true, points are relative to current position.
+   * @name Path#cCurve
+   * @function
+   * @param {number} cx1 - first control point x coordinate
+   * @param {number} cy1 - first control point y coordinate
+   * @param {number} cx2 - second control point x coordinate
+   * @param {number} cy2 - second control point y coordinate
+   * @param {number} ex - end x coordinate
+   * @param {number} ey - end y coordinate
+   * @param {boolean} [relative=false] - relative move
+   * @return {Path}
+   */
   cCurve = (cx1, cy1, cx2, cy2, ex, ey, relative = false) => {
     this.pathData.push(
       `${relative ? 'c' : 'C'}${cx1} ${cy1} ${cx2} ${cy2} ${ex} ${ey}`,
@@ -153,24 +452,91 @@ export default class Path {
   };
 
   /**
-   * Smooth cubic curve to
+   * Smooth cubic curve to absolute x, y using absolute cx, cy as the control point.
+   * @name Path#S
+   * @function
+   * @param {number} cx - control point x coordinate
+   * @param {number} cy - control point y coordinate
+   * @param {number} ex - end x coordinate
+   * @param {number} ey - end y coordinate
+   * @return {Path}
    */
   S = (cx, cy, ex, ey) => this.sCurveTo(cx, cy, ex, ey);
+
+  /**
+   * Smooth cubic curve to relative x, y using relative cx, cy as the control point.
+   * @name Path#s
+   * @function
+   * @param {number} cx - control point x coordinate
+   * @param {number} cy - control point y coordinate
+   * @param {number} ex - end x coordinate
+   * @param {number} ey - end y coordinate
+   * @return {Path}
+   */
   s = (cx, cy, ex, ey) => this.sCurveTo(cx, cy, ex, ey, true);
+
+  /**
+   * Smooth cubic curve to x, y using cx, cy as the control point. If relative is true, points are relative to current position.
+   * @name Path#sCurveTo
+   * @function
+   * @param {number} cx - control point x coordinate
+   * @param {number} cy - control point y coordinate
+   * @param {number} ex - end x coordinate
+   * @param {number} ey - end y coordinate
+   * @param {boolean} [relative=false] - relative move
+   * @return {Path}
+   */
   sCurveTo = (cx, cy, ex, ey, relative = false) => {
     this.pathData.push(`${relative ? 's' : 'S'}${cx} ${cy} ${ex} ${ey}`);
     return this;
   };
 
   /**
-   * Create arcs.
+   * Create arc with absolute positioning
+   * @name Path#A
+   * @function
+   * @param {number} rx - x radius
+   * @param {number} ry - y radius
+   * @param {number} rotation - rotation
+   * @param {boolean} arc - arc flag
+   * @param {boolean} sweep - sweep flag
+   * @param {number} ex - end x coordinate
+   * @param {number} ey - end y coordinate
+   * @return {Path}
    */
   A = (rx, ry, rotation, arc, sweep, ex, ey) =>
     this.arc(rx, ry, rotation, arc, sweep, ex, ey);
 
+  /**
+   * Create arc with relative positioning
+   * @name Path#a
+   * @function
+   * @param {number} rx - x radius
+   * @param {number} ry - y radius
+   * @param {number} rotation - rotation
+   * @param {boolean} arc - arc flag
+   * @param {boolean} sweep - sweep flag
+   * @param {number} ex - end x coordinate
+   * @param {number} ey - end y coordinate
+   * @return {Path}
+   */
   a = (rx, ry, rotation, arc, sweep, ex, ey) =>
     this.arc(rx, ry, rotation, arc, sweep, ex, ey, true);
 
+  /**
+   * Create arc. If relative is true, points are relative to current position.
+   * @name Path#arc
+   * @function
+   * @param {number} rx - x radius
+   * @param {number} ry - y radius
+   * @param {number} rotation - rotation
+   * @param {boolean} arc - arc flag
+   * @param {boolean} sweep - sweep flag
+   * @param {number} ex - end x coordinate
+   * @param {number} ey - end y coordinate
+   * @param {boolean} [relative=false] - relative move
+   * @return {Path}
+   */
   arc = (rx, ry, rotation, arc, sweep, ex, ey, relative = false) => {
     this.pathData.push(
       `${
@@ -181,16 +547,46 @@ export default class Path {
   };
 
   /**
-   * Move down, up, right, left
-   * to relative point px away
+   * Move down to relative point px away
+   * @name Path#down
+   * @function
+   * @param {number} px - number of pixels to move down
+   * @return {Path}
    */
   down = (px) => this.v(px);
+
+  /**
+   * Move up to relative point px away
+   * @name Path#up
+   * @function
+   * @param {number} px - number of pixels to move up
+   * @return {Path}
+   */
   up = (px) => this.v(px * -1);
+
+  /**
+   * Move right to relative point px away
+   * @name Path#right
+   * @function
+   * @param {number} px - number of pixels to move right
+   * @return {Path}
+   */
   right = (px) => this.h(px);
+
+  /**
+   * Move left to relative point px away
+   * @name Path#left
+   * @function
+   * @param {number} px - number of pixels to move left
+   * @return {Path}
+   */
   left = (px) => this.h(px * -1);
 
   /**
    * Close path.
+   * @name Path#toArray
+   * @function
+   * @return {Path}
    */
   close = () => {
     this.pathData.push('z');
@@ -199,14 +595,27 @@ export default class Path {
 
   /**
    * Return pathData array.
+   * @name Path#toArray
+   * @function
+   * @return {Array}
    */
   toArray = () => this.pathData;
 
   /**
    * Return joined pathData array.
+   * @name Path#toString
+   * @function
+   * @return {string}
    */
   toString = () => this.pathData.join('');
 
+  /**
+   * Create dom-ready <path> element
+   * @name Path#toElement
+   * @function
+   * @param {object} [attributes={}]
+   * @return {Element}
+   */
   toElement = (attributes = {}) => {
     const addAttributes = { ...this.attributes, ...attributes };
     const el = document.createElementNS('http://www.w3.org/2000/svg', 'path');
@@ -219,311 +628,24 @@ export default class Path {
 }
 
 /** Macros **/
-
-Path.macro('rect', function (width, height, cx, cy, centerEnd = true) {
-  this.M(cx - width / 2, cy - height / 2)
-    .right(width)
-    .down(height)
-    .left(width)
-    .up(height);
-  if (centerEnd) {
-    this.M(cx, cy);
-  }
-  return this;
-});
-
-Path.macro('square', function (size, cx, cy, centerEnd = true) {
-  return this.rect(size, size, cx, cy, centerEnd);
-});
-
-Path.macro('roundedSquare', function (size, radius, cx, cy, centerEnd = true) {
-  return this.roundedRect(size, size, radius, cx, cy, centerEnd);
-});
-
-Path.macro('roundedRect', function (
-  width,
-  height,
-  radius,
-  cx,
-  cy,
-  centerEnd = true,
-) {
-  const top = cy - height / 2;
-  const left = cx - width / 2;
-  const right = left + width;
-  const bottom = top + height;
-  let rx = Math.min(radius, width / 2);
-  rx = rx < 0 ? 0 : rx;
-  let ry = Math.min(radius, height / 2);
-  ry = ry < 0 ? 0 : ry;
-  const wr = Math.max(width - rx * 2, 0);
-  const hr = Math.max(height - ry * 2, 0);
-
-  this.M(left + rx, top)
-    .right(wr)
-    .A(rx, ry, 0, 0, 1, right, top + ry)
-    .down(hr)
-    .A(rx, ry, 0, 0, 1, right - rx, bottom)
-    .left(wr)
-    .A(rx, ry, 0, 0, 1, left, bottom - ry)
-    .up(hr)
-    .A(rx, ry, 0, 0, 1, left + rx, top)
-    .M(left, top);
-  if (centerEnd) {
-    this.M(cx, cy);
-  }
-  return this;
-});
-
-Path.macro('circle', function (size, cx, cy, centerEnd = true) {
-  return this.ellipse(size, size, cx, cy, centerEnd);
-});
-
-Path.macro('ellipse', function (width, height, cx, cy, centerEnd = true) {
-  const rx = width / 2;
-  const ry = height / 2;
-
-  this.M(cx + rx, cy)
-    .A(rx, ry, 0, 0, 1, cx - rx, cy)
-    .A(rx, ry, 0, 0, 1, cx + rx, cy)
-    .close();
-  if (centerEnd) {
-    this.M(cx, cy);
-  }
-  return this;
-});
-
-Path.macro('lens', function (width, height, cx, cy, centerEnd = true) {
-  this.M(cx - width / 2, cy)
-    .Q(cx, cy - height, cx + width / 2, cy)
-    .Q(cx, cy + height, cx - width / 2, cy);
-  if (centerEnd) {
-    this.M(cx, cy);
-  }
-  return this;
-});
-
-Path.macro('polyline', function (points, relative = false) {
-  const clone = [...points];
-  const start = clone.shift();
-  const move = relative ? this.m : this.M;
-  const line = relative ? this.l : this.L;
-  move.apply(null, start);
-  clone.forEach((val) => {
-    line.apply(null, val);
-  });
-  return this;
-});
-
-Path.macro('polygon', function (points) {
-  this.polyline(points).close();
-  return this;
-});
-
-Path.macro('regPolygon', function (size, sides, cx, cy, centerEnd = true) {
-  this.polygon(Path.radialPoints(size / 2, cx, cy, sides));
-  if (centerEnd) {
-    this.M(cx, cy);
-  }
-  return this;
-});
-
-Path.macro('polygram', function (
-  size,
-  points,
-  cx,
-  cy,
-  vertexSkip = 2,
-  centerEnd = true,
-) {
-  this.polygon(Path.radialPoints(size / 2, cx, cy, points, null, vertexSkip));
-  if (centerEnd) {
-    this.M(cx, cy);
-  }
-  return this;
-});
-
-Path.macro('radialLines', function (
-  outerSize,
-  innerSize,
-  points,
-  cx,
-  cy,
-  centerEnd = true,
-) {
-  const inner = Path.radialPoints(innerSize / 2, cx, cy, points);
-  const outer = Path.radialPoints(outerSize / 2, cx, cy, points);
-
-  inner.forEach((coords, index) => {
-    this.M(coords[0], coords[1]).L(outer[index][0], outer[index][1]);
-  });
-  if (centerEnd) {
-    this.M(cx, cy);
-  }
-  return this;
-});
-
-Path.macro('star', function (
-  outerSize,
-  innerSize,
-  points,
-  cx,
-  cy,
-  centerEnd = true,
-) {
-  const innerRadius = innerSize / 2;
-  const outerRadius = outerSize / 2;
-  const increment = 360 / (points * 2);
-  const vertexIndices = Array.from({ length: points * 2 });
-  const verts = vertexIndices.map((p, i) => {
-    let radius = i % 2 == 0 ? outerRadius : innerRadius;
-    let degrees = increment * i - 90;
-    const { x, y } = Path.polarToCartesian(cx, cy, radius, degrees, centerEnd);
-    return [x, y];
-  });
-  this.polygon(verts);
-  if (centerEnd) {
-    this.M(cx, cy);
-  }
-  return this;
-});
-
-Path.macro('triangle', function (size, cx, cy, centerEnd = true) {
-  const sq3 = Math.sqrt(3);
-  const a = [cx, cy - (sq3 / 3) * size];
-  const b = [cx - size / 2, cy + (sq3 / 6) * size];
-  const c = [cx + size / 2, cy + (sq3 / 6) * size];
-  this.polygon([a, b, c]);
-  if (centerEnd) {
-    this.M(cx, cy);
-  }
-  return this;
-});
-
-Path.macro('sector', function (
-  cx,
-  cy,
-  size,
-  startAngle,
-  endAngle,
-  centerEnd = true,
-) {
-  const radius = size / 2;
-  const start = Path.polarToCartesian(cx, cy, radius, endAngle - 90);
-  const end = Path.polarToCartesian(cx, cy, radius, startAngle - 90);
-  const arcSweep = endAngle - startAngle <= 180 ? 0 : 1;
-
-  this.M(start.x, start.y)
-    .A(radius, radius, 0, arcSweep, 0, end.x, end.y)
-    .L(cx, cy)
-    .L(start.x, start.y);
-  if (centerEnd) {
-    this.M(cx, cy);
-  }
-  return this;
-});
-
-Path.macro('segment', function (
-  cx,
-  cy,
-  size,
-  startAngle,
-  endAngle,
-  centerEnd = true,
-) {
-  const radius = size / 2;
-  const start = Path.polarToCartesian(cx, cy, radius, endAngle - 90);
-  const end = Path.polarToCartesian(cx, cy, radius, startAngle - 90);
-  const arcSweep = endAngle - startAngle <= 180 ? 0 : 1;
-
-  this.M(start.x, start.y).A(radius, radius, 0, arcSweep, 0, end.x, end.y);
-  if (centerEnd) {
-    this.M(cx, cy);
-  }
-  return this;
-});
-
-Path.macro('cross', function (width, height, cx, cy, centerEnd = true) {
-  const l = cx - width / 2;
-  const r = l + width;
-  const t = cy - height / 2;
-  const b = t + height;
-  this.M(l, cy).L(r, cy).M(cx, b).L(cx, t);
-  if (centerEnd) {
-    this.M(cx, cy);
-  }
-  return this;
-});
-
-Path.macro('symH', function (width, height, cx, cy, centerEnd = true) {
-  const l = cx - width / 2;
-  const r = l + width;
-  const t = cy - height / 2;
-  const b = t + height;
-  this.M(l, t).L(l, b).M(l, cy).L(r, cy).M(r, t).L(r, b);
-  if (centerEnd) {
-    this.M(cx, cy);
-  }
-  return this;
-});
-
-Path.macro('symI', function (width, height, cx, cy, centerEnd = true) {
-  const l = cx - width / 2;
-  const r = l + width;
-  const t = cy - height / 2;
-  const b = t + height;
-  this.M(l, t).L(r, t).M(cx, t).L(cx, b).M(l, b).L(r, b);
-  if (centerEnd) {
-    this.M(cx, cy);
-  }
-  return this;
-});
-
-Path.macro('symX', function (width, height, cx, cy, centerEnd = true) {
-  const l = cx - width / 2;
-  const r = l + width;
-  const t = cy - height / 2;
-  const b = t + height;
-  this.M(l, t).L(r, b).M(l, b).L(r, t);
-  if (centerEnd) {
-    this.M(cx, cy);
-  }
-  return this;
-});
-
-Path.macro('omino', function (size, shape, sx, sy, lined = false) {
-  const arrangement = Path.positionByArray(size, shape, sx, sy);
-  arrangement.forEach((r, index, arr) => {
-    const { cx, cy, ri, ci, size } = r;
-    const halfSize = size / 2;
-    const hasLeftSib = arr.find((a) => a.ri === ri && a.ci === ci - 1);
-    const hasRightSib = arr.find((a) => a.ri === ri && a.ci === ci + 1);
-    const hasUpSib = arr.find((a) => a.ri === ri - 1 && a.ci === ci);
-    const hasDownSib = arr.find((a) => a.ri === ri + 1 && a.ci === ci);
-    const left = cx - halfSize;
-    const right = cx + halfSize;
-    const top = cy - halfSize;
-    const bottom = cy + halfSize;
-    if (!hasLeftSib || lined) {
-      // draw left line
-      this.M(left, top);
-      this.v(size);
-    }
-    if (!hasRightSib) {
-      // draw right line
-      this.M(right, top);
-      this.v(size);
-    }
-    if (!hasUpSib || lined) {
-      // draw top line
-      this.M(left, top);
-      this.h(size);
-    }
-    if (!hasDownSib) {
-      // draw bottom line
-      this.M(left, bottom);
-      this.h(size);
-    }
-  });
-  return this;
-});
+Path.macro('rect', rect);
+Path.macro('square', square);
+Path.macro('roundedSquare', roundedSquare);
+Path.macro('roundedRect', roundedRect);
+Path.macro('circle', circle);
+Path.macro('ellipse', ellipse);
+Path.macro('lens', lens);
+Path.macro('polyline', polyline);
+Path.macro('polygon', polygon);
+Path.macro('regPolygon', regPolygon);
+Path.macro('polygram', polygram);
+Path.macro('radialLines', radialLines);
+Path.macro('star', star);
+Path.macro('triangle', triangle);
+Path.macro('sector', sector);
+Path.macro('segment', segment);
+Path.macro('cross', cross);
+Path.macro('symH', symH);
+Path.macro('symI', symI);
+Path.macro('symX', symX);
+Path.macro('omino', omino);
