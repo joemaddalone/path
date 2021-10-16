@@ -1,12 +1,12 @@
 /**
  * @name Path#radialLines
  * @function
- * @param  {number} outerSize
- * @param  {} innerSize
- * @param  {number} points
- * @param  {number[]} cx
- * @param  {number} cy
- * @param  {boolean} centerEnd=true
+ * @param  {number} outerSize - Outer size of the radial lines.
+ * @param  {number} innerSize - Inner size of the radial lines.
+ * @param  {number} points - Number of points to draw.
+ * @param  {number[]} cx - Center x coordinates.
+ * @param  {number} cy - Center y coordinates.
+ * @param  {boolean} [centerEnd=true] - if false, the final position of the cursor is at the end of the path
  */
 const radialLines = function (
   outerSize,

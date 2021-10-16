@@ -1,8 +1,8 @@
 /**
  * @name Path#polyline
  * @function
- * @param  {number[]} points
- * @param  {boolean} [relative=false]
+ * @param  {number[]} points - Array of points
+ * @param  {boolean} [relative=false] - If true, the points are relative to the current position
  */
 const polyline = function (points, relative = false) {
   const clone = [...points];

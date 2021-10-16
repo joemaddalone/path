@@ -1,12 +1,12 @@
 /**
  * @name Path#segment
  * @function
- * @param  {number} cx
- * @param  {number} cy
- * @param  {number} size
- * @param  {number} startAngle
- * @param  {number} endAngle
- * @param  {boolean} [centerEnd=true]
+ * @param  {number} cx - The x-coordinate of the center of the circle.
+ * @param  {number} cy - The y-coordinate of the center of the circle.
+ * @param  {number} size - The radius of the circle.
+ * @param  {number} startAngle - The starting angle of the segment.
+ * @param  {number} endAngle - The ending angle of the segment.
+ * @param  {boolean} [centerEnd=true] - if false, the final position of the cursor is at the end of the path
  */
 const segment = function (
   cx,

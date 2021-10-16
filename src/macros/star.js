@@ -1,12 +1,12 @@
 /**
  * @name Path#star
  * @function
- * @param  {number} outerSize
- * @param  {number} innerSize
- * @param  {number[]} points
- * @param  {number} cx
- * @param  {number} cy
- * @param  {boolean} [centerEnd=true]
+ * @param  {number} outerSize - Outer radius of the star.
+ * @param  {number} innerSize - Inner radius of the star.
+ * @param  {number[]} points - Array of angles of the star points.
+ * @param  {number} cx - Center x coordinate.
+ * @param  {number} cy - Center y coordinate.
+ * @param  {boolean} [centerEnd=true] - if false, the final position of the cursor is at the end of the path
  */
 const star = function (outerSize, innerSize, points, cx, cy, centerEnd = true) {
   const innerRadius = innerSize / 2;

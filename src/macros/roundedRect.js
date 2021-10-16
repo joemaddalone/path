@@ -1,12 +1,12 @@
 /**
  * @name Path#roundedRect
  * @function
- * @param  {number} width
- * @param  {number} height
- * @param  {number} radius
- * @param  {number} cx
- * @param  {number} cy
- * @param  {boolean} [centerEnd=true]
+ * @param  {number} width - The width of the rect.
+ * @param  {number} height - The height of the rect.
+ * @param  {number} radius - The radius of the rounded corners.
+ * @param  {number} cx - The x-coordinate of the center of the square.
+ * @param  {number} cy - The y-coordinate of the center of the square.
+ * @param  {boolean} [centerEnd=true] - if false, the final position of the cursor is at the end of the path
  */
 const roundedRect = function (width, height, radius, cx, cy, centerEnd = true) {
   const top = cy - height / 2;

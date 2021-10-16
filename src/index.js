@@ -33,7 +33,7 @@ export default class Path {
     this.pathData = [];
 
     /**
-     * array of path data.
+     * path attributes.
      * @name Path#attributes
      * @type {object[]}
      */
@@ -45,25 +45,25 @@ export default class Path {
    * @name angleInRadians
    * @memberof Path
    * @static
-   * @param  {number} angle
+   * @param {number} angle - angle in degrees
    */
   static angleInRadians = (angle) => (angle * Math.PI) / 180;
 
   /**
-   * @function polarToCartesian
+   * @function polarToCartesian - convert polar coordinates to cartesian
    * @memberof Path
    * @static
-   * @param  {number} centerX
-   * @param  {number} centerY
-   * @param  {number} radius
-   * @param  {number} angleInDegrees
+   * @param {number} cx - center x coordinate
+   * @param {number} cy - center y coordinate
+   * @param {number} radius - radius
+   * @param {number} angleInDegrees - angle in degrees
    */
-  static polarToCartesian = (centerX, centerY, radius, angleInDegrees) => {
+  static polarToCartesian = (cx, cy, radius, angleInDegrees) => {
     const radians = Path.angleInRadians(angleInDegrees);
 
     return {
-      x: centerX + radius * Math.cos(radians),
-      y: centerY + radius * Math.sin(radians),
+      x: cx + radius * Math.cos(radians),
+      y: cy + radius * Math.sin(radians),
     };
   };
 
@@ -71,12 +71,12 @@ export default class Path {
    * @function radialPoints
    * @memberof Path
    * @static
-   * @param  {number} radius
-   * @param  {number} cx
-   * @param  {number} cy
-   * @param  {number} numOfPoints
-   * @param  {number} offsetAngle
-   * @param  {number} [vertexSkip=1]
+   * @param {number} radius - radius
+   * @param {number} cx - center x coordinate
+   * @param {number} cy - center y coordinate
+   * @param {number} numOfPoints - number of points
+   * @param {number} offsetAngle - offset angle
+   * @param {number} [vertexSkip=1] - vertex skip
    */
   static radialPoints = (
     radius,
@@ -106,10 +106,10 @@ export default class Path {
    * @function positionByArray
    * @memberof Path
    * @static
-   * @param  {number} size
-   * @param  {number[]} shape
-   * @param  {number} sx
-   * @param  {number} sy
+   * @param {number} size - size of each element
+   * @param {any[]} shape - shape
+   * @param {number} sx - start x coordinate
+   * @param {number} sy - start y coordinate
    */
   static positionByArray = (size, shape, sx, sy) => {
     const response = [];
@@ -136,8 +136,8 @@ export default class Path {
    * @function macro
    * @memberof Path
    * @static
-   * @param  {string} name
-   * @param  {function} fn
+   * @param {string} name - name of the macro
+   * @param {function} fn - function to be executed
    */
   static macro = (name, fn) => {
     this.prototype[name] = fn;
@@ -147,8 +147,9 @@ export default class Path {
    * @function attr
    * @memberof Path
    * @static
-   * @param  {string} key
-   * @param  {any} val
+   * @param {string} key - key of the attribute
+   * @param {any} val - value of the attribute
+   *
    */
   attr = (key, val) => {
     this.attributes[key] = val;
@@ -156,42 +157,66 @@ export default class Path {
   };
 
   /**
-   * Common attr shortcuts
+   * fill attribute shortcut
+   * @name Path#fill
+   * @function
+   * @param {string|number} val - value for fill attribute
    */
   fill = (val) => this.attr('fill', val);
+
+  /**
+   * stroke attribute shortcut
+   * @name Path#stroke
+   * @function
+   * @param {string} val - value for stroke attribute
+   */
   stroke = (val) => this.attr('stroke', val);
+
+  /**
+   * stroke-width attribute shortcut
+   * @name Path#strokeWidth
+   * @function
+   * @param {string|number} val - value for stroke-width attribute
+   */
   strokeWidth = (val) => this.attr('stroke-width', val);
+
+  /**
+   * style attribute shortcut
+   * @name Path#style
+   * @function
+   * @param {string} val - value for style attribute
+   */
   style = (val) => this.attr('style', val);
 
   /**
-   * Move svg cursor to x, y.
-   */
-
-  /**
-   * Move svg cursor to x, y.
+   * Move svg cursor to x, y relative to current position.
    * @name Path#m
    * @function
-   * @param  {number} x - x coordinate
-   * @param  {number} y - y coordinate
+   * @param {number} x - x coordinate
+   * @param {number} y - y coordinate
+   * @return {Path}
+   * @example
+   * const path = new Path();
+   * path.m(10, 10);
    */
   m = (x, y) => this.moveTo(x, y, true);
 
   /**
-   * Move svg cursor to x, y.
+   * Move svg cursor to x, y absolute position.
    * @name Path#M
    * @function
-   * @param  {number} x - x coordinate
-   * @param  {number} y - y coordinate
+   * @param {number} x - x coordinate
+   * @param {number} y - y coordinate
    */
   M = (x, y) => this.moveTo(x, y);
 
   /**
-   * Move svg cursor to x, y.
+   * Move svg cursor to x, y. If relative is true, x, y is relative to current position.
    * @name Path#moveTo
    * @function
-   * @param  {number} x - x coordinate
-   * @param  {number} y - y coordinate
-   * @param  {boolean} [relative=false]
+   * @param {number} x - x coordinate
+   * @param {number} y - y coordinate
+   * @param {boolean} [relative=false] - relative move
    */
   moveTo = (x, y, relative = false) => {
     this.pathData.push(`${relative ? 'm' : 'M'}${x} ${y}`);
@@ -199,30 +224,30 @@ export default class Path {
   };
 
   /**
-   * Draw straight line to x, y.
+   * Draw straight line to x, y relative to current position.
    * @name Path#l
    * @function
-   * @param  {number} x
-   * @param  {number} y
+   * @param {number} x - x coordinate
+   * @param {number} y - y coordinate
    */
   l = (x, y) => this.lineTo(x, y, true);
 
   /**
-   * Draw straight line to x, y.
+   * Draw straight line to x, y absolute position.
    * @name Path#L
    * @function
-   * @param  {number} x
-   * @param  {number} y
+   * @param {number} x - x coordinate
+   * @param {number} y - y coordinate
    */
   L = (x, y) => this.lineTo(x, y);
 
   /**
-   * Draw straight line to x, y.
+   * Draw straight line to x, y. If relative is true, x, y is relative to current position.
    * @name Path#lineTo
    * @function
-   * @param  {number} x
-   * @param  {number} y
-   * @param  {boolean} [relative=false]
+   * @param {number} x - x coordinate
+   * @param {number} y - y coordinate
+   * @param {boolean} [relative=false]
    */
   lineTo = (x, y, relative = false) => {
     this.pathData.push(`${relative ? 'l' : 'L'}${x} ${y}`);
@@ -230,27 +255,27 @@ export default class Path {
   };
 
   /**
-   * Draw a horizontal line to x.
+   * Draw a horizontal line to x absolute position.
    * @name Path#H
    * @function
-   * @param  {number} x
+   * @param {number} x - x coordinate
    */
   H = (x) => this.horizontalTo(x);
 
   /**
-   * Draw a horizontal line to x.
+   * Draw a horizontal line to x relative to current position.
    * @name Path#h
    * @function
-   * @param  {number} x
+   * @param {number} x - x coordinate
    */
   h = (x) => this.horizontalTo(x, true);
 
   /**
-   * Draw a horizontal line to x.
+   * Draw a horizontal line to x. If relative is true, x is relative to current position.
    * @name Path#horizontalTo
    * @function
-   * @param  {number} x
-   * @param  {boolean} [relative=false]
+   * @param {number} x - x coordinate
+   * @param {boolean} [relative=false] - relative move
    */
   horizontalTo = (x, relative = false) => {
     this.pathData.push(`${relative ? 'h' : 'H'}${x}`);
@@ -258,27 +283,27 @@ export default class Path {
   };
 
   /**
-   * Draw a vertical line to y.
+   * Draw a vertical line to y absolute position.
    * @name Path#V
    * @function
-   * @param  {number} y
+   * @param {number} y - y coordinate
    */
   V = (y) => this.verticalTo(y);
 
   /**
-   * Draw a vertical line to y.
+   * Draw a vertical line to y relative to current position.
    * @name Path#v
    * @function
-   * @param  {number} y
+   * @param {number} y - y coordinate
    */
   v = (y) => this.verticalTo(y, true);
 
   /**
-   * Draw a vertical line to y.
+   * Draw a vertical line to y. If relative is true, y is relative to current position.
    * @name Path#verticalTo
    * @function
-   * @param  {number} y
-   * @param  {boolean} [relative=false]
+   * @param {number} y - y coordinate
+   * @param {boolean} [relative=false] - relative move
    */
   verticalTo = (x, relative = false) => {
     this.pathData.push(`${relative ? 'v' : 'V'}${x}`);
@@ -286,32 +311,112 @@ export default class Path {
   };
 
   /**
-   * Draw quadratic curve to ex, ey using cx,cy as the control point.
+   * Draw quadratic curve to absolute ex, ey using absolute cx,cy as the control point.
+   * @name Path#Q
+   * @function
+   * @param {number} cx - center x coordinate
+   * @param {number} cy - center y coordinate
+   * @param {number} ex - end x coordinate
+   * @param {number} ey - end y coordinate
    */
   Q = (cx, cy, ex, ey) => this.qCurve(cx, cy, ex, ey);
+
+  /**
+   * Draw quadratic curve to relative ex, ey using relative cx,cy as the control point.
+   * @name Path#q
+   * @function
+   * @param {number} cx - center x coordinate
+   * @param {number} cy - center y coordinate
+   * @param {number} ex - end x coordinate
+   * @param {number} ey - end y coordinate
+   */
   q = (cx, cy, ex, ey) => this.qCurve(cx, cy, ex, ey, true);
+
+  /**
+   * Draw quadratic curve to ex, ey using cx,cy as the control point. If relative is true, points are relative to current position.
+   * @name Path#qCurve
+   * @function
+   * @param {number} cx - center x coordinate
+   * @param {number} cy - center y coordinate
+   * @param {number} ex - end x coordinate
+   * @param {number} ey - end y coordinate
+   * @param {boolean} [relative=false] - relative move
+   */
   qCurve = (cx, cy, ex, ey, relative = false) => {
     this.pathData.push(`${relative ? 'q' : 'Q'}${cx} ${cy} ${ex} ${ey}`);
     return this;
   };
 
   /**
-   * Smooth quadratic curve to
+   * Smooth quadratic curve to x, y absolute position.
+   * @name Path#T
+   * @function
+   * @param {number} x - x coordinate
+   * @param {number} y - y coordinate
    */
   T = (ex, ey) => this.tCurveTo(ex, ey);
+
+  /**
+   * Smooth quadratic curve to x, y relative to current position.
+   * @name Path#t
+   * @function
+   * @param {number} x - x coordinate
+   * @param {number} y - y coordinate
+   */
   t = (ex, ey) => this.tCurveTo(ex, ey, true);
+
+  /**
+   * Smooth quadratic curve to x, y. If relative is true, x, y is relative to current position.
+   * @name Path#tCurveTo
+   * @function
+   * @param {number} x - x coordinate
+   * @param {number} y - y coordinate
+   * @param {boolean} [relative=false] - relative move
+   */
   tCurveTo = (ex, ey, relative = false) => {
     this.pathData.push(`${relative ? 't' : 'T'}${ex} ${ey}`);
     return this;
   };
 
   /**
-   * Draw cubic curve to ex, ey using cx1, cy1 & cx2, cy2 as the control points.
+   * Draw cubic curve to absolute ex, ey using absolute cx1, cy1 & cx2, cy2 as the control points.
+   * @name Path#C
+   * @function
+   * @param {number} cx1 - first control point x coordinate
+   * @param {number} cy1 - first control point y coordinate
+   * @param {number} cx2 - second control point x coordinate
+   * @param {number} cy2 - second control point y coordinate
+   * @param {number} ex
+   * @param {number} ey
    */
   C = (cx1, cy1, cx2, cy2, ex, ey) => this.cCurve(cx1, cy1, cx2, cy2, ex, ey);
+
+  /**
+   * Draw cubic curve to relative ex, ey using relative cx1, cy1 & cx2, cy2 as the control points.
+   * @name Path#c
+   * @function
+   * @param {number} cx1 - first control point x coordinate
+   * @param {number} cy1 - first control point y coordinate
+   * @param {number} cx2 - second control point x coordinate
+   * @param {number} cy2 - second control point y coordinate
+   * @param {number} ex - end x coordinate
+   * @param {number} ey - end y coordinate
+   */
   c = (cx1, cy1, cx2, cy2, ex, ey) =>
     this.cCurve(cx1, cy1, cx2, cy2, ex, ey, true);
 
+  /**
+   * Draw cubic curve to ex, ey using cx1, cy1 & cx2, cy2 as the control points. If relative is true, points are relative to current position.
+   * @name Path#cCurve
+   * @function
+   * @param {number} cx1 - first control point x coordinate
+   * @param {number} cy1 - first control point y coordinate
+   * @param {number} cx2 - second control point x coordinate
+   * @param {number} cy2 - second control point y coordinate
+   * @param {number} ex - end x coordinate
+   * @param {number} ey - end y coordinate
+   * @param {boolean} [relative=false] - relative move
+   */
   cCurve = (cx1, cy1, cx2, cy2, ex, ey, relative = false) => {
     this.pathData.push(
       `${relative ? 'c' : 'C'}${cx1} ${cy1} ${cx2} ${cy2} ${ex} ${ey}`,
@@ -320,24 +425,85 @@ export default class Path {
   };
 
   /**
-   * Smooth cubic curve to
+   * Smooth cubic curve to absolute x, y using absolute cx, cy as the control point.
+   * @name Path#S
+   * @function
+   * @param {number} cx - control point x coordinate
+   * @param {number} cy - control point y coordinate
+   * @param {number} ex - end x coordinate
+   * @param {number} ey - end y coordinate
    */
   S = (cx, cy, ex, ey) => this.sCurveTo(cx, cy, ex, ey);
+
+  /**
+   * Smooth cubic curve to relative x, y using relative cx, cy as the control point.
+   * @name Path#s
+   * @function
+   * @param {number} cx - control point x coordinate
+   * @param {number} cy - control point y coordinate
+   * @param {number} ex - end x coordinate
+   * @param {number} ey - end y coordinate
+   */
   s = (cx, cy, ex, ey) => this.sCurveTo(cx, cy, ex, ey, true);
+
+  /**
+   * Smooth cubic curve to x, y using cx, cy as the control point. If relative is true, points are relative to current position.
+   * @name Path#sCurveTo
+   * @function
+   * @param {number} cx - control point x coordinate
+   * @param {number} cy - control point y coordinate
+   * @param {number} ex - end x coordinate
+   * @param {number} ey - end y coordinate
+   * @param {boolean} [relative=false] - relative move
+   */
   sCurveTo = (cx, cy, ex, ey, relative = false) => {
     this.pathData.push(`${relative ? 's' : 'S'}${cx} ${cy} ${ex} ${ey}`);
     return this;
   };
 
   /**
-   * Create arcs.
+   * Create arc with absolute positioning
+   * @name Path#A
+   * @function
+   * @param {number} rx - x radius
+   * @param {number} ry - y radius
+   * @param {number} rotation - rotation
+   * @param {boolean} arc - arc flag
+   * @param {boolean} sweep - sweep flag
+   * @param {number} ex - end x coordinate
+   * @param {number} ey - end y coordinate
    */
   A = (rx, ry, rotation, arc, sweep, ex, ey) =>
     this.arc(rx, ry, rotation, arc, sweep, ex, ey);
 
+  /**
+   * Create arc with relative positioning
+   * @name Path#a
+   * @function
+   * @param {number} rx - x radius
+   * @param {number} ry - y radius
+   * @param {number} rotation - rotation
+   * @param {boolean} arc - arc flag
+   * @param {boolean} sweep - sweep flag
+   * @param {number} ex - end x coordinate
+   * @param {number} ey - end y coordinate
+   */
   a = (rx, ry, rotation, arc, sweep, ex, ey) =>
     this.arc(rx, ry, rotation, arc, sweep, ex, ey, true);
 
+  /**
+   * Create arc. If relative is true, points are relative to current position.
+   * @name Path#arc
+   * @function
+   * @param {number} rx - x radius
+   * @param {number} ry - y radius
+   * @param {number} rotation - rotation
+   * @param {boolean} arc - arc flag
+   * @param {boolean} sweep - sweep flag
+   * @param {number} ex - end x coordinate
+   * @param {number} ey - end y coordinate
+   * @param {boolean} [relative=false] - relative move
+   */
   arc = (rx, ry, rotation, arc, sweep, ex, ey, relative = false) => {
     this.pathData.push(
       `${
@@ -351,7 +517,7 @@ export default class Path {
    * Move down to relative point px away
    * @name Path#down
    * @function
-   * @param  {number} px
+   * @param {number} px - number of pixels to move down
    */
   down = (px) => this.v(px);
 
@@ -359,7 +525,7 @@ export default class Path {
    * Move up to relative point px away
    * @name Path#up
    * @function
-   * @param  {number} px
+   * @param {number} px - number of pixels to move up
    */
   up = (px) => this.v(px * -1);
 
@@ -367,7 +533,7 @@ export default class Path {
    * Move right to relative point px away
    * @name Path#right
    * @function
-   * @param  {number} px
+   * @param {number} px - number of pixels to move right
    */
   right = (px) => this.h(px);
 
@@ -375,12 +541,14 @@ export default class Path {
    * Move left to relative point px away
    * @name Path#left
    * @function
-   * @param  {number} px
+   * @param {number} px - number of pixels to move left
    */
   left = (px) => this.h(px * -1);
 
   /**
    * Close path.
+   * @name Path#toArray
+   * @function
    */
   close = () => {
     this.pathData.push('z');
@@ -402,9 +570,10 @@ export default class Path {
   toString = () => this.pathData.join('');
 
   /**
+   * Create dom-ready <path> element
    * @name Path#toElement
    * @function
-   * @param  {object} [attributes={}]
+   * @param {object} [attributes={}]
    */
   toElement = (attributes = {}) => {
     const addAttributes = { ...this.attributes, ...attributes };

@@ -1,10 +1,10 @@
 /**
  * @name Path#triangle
  * @function
- * @param  {number} size
- * @param  {number} cx
- * @param  {number} cy
- * @param  {boolean} [centerEnd=true]
+ * @param  {number} size - The size of the triangle.
+ * @param  {number} cx - The x-coordinate of the center of the triangle.
+ * @param  {number} cy - The y-coordinate of the center of the triangle.
+ * @param  {boolean} [centerEnd=true] - if false, the final position of the cursor is at the end of the path
  */
 const triangle = function (size, cx, cy, centerEnd = true) {
   const sq3 = Math.sqrt(3);

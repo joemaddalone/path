@@ -1,11 +1,11 @@
 /**
  * @name Path#omino
  * @function
- * @param  {number} size
- * @param  {} shape
- * @param  {number} sx
- * @param  {number} sy
- * @param  {boolean} [lined=false]
+ * @param  {number} size - The size of each element.
+ * @param  {any[]} shape - The shape of the array.
+ * @param  {number} sx - The x-coordinate of the start point.
+ * @param  {number} sy - The y-coordinate of the start point.
+ * @param  {boolean} [lined=false] - Whether to draw a line between each element.
  */
 const omino = function (size, shape, sx, sy, lined = false) {
   const arrangement = this.constructor.positionByArray(size, shape, sx, sy);
