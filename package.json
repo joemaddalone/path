@@ -1,6 +1,6 @@
 {
   "name": "@joemaddalone/path",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "a simple svg path generation utility",
   "types": "dist/path.d.ts",
   "main": "dist/path.min.js",
@@ -28,7 +28,8 @@
     "cubic curve"
   ],
   "files": [
-    "dist/**/*.js",
+    "dist/path.min.js",
+    "dist/path.d.ts",
     "src/**/*.js"
   ],
   "repository": {
