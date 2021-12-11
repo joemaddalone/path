@@ -1,12 +1,14 @@
 {
   "name": "@joemaddalone/path",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "a simple svg path generation utility",
+  "types": "dist/path.d.ts",
   "main": "dist/path.min.js",
   "module": "src/index.js",
   "browser": "dist/path.min.js",
   "scripts": {
-    "build": "rollup -c",
+    "build": " npm run types && npm run compile",
+    "compile": "rollup -c",
     "dev": "rollup -c -w",
     "format": "prettier --write \"**/*.+(js|jsx|json)\"",
     "lint": "eslint src",
@@ -15,7 +17,8 @@
     "test:coverage": "jest --coverage",
     "prepublishOnly": "rm -rf dist && npm test && npm run build",
     "predeploy": "cd demo && npm install && npx snowpack build",
-    "deploy": "gh-pages -d demo/build"
+    "deploy": "gh-pages -d demo/build",
+    "types": "jsdoc -t node_modules/tsd-jsdoc/dist/ -d dist/ -r src/; mv dist/types.d.ts dist/path.d.ts; exit 0"
   },
   "keywords": [
     "svg",
@@ -50,10 +53,12 @@
     "gh-pages": "^3.1.0",
     "husky": "^4.3.0",
     "jest": "^26.4.2",
+    "jsdoc": "^3.6.7",
     "lint-staged": "^10.3.0",
     "prettier": "^2.1.1",
     "rollup": "^2.26.11",
-    "rollup-plugin-terser": "^7.0.2"
+    "rollup-plugin-terser": "^7.0.2",
+    "tsd-jsdoc": "^2.5.0"
   },
   "husky": {
     "hooks": {

@@ -44,7 +44,7 @@ export default class Path {
   }
 
   /**
-   * @name angleInRadians
+   * @function angleInRadians
    * @memberof Path
    * @static
    * @param {number} angle - angle in degrees
@@ -53,7 +53,7 @@ export default class Path {
   static angleInRadians = (angle) => (angle * Math.PI) / 180;
 
   /**
-   * @function polarToCartesian - convert polar coordinates to cartesian
+   * @function polarToCartesian
    * @memberof Path
    * @static
    * @param {number} cx - center x coordinate
