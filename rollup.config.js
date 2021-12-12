@@ -1,18 +1,45 @@
 import babel from '@rollup/plugin-babel';
+import resolve from '@rollup/plugin-node-resolve';
 import { terser } from 'rollup-plugin-terser';
+import pkg from './package.json';
 
-const config = {
-  input: 'src/index.js',
-  output: {
-    file: `dist/path.min.js`,
-    name: 'path',
+const INPUT_FILE_PATH = 'src/index.js';
+const OUTPUT_NAME = 'path';
+
+const OUTPUT_DATA = [
+  {
+    file: pkg.main,
     format: 'umd',
+  },
+  {
+    file: pkg.module,
+    format: 'es',
+  },
+];
+
+const PLUGINS = [
+  babel({
+    babelHelpers: 'runtime',
+    exclude: 'node_modules/**',
+    skipPreflightCheck: true,
+  }),
+  resolve({
+    browser: true,
+  }),
+  babel({ babelHelpers: 'bundled' }),
+  terser(),
+];
+
+const config = OUTPUT_DATA.map(({ file, format }) => ({
+  input: INPUT_FILE_PATH,
+  output: {
+    file,
+    format,
+    name: OUTPUT_NAME,
     indent: false,
     extend: true,
   },
-};
+  plugins: PLUGINS,
+}));
 
-export default {
-  ...config,
-  plugins: [babel({ babelHelpers: 'bundled' }), terser()],
-};
+export default config;
