@@ -19,14 +19,13 @@ const OUTPUT_DATA = [
 
 const PLUGINS = [
   babel({
-    babelHelpers: 'runtime',
+    babelHelpers: 'bundled',
     exclude: 'node_modules/**',
     skipPreflightCheck: true,
   }),
   resolve({
     browser: true,
   }),
-  babel({ babelHelpers: 'bundled' }),
   terser(),
 ];
 
