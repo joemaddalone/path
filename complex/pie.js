@@ -1,4 +1,4 @@
-import Path from '../web_modules/path.js';
+import Path from '../web_modules/@joemaddalone/path.js';
 
 const pie = ({ size, cx, cy, data }) => {
   const percentToDegree = (p) => (p / 100) * 360;

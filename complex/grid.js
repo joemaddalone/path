@@ -1,4 +1,4 @@
-import Path from '../web_modules/path.js';
+import Path from '../web_modules/@joemaddalone/path.js';
 
 const grid = ({ x, y, width, height, cols, rows, close = true }) => {
   const lines = new Path().M(x, y);

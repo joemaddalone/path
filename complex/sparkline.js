@@ -1,4 +1,4 @@
-import Path from '../web_modules/path.js';
+import Path from '../web_modules/@joemaddalone/path.js';
 
 const sparkline = ({ width, height, data }) => {
   const line = new Path();

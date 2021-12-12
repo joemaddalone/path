@@ -1,4 +1,4 @@
-import Path from '../web_modules/path.js';
+import Path from '../web_modules/@joemaddalone/path.js';
 import docs from './docs.js';
 
 export default {
@@ -9,6 +9,6 @@ export default {
   paths: [
     {
       path: new Path().cross(100, 100, 60, 60).toElement(),
-    }
+    },
   ],
 };
