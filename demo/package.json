@@ -7,7 +7,7 @@
     "lint": "prettier --check \"src/**/*.js\""
   },
   "dependencies": {
-    "path": "file:..",
+    "@joemaddalone/path": "file:..",
     "dagre": "^0.8.5"
   },
   "devDependencies": {

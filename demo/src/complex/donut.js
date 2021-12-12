@@ -1,4 +1,4 @@
-import Path from 'path';
+import Path from '@joemaddalone/path';
 
 const donut = ({ size, width, cx, cy, data }) => {
   const percentToDegree = (p) => (p / 100) * 360;

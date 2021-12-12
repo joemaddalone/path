@@ -1,4 +1,4 @@
-import Path from 'path';
+import Path from '@joemaddalone/path';
 import docs from './docs';
 
 export default {
@@ -9,6 +9,6 @@ export default {
   paths: [
     {
       path: new Path().cross(100, 100, 60, 60).toElement(),
-    }
+    },
   ],
 };

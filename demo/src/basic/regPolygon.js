@@ -1,4 +1,4 @@
-import Path from 'path';
+import Path from '@joemaddalone/path';
 import docs from './docs';
 
 export default {

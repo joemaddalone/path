@@ -1,4 +1,4 @@
-import Path from 'path';
+import Path from '@joemaddalone/path';
 import dagSetup from './dagSetup';
 
 const dag = dagSetup();

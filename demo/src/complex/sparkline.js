@@ -1,4 +1,4 @@
-import Path from 'path';
+import Path from '@joemaddalone/path';
 
 const sparkline = ({ width, height, data }) => {
   const line = new Path();

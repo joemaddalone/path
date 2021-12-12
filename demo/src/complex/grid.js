@@ -1,4 +1,4 @@
-import Path from 'path';
+import Path from '@joemaddalone/path';
 
 const grid = ({ x, y, width, height, cols, rows, close = true }) => {
   const lines = new Path().M(x, y);

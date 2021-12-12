@@ -1,4 +1,4 @@
-import Path from 'path';
+import Path from '@joemaddalone/path';
 
 Path.macro('squareTest', function (size, x, y) {
   if (x && y) {
