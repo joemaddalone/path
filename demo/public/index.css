@@ -78,12 +78,16 @@ h3 {
   font-family: monospace;
 }
 
-code {
-  margin: 8px;
-  padding: 8px;
-  background-color: #f8f8f8;
-}
+
 
 path {
   shape-rendering: geometricPrecision;
+}
+
+pre {
+  white-space: pre-wrap
+}
+
+code {
+  white-space: pre-wrap
 }
