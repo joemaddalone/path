@@ -8,7 +8,7 @@ export default {
   h: 120,
   paths: [
     {
-      path: new Path().cross(100, 100, 60, 60).toElement(),
+      path: new Path().cross(100, 100, 60, 60),
     },
   ],
 };

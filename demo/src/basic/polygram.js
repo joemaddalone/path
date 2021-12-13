@@ -8,9 +8,7 @@ export default {
   h: 120,
   paths: [
     {
-      path: new Path().polygram(100, 7, 50, 50).toElement(),
+      path: new Path().polygram(100, 7, 50, 50),
     },
   ],
 };
-
-// size, points, cx, cy, conn = 1

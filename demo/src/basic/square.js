@@ -8,10 +8,7 @@ export default {
   h: 120,
   paths: [
     {
-      path: new Path().square(100, 50, 60).toElement(),
-    },
-    {
-      path: new Path().square(10, 50, 60).attr('class', 'filled').toElement(),
+      path: new Path().square(100, 50, 60),
     },
   ],
 };

@@ -15,7 +15,7 @@ export default {
   h: 120,
   paths: [
     {
-      path: new Path().polygon(points).toElement(),
+      path: new Path().polygon(points),
     },
   ],
 };

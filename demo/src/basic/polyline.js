@@ -15,7 +15,7 @@ export default {
   h: 120,
   paths: [
     {
-      path: new Path().polyline(pointsAbsolute).toElement(),
+      path: new Path().polyline(pointsAbsolute),
     },
   ],
 };
