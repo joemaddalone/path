@@ -50,12 +50,11 @@ const makeBasicShapes = (target) => {
     const span = document.createElement('span');
     const s = svg(shape.w, shape.h);
     shape.paths.forEach((p) => {
-      s.appendChild(p.path);
+      s.appendChild(p.path.toElement());
     });
     const title = document.createElement('h3');
     title.className = 'ui-header';
-    title.innerHTML = `<span class="func">${shape.method}</span>(<i class="args">${shape.args}</i>)`;
-    // title.innerText = shape.sig;
+    title.innerHTML = `<span class="func">.${shape.method}</span>(<i class="args">${shape.args}</i>)`;
     const description = document.createElement('p');
     description.innerText = shape.description;
     const source = document.createElement('a');

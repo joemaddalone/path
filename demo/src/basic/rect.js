@@ -8,10 +8,7 @@ export default {
   h: 120,
   paths: [
     {
-      path: new Path().rect(120, 60, 60, 60).toElement(),
-    },
-    {
-      path: new Path().rect(10, 5, 60, 60).attr('class', 'filled').toElement(),
+      path: new Path().rect(120, 60, 60, 60),
     },
   ],
 };

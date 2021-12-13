@@ -8,7 +8,7 @@ export default {
   h: 120,
   paths: [
     {
-      path: new Path().symH(150, 100, 100, 60).toElement(),
+      path: new Path().symH(150, 100, 100, 60),
     },
   ],
 };
