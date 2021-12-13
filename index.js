@@ -5,6 +5,7 @@ import donut from './complex/donut.js';
 import pie from './complex/pie.js';
 import grid from './complex/grid.js';
 import sparkline from './complex/sparkline.js';
+import { clock } from './canvas/clock.js';
 import { svg, g } from './helpers/svg.js';
 
 const pieData = [
@@ -122,3 +123,6 @@ const s9 = svg(301, 151);
 s9.appendChild(gridLines2);
 s9.appendChild(spark);
 document.getElementById('spark').appendChild(s9);
+
+// clock
+clock(document.getElementById('canvas'));
