@@ -1,72 +1,49 @@
-import rect from './rect.js';
-import roundedRect from './roundedRect.js';
-import square from './square.js';
-import roundedSquare from './roundedSquare.js';
-import triangle from './triangle.js';
-import circle from './circle.js';
-import ellipse from './ellipse.js';
-import lens from './lens.js';
-import segment from './segment.js';
-import sector from './sector.js';
-import omino from './omino.js';
-import polygon from './polygon.js';
-import regPolygon from './regPolygon.js';
-import polyline from './polyline.js';
-import star from './star.js';
-import polygram from './polygram.js';
-import radialLines from './radialLines.js';
-import symX from './symX.js';
-import symH from './symH.js';
-import symI from './symI.js';
-import cross from './cross.js';
 import { svg, g } from '../helpers/svg.js';
+import docs from './docs.js';
+import Path from '../web_modules/@joemaddalone/path.js';
+
+const parseArgs = (args) => {
+  return args
+    .map((ar) => {
+      if (ar instanceof Array) {
+        return `[${parseArgs(ar)}]`;
+      }
+      return ar;
+    })
+    .join(', ');
+};
 
 const makeBasicShapes = (target) => {
-  const shapes = [
-    circle,
-    cross,
-    ellipse,
-    lens,
-    omino,
-    polygon,
-    polygram,
-    polyline,
-    radialLines,
-    rect,
-    regPolygon,
-    roundedRect,
-    roundedSquare,
-    sector,
-    segment,
-    square,
-    star,
-    symH,
-    symI,
-    symX,
-    triangle,
-  ];
-
-  shapes.forEach((shape) => {
+  Object.keys(docs).forEach((k) => {
+    const shape = docs[k];
+    const demo = shape.demo;
     const span = document.createElement('span');
-    const s = svg(shape.w, shape.h);
-    shape.paths.forEach((p) => {
-      s.appendChild(p.path);
+    const s = svg(demo.w, demo.h);
+    demo.args.forEach((a) => {
+      const p = new Path();
+      s.appendChild(p[shape.method].apply(p, [...a]).toElement());
     });
     const title = document.createElement('h3');
     title.className = 'ui-header';
-    title.innerHTML = `<span class="func">${shape.method}</span>(<i class="args">${shape.args}</i>)`;
-    // title.innerText = shape.sig;
+    title.innerHTML = `<span class="func">.${shape.method}</span>(<i class="args">${shape.args}</i>)`;
     const description = document.createElement('p');
     description.innerText = shape.description;
-    const source = document.createElement('a');
-    source.href = `https://github.com/joemaddalone/path/blob/master/demo/src/basic/${shape.name}.js`;
-    source.setAttribute('rel', 'noopener noreferrer');
-    source.setAttribute('target', '_blank');
-    source.innerText = 'source';
+    const source = document.createElement('pre');
+    source.className = 'language-js';
+    const code = document.createElement('code');
+    const builders = [];
+    demo.args.forEach((a, i, arr) => {
+      const innerArgs = parseArgs(a);
+      const n = arr.length > 1 ? `${shape.method}_${i}` : shape.method;
+      builders.push(`const ${n} = new Path().${shape.method}(${innerArgs});`);
+      builders.push(`svg.appendChild(${n}.toElement());`);
+    });
+    code.innerHTML = builders.join('\n');
     span.appendChild(title);
     span.appendChild(description);
     span.appendChild(s);
     span.appendChild(source);
+    source.appendChild(code);
     target.appendChild(span);
   });
 };
