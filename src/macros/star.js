@@ -16,8 +16,8 @@ const star = function (outerSize, innerSize, points, cx, cy, centerEnd = true) {
   const vertexIndices = Array.from({ length: points * 2 });
   const verts = vertexIndices.map((p, i) => {
     let radius = i % 2 == 0 ? outerRadius : innerRadius;
-    let degrees = increment * i - 90;
-    const { x, y } = this.constructor.polarToCartesian(
+    let degrees = increment * i;
+    const { x, y } = this.constructor.clockwisePoint(
       cx,
       cy,
       radius,

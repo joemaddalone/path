@@ -94,6 +94,15 @@ describe('Path', () => {
     );
   });
 
+  it('clockwisePoint', () => {
+    expect(Path.clockwisePoint(0, 0, 10, 270).x).toBe(
+      0 + 10 * Math.cos(Path.angleInRadians(270 - 90)),
+    );
+    expect(Path.clockwisePoint(0, 0, 10, 270).y).toBe(
+      0 + 10 * Math.sin(Path.angleInRadians(270 - 90)),
+    );
+  });
+
   it('radialPoints', () => {
     expect(Path.radialPoints(0, 0, 0, 4, 0, 1).length).toBe(4);
   });

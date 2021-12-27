@@ -11,17 +11,17 @@
  */
 const sector = function (cx, cy, size, startAngle, endAngle, centerEnd = true) {
   const radius = size / 2;
-  const start = this.constructor.polarToCartesian(
+  const start = this.constructor.clockwisePoint(
     cx,
     cy,
     radius,
-    endAngle - 90,
+    endAngle,
   );
-  const end = this.constructor.polarToCartesian(
+  const end = this.constructor.clockwisePoint(
     cx,
     cy,
     radius,
-    startAngle - 90,
+    startAngle,
   );
   const arcSweep = endAngle - startAngle <= 180 ? 0 : 1;
 

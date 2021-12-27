@@ -1,8 +1,8 @@
 import Path from '@joemaddalone/path';
 
 export const degreeToAngle = (value, division, cx, cy, radius) => {
-  const degree = (360 / division) * value - 90;
-  const { x: ex, y: ey } = Path.polarToCartesian(cx, cy, radius, degree);
+  const degree = (360 / division) * value;
+  const { x: ex, y: ey } = Path.clockwisePoint(cx, cy, radius, degree);
   return { ex, ey };
 };
 
@@ -14,6 +14,8 @@ export const time = () => {
     hour: d.getHours(),
   };
 };
+
+
 
 export const clock = (canvas) => {
   const w = 250;
