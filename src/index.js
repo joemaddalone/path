@@ -78,7 +78,7 @@ export default class Path {
    * @param {number} cy - center y coordinate
    * @param {number} radius - radius
    * @param {number} angle - degree
-   * @returns 
+   * @returns {object} cartesian coordinates
    */
   static clockwisePoint = (cx, cy, radius, angle) => {
     const a = angle - 90;

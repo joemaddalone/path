@@ -1,6 +1,6 @@
 {
   "name": "@joemaddalone/path",
-  "version": "1.2.8",
+  "version": "1.2.9",
   "description": "a simple svg path generation utility",
   "types": "dist/path.d.ts",
   "main": "dist/index.js",
