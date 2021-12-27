@@ -59,16 +59,30 @@ export default class Path {
    * @param {number} cx - center x coordinate
    * @param {number} cy - center y coordinate
    * @param {number} radius - radius
-   * @param {number} angleInDegrees - angle in degrees
+   * @param {number} angle - degree
    * @returns {object} cartesian coordinates
    */
-  static polarToCartesian = (cx, cy, radius, angleInDegrees) => {
-    const radians = Path.angleInRadians(angleInDegrees);
-
+  static polarToCartesian = (cx, cy, radius, angle) => {
+    const radians = Path.angleInRadians(angle);
     return {
       x: cx + radius * Math.cos(radians),
       y: cy + radius * Math.sin(radians),
     };
+  };
+
+  /**
+   * @function clockwisePoint
+   * @memberof Path
+   * @static
+   * @param {number} cx - center x coordinate
+   * @param {number} cy - center y coordinate
+   * @param {number} radius - radius
+   * @param {number} angle - degree
+   * @returns 
+   */
+  static clockwisePoint = (cx, cy, radius, angle) => {
+    const a = angle - 90;
+    return this.polarToCartesian(cx, cy, radius, a);
   };
 
   /**
