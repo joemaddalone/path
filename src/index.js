@@ -346,8 +346,8 @@ export default class Path {
    * Draw quadratic curve to absolute ex, ey using absolute cx,cy as the control point.
    * @name Path#Q
    * @function
-   * @param {number} cx - center x coordinate
-   * @param {number} cy - center y coordinate
+   * @param {number} cx - control point x coordinate
+   * @param {number} cy - control point y coordinate
    * @param {number} ex - end x coordinate
    * @param {number} ey - end y coordinate
    * @return {Path}
@@ -358,8 +358,8 @@ export default class Path {
    * Draw quadratic curve to relative ex, ey using relative cx,cy as the control point.
    * @name Path#q
    * @function
-   * @param {number} cx - center x coordinate
-   * @param {number} cy - center y coordinate
+   * @param {number} cx - control point x coordinate
+   * @param {number} cy - control point y coordinate
    * @param {number} ex - end x coordinate
    * @param {number} ey - end y coordinate
    * @return {Path}
@@ -370,8 +370,8 @@ export default class Path {
    * Draw quadratic curve to ex, ey using cx,cy as the control point. If relative is true, points are relative to current position.
    * @name Path#qCurve
    * @function
-   * @param {number} cx - center x coordinate
-   * @param {number} cy - center y coordinate
+   * @param {number} cx - control point x coordinate
+   * @param {number} cy - control point y coordinate
    * @param {number} ex - end x coordinate
    * @param {number} ey - end y coordinate
    * @param {boolean} [relative=false] - relative move
