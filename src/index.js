@@ -19,6 +19,7 @@ import symH from './macros/symH.js';
 import symI from './macros/symI.js';
 import symX from './macros/symX.js';
 import triangle from './macros/triangle.js';
+import docs from './docs.js';
 
 /**
  * @class Path
@@ -622,6 +623,48 @@ export default class Path {
    * @return {string}
    */
   toString = () => this.pathData.join('');
+
+  /**
+   * Return pathData as commands.
+   * @name Path#toCommands
+   * @function
+   * @returns {Array[]}
+   */
+  toCommands = () => {
+    return this.pathData.map((cmd) => {
+      const result = [cmd.substr(0, 1)];
+      const args = cmd.substr(1);
+      if (args.length) {
+        result.push(...args.split(' ').map(Number));
+      }
+      return result;
+    });
+  };
+
+  /**
+   * Return pathData as annotated commands.
+   * @name Path#toAnnotatedCommands
+   * @function
+   * @returns {Object[]}
+   */
+  toAnnotatedCommands = () => {
+    const commands = this.toCommands();
+    const detailed = {};
+    return commands.map((cmd) => {
+      const fn = cmd.shift();
+      const args = docs[fn].args;
+      if (args.length) {
+        return {
+          fn,
+          args: cmd.reduce((acc, cur, index) => {
+            acc[args[index]] = cur;
+            return acc;
+          }, {}),
+        };
+      }
+      return { fn };
+    });
+  };
 
   /**
    * Create dom-ready <path> element

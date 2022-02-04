@@ -10,6 +10,28 @@ describe('Path', () => {
     expect(path.toArray().length).toBe(0);
   });
 
+  it('should return correct commands', () => {
+    path.M(100, 100);
+    expect(path.toCommands()).toEqual([['M', 100, 100]]);
+    path.L(100, 100);
+    expect(path.toCommands()).toEqual([
+      ['M', 100, 100],
+      ['L', 100, 100],
+    ]);
+  });
+
+  it('should return correct commands', () => {
+    path.M(100, 100);
+    expect(path.toAnnotatedCommands()).toEqual([
+      { fn: 'M', args: { x: 100, y: 100 } },
+    ]);
+    path.L(100,100);
+    expect(path.toAnnotatedCommands()).toEqual([
+      { fn: 'M', args: { x: 100, y: 100 } },
+      { fn: 'L', args: { x: 100, y: 100 } },
+    ]);
+  });
+
   [
     { method: 'arc', command: 'A' },
     { method: 'cCurve', command: 'C' },
