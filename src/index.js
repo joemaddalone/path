@@ -1,6 +1,7 @@
 import circle from './macros/circle.js';
 import cross from './macros/cross.js';
 import ellipse from './macros/ellipse.js';
+import kite from './macros/kite.js';
 import lens from './macros/lens.js';
 import omino from './macros/omino.js';
 import polygon from './macros/polygon.js';
@@ -691,6 +692,7 @@ Path.macro('roundedSquare', roundedSquare);
 Path.macro('roundedRect', roundedRect);
 Path.macro('circle', circle);
 Path.macro('ellipse', ellipse);
+Path.macro('kite', kite);
 Path.macro('lens', lens);
 Path.macro('polyline', polyline);
 Path.macro('polygon', polygon);
