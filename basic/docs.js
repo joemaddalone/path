@@ -31,6 +31,17 @@ export default {
       args: [[150, 75, 80, 50]],
     },
   },
+  kite: {
+    method: 'kite',
+    args: ['width, height, dh, cx, cy'],
+    description:
+      '.kite is drawn from center point (cx & cy). dh = position of the left & right points from the top of the shape. The cursor is then moved to the center point.',
+    demo: {
+      w: 155,
+      h: 120,
+      args: [[70, 100, 25, 80, 50]],
+    },
+  },
   lens: {
     method: 'lens',
     args: ['width, height, cx, cy'],
