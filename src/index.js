@@ -600,7 +600,7 @@ export default class Path {
 
   /**
    * Close path.
-   * @name Path#toArray
+   * @name Path#close
    * @function
    * @return {Path}
    */
