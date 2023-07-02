@@ -2,17 +2,17 @@ import Path from '../web_modules/@joemaddalone/path.js';
 import docs from './docs.js';
 
 export default {
-  ...docs.ellipse,
-  name: 'ellipse',
-  w: 155,
+  ...docs.roundedSquare,
+  name: 'roundedSquare',
+  w: 140,
   h: 120,
   paths: [
     {
-      path: new Path().ellipse(150, 75, 80, 50).toElement(),
+      path: new Path().roundedSquare(100, 15, 55, 60).toElement(),
     },
     {
       path: new Path()
-        .ellipse(15, 7.5, 80, 50)
+        .roundedSquare(10, 5, 55, 60)
         .attr('class', 'filled')
         .toElement(),
     },

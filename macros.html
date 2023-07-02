@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Web site created using create-snowpack-app"
+    />
+    <title>@joemaddalone/path</title>
+    <link
+      rel="stylesheet"
+      href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="//unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css"
+    />
+    <link rel="stylesheet" type="text/css" href="index.css" />
+  </head>
+  <body>
+    <div id="root">
+      
+        <h1>path</h1>
+        <div class="ui three item menu">
+          <a class="item" href="index.html">Overview</a>
+          <!-- <a class="item" href="api.html">API</a> -->
+          <a class="item active" href="macros.html">Macros</a>
+          <a class="item" href="https://github.com/joemaddalone/path">Source</a>
+        </div>
+      
+
+
+      <h3 class="ui-header">Macros</h3>
+      <p>Macros are a way to save a common set of path steps for reuse.</p>
+      <div class="example">
+        <div id="custom-macros"></div>
+        <a
+          href="https://github.com/joemaddalone/path/blob/master/demo/src/macros/customMacro.js"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          source
+        </a>
+      </div>
+      <p>Macros are so nice we included a bunch for you.</p>
+      <div class="example">
+        <h2 class="ui-header">Basic Shapes</h2>
+        <div id="basic-shapes"></div>
+      </div>
+
+      <h2 class="ui-header">Combining Shapes</h2>
+      <div class="complex">
+        <h3 class="ui-header">multiple .sectors</h3>
+        <div id="pie"></div>
+        <a
+          href="https://github.com/joemaddalone/path/blob/master/demo/src/complex/pie.js"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          source
+        </a>
+        <h3 class="ui-header">multiple .segments</h3>
+        <div id="donut"></div>
+        <a
+          href="https://github.com/joemaddalone/path/blob/master/demo/src/complex/donut.js"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          source
+        </a>
+        <h3 class="ui-header">multiple .sectors + .segments</h3>
+        <div id="combined"></div>
+        <h3 class="ui-header">grid</h3>
+        <div id="grid"></div>
+        <a
+          href="https://github.com/joemaddalone/path/blob/master/demo/src/complex/grid.js"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          source
+        </a>
+        <h3 class="ui-header">fitted .polyline</h3>
+        <div id="spark"></div>
+        <a
+          href="https://github.com/joemaddalone/path/blob/master/demo/src/complex/sparkline.js"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          source
+        </a>
+      </div>
+    </div>
+    <script type="module" src="macros.js"></script>
+    <script type="module" src="prism.js"></script>
+  </body>
+</html>
