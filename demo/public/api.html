@@ -21,15 +21,24 @@
   </head>
   <body>
     <div id="root">
-      <h1>path</h1>
-      <div class="ui three item menu">
-        <a class="item active" href="index.html">Overview</a>
-        <!-- <a class="item" href="api.html">API</a> -->
-        <a class="item" href="macros.html">Macros</a>
-        <a class="item" href="https://github.com/joemaddalone/path">Source</a>
-      </div>
+      
+        <h1>path</h1>
+        <div class="ui four item menu">
+          <a class="item" href="index.html">Overview</a>
+          <a class="item active" href="api.html">API</a>
+          <a class="item" href="macros.html">Macros</a>
+          <a class="item" href="https://github.com/joemaddalone/path">Source</a>
+        </div>
+      
 
-      <h3 class="ui-header">Overview</h3>
+
+      <!-- <h2>path</h2> -->
+      <hr />
+      <a href="https://github.com/joemaddalone/path">
+        https://github.com/joemaddalone/path
+      </a>
+
+      <h3 class="ui-header">Demos</h3>
       <p>
         The svg element below contains only a single path. This may not be
         ideal, depending on your needs, but it demonstrates the ability to
@@ -73,7 +82,64 @@
           source
         </a>
       </div>
+      <p>Macros are a way to save a common set of path steps for reuse.</p>
+      <div class="example">
+        <div id="custom-macros"></div>
+        <a
+          href="https://github.com/joemaddalone/path/blob/master/demo/src/macros/customMacros.js"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          source
+        </a>
+      </div>
+      <p>Macros are so nice we included a bunch for you.</p>
+      <div class="example">
+        <h2 class="ui-header">Basic Shapes</h2>
+        <div id="basic-shapes"></div>
+      </div>
+
+      <h2 class="ui-header">Combining Shapes</h2>
       <div class="complex">
+        <h3 class="ui-header">multiple .sectors</h3>
+        <div id="pie"></div>
+        <a
+          href="https://github.com/joemaddalone/path/blob/master/demo/src/complex/pie.js"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          source
+        </a>
+        <h3 class="ui-header">multiple .segments</h3>
+        <div id="donut"></div>
+        <a
+          href="https://github.com/joemaddalone/path/blob/master/demo/src/complex/donut.js"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          source
+        </a>
+        <h3 class="ui-header">multiple .sectors + .segments</h3>
+        <div id="combined"></div>
+        <h3 class="ui-header">grid</h3>
+        <div id="grid"></div>
+        <a
+          href="https://github.com/joemaddalone/path/blob/master/demo/src/complex/grid.js"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          source
+        </a>
+        <h3 class="ui-header">fitted .polyline</h3>
+        <div id="spark"></div>
+        <a
+          href="https://github.com/joemaddalone/path/blob/master/demo/src/complex/sparkline.js"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          source
+        </a>
+
         <h3 class="ui-header">Did we mention it works in canvas too?</h3>
         <canvas id="canvas"></canvas>
         <a
