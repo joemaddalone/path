@@ -258,10 +258,20 @@ export default {
       args: [[100, 100, 60, 60]],
     },
   },
+  symV: {
+    method: 'symV',
+    args: ['width, height, cx, cy'],
+    description: '.symV draws a V shape.',
+    demo: {
+      w: 120,
+      h: 120,
+      args: [[100, 100, 60, 60]],
+    },
+  },
   symX: {
     method: 'symX',
     args: ['width, height, cx, cy'],
-    description: '.X draws an X shape.',
+    description: '.symX draws an X shape.',
     demo: {
       w: 120,
       h: 120,
