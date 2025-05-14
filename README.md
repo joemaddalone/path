@@ -157,6 +157,10 @@ These are so handy we have included a bunch!
    - .cross is drawn from center points (cx & cy). The cursor is then moved to the center points.   
 - **.ellipse**(_width, height, cx, cy_)
    - .ellipse is drawn from center point (cx & cy). The cursor is then moved to the center point.
+- **.isocube**(_size, cx, cy_ )
+  - .isocube is drawn from center points (cx & cy). The cursor is then moved to the center points
+- **.kite**(_width, height, dh, cx, cy_)
+  - .kite is drawn from center points (cx & cy). The cursor is then moved to the center points
 - **.lens**(_width, height, cx, cy_)
    - .lens is drawn from center point (cx & cy). The cursor is then moved to the center point.   
 - **.omino**(_size, shape, sx, sy, lined = false_)
@@ -189,6 +193,8 @@ These are so handy we have included a bunch!
    - .symH is drawn from center points (cx & cy). The cursor is then moved to the center points.         
 - **.symI**(_width, height, cx, cy_)
    - .symI is drawn from center points (cx & cy). The cursor is then moved to the center points.            
+- **.symV**(_width, height, cx, cy_)
+   - .symV is drawn from center points (cx & cy). The cursor is then moved to the center points.      
 - **.symX**(_width, height, cx, cy_)
    - .symX is drawn from center points (cx & cy). The cursor is then moved to the center points.      
 - **.triangle**(_size, cx, cy_)
