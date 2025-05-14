@@ -31,6 +31,16 @@ export default {
       args: [[150, 75, 80, 50]],
     },
   },
+  isocube: {
+    method: 'isocube',
+    args: ['size', 'cx', 'cy'],
+    description: '.isocube draws a isometric cube.',
+    demo: {
+      w: 200,
+      h: 200,
+      args: [[100, 100, 100]]
+    }
+  },
   kite: {
     method: 'kite',
     args: ['width, height, dh, cx, cy'],
