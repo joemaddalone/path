@@ -17,6 +17,7 @@ const radialLines = function (
   cy,
   centerEnd = true,
 ) {
+  [cx ,cy] = this.nest(cx, cy);
   const inner = this.constructor.radialPoints(innerSize / 2, cx, cy, points);
   const outer = this.constructor.radialPoints(outerSize / 2, cx, cy, points);
 

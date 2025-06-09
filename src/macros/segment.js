@@ -17,6 +17,7 @@ const segment = function (
   endAngle,
   centerEnd = true,
 ) {
+  [cx ,cy] = this.nest(cx, cy);
   const radius = size / 2;
   const start = this.constructor.clockwisePoint(
     cx,

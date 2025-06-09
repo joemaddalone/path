@@ -9,6 +9,7 @@
  * @return {Path} the path object for chaining
  */
 const lens = function (width, height, cx, cy, centerEnd = true) {
+  [cx ,cy] = this.nest(cx, cy);
   this.M(cx - width / 2, cy)
     .Q(cx, cy - height, cx + width / 2, cy)
     .Q(cx, cy + height, cx - width / 2, cy);

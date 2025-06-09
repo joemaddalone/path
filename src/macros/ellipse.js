@@ -9,6 +9,7 @@
  * @return {Path} the path object for chaining
  */
 const ellipse = function (width, height, cx, cy, centerEnd = true) {
+  [cx ,cy] = this.nest(cx, cy);
   const rx = width / 2;
   const ry = height / 2;
 

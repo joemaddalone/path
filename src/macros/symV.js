@@ -9,6 +9,7 @@
  * @return {Path} the path object for chaining
  */
 const symV = function (width, height, cx, cy, centerEnd = true) {
+  [cx ,cy] = this.nest(cx, cy);
   const l = cx - width / 2;
   const r = l + width;
   const t = cy - height / 2;

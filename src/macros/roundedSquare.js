@@ -9,6 +9,7 @@
  * @return {Path} the path object for chaining
  */
 const roundedSquare = function (size, radius, cx, cy, centerEnd = true) {
+  [cx ,cy] = this.nest(cx, cy);
   return this.roundedRect(size, size, radius, cx, cy, centerEnd);
 };
 

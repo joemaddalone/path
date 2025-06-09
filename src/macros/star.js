@@ -10,6 +10,7 @@
  * @return {Path} the path object for chaining
  */
 const star = function (outerSize, innerSize, points, cx, cy, centerEnd = true) {
+  [cx ,cy] = this.nest(cx, cy);
   const innerRadius = innerSize / 2;
   const outerRadius = outerSize / 2;
   const increment = 360 / (points * 2);

@@ -44,8 +44,24 @@ export default class Path {
      * @default []
      */
     this.attributes = {};
+    this.lastCX = 0;
+    this.lastCY = 0;
     return this;
   }
+
+  nest = (cx, cy) => {
+    if (cx === undefined) {
+      cx = this.lastCX;
+    } else {
+      this.lastCX = cx;
+    }
+    if (cy === undefined) {
+      cy = this.lastCY;
+    } else {
+      this.lastCY = cy;
+    }
+    return [cx, cy];
+  };
 
   /**
    * @function angleInRadians
