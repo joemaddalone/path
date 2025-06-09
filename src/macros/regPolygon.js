@@ -9,6 +9,7 @@
  * @return {Path} the path object for chaining
  */
 const regPolygon = function (size, sides, cx, cy, centerEnd = true) {
+  [cx ,cy] = this.nest(cx, cy);
   this.polygon(this.constructor.radialPoints(size / 2, cx, cy, sides));
   if (centerEnd) {
     this.M(cx, cy);

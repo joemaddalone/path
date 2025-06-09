@@ -8,6 +8,7 @@
  * @return {Path} the path object for chaining
  */
 const square = function (size, cx, cy, centerEnd = true) {
+  [cx ,cy] = this.nest(cx, cy);
   return this.rect(size, size, cx, cy, centerEnd);
 };
 

@@ -8,6 +8,7 @@
  * @return {Path} the path object for chaining
  */
 const isocube = function (size, cx, cy, centerEnd = true) {
+    [cx ,cy] = this.nest(cx, cy);
     this.regPolygon(size, 6, cx, cy, centerEnd)
 
     const inner = this.constructor.radialPoints(0 / 2, cx, cy, 6);

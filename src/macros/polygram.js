@@ -17,6 +17,7 @@ const polygram = function (
   vertexSkip = 2,
   centerEnd = true,
 ) {
+  [cx ,cy] = this.nest(cx, cy);
   this.polygon(
     this.constructor.radialPoints(size / 2, cx, cy, points, null, vertexSkip),
   );

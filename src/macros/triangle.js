@@ -8,6 +8,7 @@
  * @return {Path} the path object for chaining
  */
 const triangle = function (size, cx, cy, centerEnd = true) {
+  [cx ,cy] = this.nest(cx, cy);
   const sq3 = Math.sqrt(3);
   const a = [cx, cy - (sq3 / 3) * size];
   const b = [cx - size / 2, cy + (sq3 / 6) * size];

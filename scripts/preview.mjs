@@ -30,11 +30,17 @@ const P = new Path();
 P.M(250, 250);
 let x = c
 x = x.replace(/\s+/g, '');
-const cmd = x.split('(');
-const name = cmd[0];
-const args = cmd[1].split(',');
-const numericArgs = args.map(arg => parseFloat(arg));
-P[name](...numericArgs);
+const commands = x.split(').');
+commands.forEach(command => {
+  if (command) {
+    const [name, argsStr] = command.split('(');
+    if (argsStr) {
+      const args = argsStr.replace(')', '').split(',');
+      const numericArgs = args.map(arg => parseFloat(arg));
+      P[name](...numericArgs);
+    }
+  }
+});
 
 
 
@@ -58,6 +64,7 @@ const htmlContent = `
       background-color: white;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
+    path { fill: none; }
   </style>
 </head>
 <body>

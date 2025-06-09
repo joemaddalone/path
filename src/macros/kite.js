@@ -10,6 +10,7 @@
  * @return {Path} the path object for chaining
  */
 const kite = function (width, height, dh, cx, cy, centerEnd = true) {
+	[cx ,cy] = this.nest(cx, cy);
 	dh = dh || parseInt(height * 0.33, 10);
 	const [t, _, b] = this.constructor.radialPoints(height / 2, cx, cy, 4);
 	const h = parseInt(t[1], 10) + dh;

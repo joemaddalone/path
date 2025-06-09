@@ -10,6 +10,7 @@
  * @return {Path} the path object for chaining
  */
 const roundedRect = function (width, height, radius, cx, cy, centerEnd = true) {
+  [cx ,cy] = this.nest(cx, cy);
   const top = cy - height / 2;
   const left = cx - width / 2;
   const right = left + width;
