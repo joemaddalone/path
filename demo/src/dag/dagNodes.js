@@ -35,9 +35,8 @@ const DagNodes = () => {
       p.M(m.x, m.y);
       points.forEach((point) => p.L(point.x, point.y));
     });
-    p.stroke('#222');
 
-    return p.toElement();
+    return p.toElement({ stroke: '#222' });
   };
 
   const squares = dag.nodes.slice(0, 5);

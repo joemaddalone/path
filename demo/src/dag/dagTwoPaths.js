@@ -14,9 +14,7 @@ const dagTwoPaths = () => {
         .up(height);
     });
 
-    p.stroke('red');
-
-    return p.toElement();
+    return p.toElement({ stroke: 'red' });
   };
 
   const createConnectors = (edges) => {
@@ -27,9 +25,7 @@ const dagTwoPaths = () => {
       points.forEach((point) => p.L(point.x, point.y));
     });
 
-    p.stroke('#222');
-
-    return p.toElement();
+    return p.toElement({ stroke: '#222' });
   };
 
   return {

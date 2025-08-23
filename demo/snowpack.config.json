@@ -1,7 +1,0 @@
-{
-  "mount": {
-    "public": "/",
-    "src": "/"
-  },
-  "plugins": []
-}

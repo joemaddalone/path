@@ -5,7 +5,7 @@ import fs from 'fs/promises';
 import { exec } from 'child_process';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
-import Path from '../src/index.js';
+import Path from '../dist/esm/index.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -24,6 +24,7 @@ if (!c) {
   console.error('Please provide a Path command using --c option');
   process.exit(1);
 }
+
 
 
 const P = new Path();
@@ -74,11 +75,16 @@ await fs.writeFile(outputPath, htmlContent);
 
 // Open in default browser
 const command = process.platform === 'win32' ? 'start' :
-                process.platform === 'darwin' ? 'open' : 'xdg-open';
+  process.platform === 'darwin' ? 'open' : 'xdg-open';
 
 exec(`${command} ${outputPath}`, (error) => {
   if (error) {
     console.error('Error opening the preview:', error);
     process.exit(1);
   }
-}); 
+
+  setTimeout(() => {
+    fs.unlink(outputPath)
+  }, 1000)
+});
+

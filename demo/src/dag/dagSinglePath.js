@@ -19,10 +19,8 @@ const dagSinglePath = () => {
       .up(height);
   });
 
-  p.stroke('#222');
-
   return {
-    nodes: p.toElement(),
+    nodes: p.toElement({ stroke: '#222' }),
     w: dag.graph.width,
     h: dag.graph.height,
   };
