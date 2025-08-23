@@ -1,25 +1,21 @@
 {
   "name": "@joemaddalone/path",
-  "version": "1.4.0",
+  "version": "2.0.0",
   "description": "a simple svg path generation utility",
-  "types": "dist/path.d.ts",
+  "type": "module",
+  "types": "dist/index.d.ts",
   "main": "dist/index.js",
-  "module": "dist/index.esm.js",
+  "module": "dist/esm/index.js",
+  "iife": "dist/iife/index.js",
   "scripts": {
-    "build": "npm run clean && npm run types && npm run compile",
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "clean": "rm -rf dist",
-    "compile": "rollup -c",
-    "dev": "rollup -c -w",
-    "format": "prettier --write \"**/*.+(js|jsx|json)\"",
-    "lint": "eslint src",
-    "lint-fix": "eslint --fix src",
-    "test": "jest",
-    "test:coverage": "jest --coverage",
     "prepublishOnly": "npm run clean && npm test && npm run build",
-    "predeploy": "cd demo && npm install && npx snowpack build",
-    "deploy": "gh-pages -d demo/build",
-    "types": "jsdoc -t node_modules/tsd-jsdoc/dist/ -d dist/ -r src/; mv dist/types.d.ts dist/path.d.ts; node scripts/addExportToDefs.js; exit 0",
-    "fix-types": "node scripts/addExportToDefs.js"
+    "predeploy": "cd demo && npm install && npm run builder",
+    "deploy": "gh-pages -d demo/public"
   },
   "keywords": [
     "svg",
@@ -29,8 +25,7 @@
     "cubic curve"
   ],
   "files": [
-    "dist/**/*.js",
-    "dist/path.d.ts"
+    "dist"
   ],
   "repository": {
     "type": "git",
@@ -43,37 +38,10 @@
   },
   "homepage": "https://joemaddalone.github.io/path/",
   "devDependencies": {
-    "@babel/core": "^7.16.0",
-    "@babel/eslint-parser": "^7.16.5",
-    "@babel/plugin-proposal-class-properties": "^7.16.0",
-    "@babel/preset-env": "^7.16.4",
-    "@rollup/plugin-babel": "^5.3.0",
-    "@rollup/plugin-node-resolve": "^13.0.6",
-    "eslint": "^8.4.1",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^4.0.0",
     "gh-pages": "^3.2.3",
-    "husky": "^7.0.4",
-    "jest": "^27.4.4",
-    "jsdoc": "^3.6.7",
-    "lint-staged": "^12.1.2",
-    "prettier": "^2.5.1",
-    "rollup": "^2.61.1",
-    "rollup-plugin-terser": "^7.0.2",
-    "tsd-jsdoc": "^2.5.0"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.+(js|jsx|json)": [
-      "prettier --write"
-    ],
-    "*.js": [
-      "eslint --fix"
-    ]
-  },
-  "dependencies": {}
+    "jsdom": "^26.1.0",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
+  }
 }

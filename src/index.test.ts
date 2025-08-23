@@ -1,34 +1,37 @@
-import Path from '.';
+import { expect, test, describe, beforeEach } from "vitest";
+import Path from "./index";
 
-describe('Path', () => {
+describe("Path class", () => {
   let path;
+
   beforeEach(() => {
     path = new Path();
   });
-  it('Path inits with an empty array', () => {
+
+  test("Path inits with an empty array", () => {
     expect(path.toArray() instanceof Array).toBe(true);
     expect(path.toArray().length).toBe(0);
   });
 
-  it('should return correct commands', () => {
+  test("should return correct commands", () => {
     path.M(100, 100);
-    expect(path.toCommands()).toEqual([['M', 100, 100]]);
+    expect(path.toCommands()).toEqual([["M", 100, 100]]);
     path.L(100, 100);
     expect(path.toCommands()).toEqual([
-      ['M', 100, 100],
-      ['L', 100, 100],
+      ["M", 100, 100],
+      ["L", 100, 100],
     ]);
   });
 
-  it('should return correct commands', () => {
+  test("should return correct commands", () => {
     path.M(100, 100);
     expect(path.toAnnotatedCommands()).toEqual([
-      { fn: 'M', args: { x: 100, y: 100 } },
+      { fn: "M", args: { x: 100, y: 100 } },
     ]);
-    path.L(100,100);
+    path.L(100, 100);
     expect(path.toAnnotatedCommands()).toEqual([
-      { fn: 'M', args: { x: 100, y: 100 } },
-      { fn: 'L', args: { x: 100, y: 100 } },
+      { fn: "M", args: { x: 100, y: 100 } },
+      { fn: "L", args: { x: 100, y: 100 } },
     ]);
   });
 
@@ -43,71 +46,55 @@ describe('Path', () => {
     { method: 'horizontalTo', command: 'H' },
     { method: 'verticalTo', command: 'V' },
   ].forEach(({ method, command }) => {
-    it(`should create absolute version of ${method} containing ${command}`, () => {
+    test(`should create absolute version of ${method} containing ${command}`, () => {
       path[method](0, 0);
       expect(path.toString().includes(command)).toBe(true);
     });
-    it(`should create relative version of ${method} containing ${command.toLowerCase()}`, () => {
+    test(`should create relative version of ${method} containing ${command.toLowerCase()}`, () => {
       const length = path[method].length;
-      const params = Array.from({ length }).fill(0);
+      const params = Array.from({ length });
       params.push(true);
       path[method].apply(null, params);
       expect(path.toString().includes(command.toLowerCase())).toBe(true);
     });
 
-    it(`${command} creates ${command} data`, () => {
+    test(`${command} creates ${command} data`, () => {
       path[command](0, 0);
       expect(path.toString().includes(command)).toBe(true);
     });
 
-    it(`${command.toLowerCase()} creates ${command.toLowerCase()} data`, () => {
+    test(`${command.toLowerCase()} creates ${command.toLowerCase()} data`, () => {
       path[command.toLowerCase()](0, 0);
       expect(path.toString().includes(command.toLowerCase())).toBe(true);
     });
   });
 
-  it('close creates close data', () => {
+  test('close creates close data', () => {
     path.close();
     expect(path.toString().includes('z')).toBe(true);
   });
 
-  it('toString is joined toArray', () => {
+  test('toString is joined toArray', () => {
     path.lineTo(0, 0).Q(1, 1);
     expect(path.toString() === path.toArray().join('')).toBe(true);
   });
 
-  it('toArray is of correct length', () => {
+  test('toArray is of correct length', () => {
     path.moveTo(0, 0).lineTo(1, 1);
     expect(path.toArray().length).toBe(2);
   });
 
-  it('toString is correct', () => {
+  test('toString is correct', () => {
     path.moveTo(0, 0).lineTo(1, 1);
     expect(path.toString()).toBe('M0 0L1 1');
   });
 
-  it('attributes', () => {
-    path.attr('fill', 'white');
-    expect(path.attributes.fill).toBe('white');
-  });
 
-  ['fill', 'stroke', 'style'].forEach((shortcut, index) => {
-    it(`correctly populates attr with shortcut ${shortcut}`, () => {
-      path[shortcut](index);
-      expect(path.attributes[shortcut]).toBe(index);
-    });
-  });
-
-  it(`correctly populates strokeWidth attr with shortcut`, () => {
-    path.strokeWidth(5);
-    expect(path.attributes['stroke-width']).toBe(5);
-  });
-
-  it('angleInRadians', () => {
+  test('angleInRadians', () => {
     expect(Path.angleInRadians(10)).toBe((10 * Math.PI) / 180);
   });
 
-  it('polarToCartesian', () => {
+  test('polarToCartesian', () => {
     expect(Path.polarToCartesian(0, 0, 10, 270).x).toBe(
       0 + 10 * Math.cos(Path.angleInRadians(270)),
     );
@@ -116,7 +103,7 @@ describe('Path', () => {
     );
   });
 
-  it('clockwisePoint', () => {
+  test('clockwisePoint', () => {
     expect(Path.clockwisePoint(0, 0, 10, 270).x).toBe(
       0 + 10 * Math.cos(Path.angleInRadians(270 - 90)),
     );
@@ -125,63 +112,63 @@ describe('Path', () => {
     );
   });
 
-  it('radialPoints', () => {
+  test('radialPoints', () => {
     expect(Path.radialPoints(0, 0, 0, 4, 0, 1).length).toBe(4);
   });
 
-  it('down', () => {
+  test('down', () => {
     expect(path.down(5).toString()).toBe('v5');
   });
 
-  it('up', () => {
+  test('up', () => {
     expect(path.up(5).toString()).toBe('v-5');
   });
 
-  it('right', () => {
+  test('right', () => {
     expect(path.right(5).toString()).toBe('h5');
   });
 
-  it('left', () => {
+  test('left', () => {
     expect(path.left(5).toString()).toBe('h-5');
   });
 
   ['square', 'circle', 'triangle'].forEach((shape) => {
-    it(`${shape} ends at center cx, cy`, () => {
+    test(`${shape} ends at center cx, cy`, () => {
       const s = path[shape](100, 10, 10).toArray();
       expect(s[s.length - 1]).toBe('M10 10');
     });
   });
 
   ['square', 'circle', 'triangle'].forEach((shape) => {
-    it(`${shape} does not end at center cx, cy when overridden`, () => {
+    test(`${shape} does not end at center cx, cy when overridden`, () => {
       const s = path[shape](100, 10, 10, false).toArray();
       expect(s[s.length - 1]).not.toBe('M10 10');
     });
   });
 
-  it(`roundedSquare does not end at center cx, cy when overridden`, () => {
+  test(`roundedSquare does not end at center cx, cy when overridden`, () => {
     const s = path.roundedSquare(100, 20, 10, 10, false).toArray();
     expect(s[s.length - 1]).not.toBe('M10 10');
   });
 
-  it(`roundedSquare ends at center cx, cy`, () => {
+  test(`roundedSquare ends at center cx, cy`, () => {
     const s = path.roundedSquare(100, 20, 10, 10, false).toArray();
     expect(s[s.length - 1]).not.toBe('M10 10');
   });
 
-  it(`roundedRect does not end at center cx, cy when overridden`, () => {
+  test(`roundedRect does not end at center cx, cy when overridden`, () => {
     const s = path.roundedRect(100, 50, 20, 10, 10, false).toArray();
     expect(s[s.length - 1]).not.toBe('M10 10');
   });
 
-  it(`roundedRect ends at center cx, cy`, () => {
+  test(`roundedRect ends at center cx, cy`, () => {
     const s = path.roundedRect(100, 50, 20, 10, 10).toArray();
     expect(s[s.length - 1]).toBe('M10 10');
   });
 
   ['rect', 'ellipse', 'symX', 'symI', 'symH', 'cross', 'lens'].forEach(
     (shape) => {
-      it(`${shape} ends at center cx, cy`, () => {
+      test(`${shape} ends at center cx, cy`, () => {
         const s = path[shape](100, 100, 10, 10).toArray();
         expect(s[s.length - 1]).toBe('M10 10');
       });
@@ -189,58 +176,58 @@ describe('Path', () => {
   );
 
   ['rect', 'ellipse', 'symX', 'symI', 'symH', 'cross'].forEach((shape) => {
-    it(`${shape} does not end at center cx, cy when overridden`, () => {
+    test(`${shape} does not end at center cx, cy when overridden`, () => {
       const s = path[shape](100, 100, 10, 10, false).toArray();
       expect(s[s.length - 1]).not.toBe('M10 10');
     });
   });
 
   ['sector', 'segment'].forEach((shape) => {
-    it(`${shape} ends at center cx, cy`, () => {
+    test(`${shape} ends at center cx, cy`, () => {
       const s = path[shape](10, 10, 50, 0, 270).toArray();
       expect(s[s.length - 1]).toBe('M10 10');
     });
   });
 
   ['sector', 'segment'].forEach((shape) => {
-    it(`${shape} does not end at center cx, cy when overridden`, () => {
+    test(`${shape} does not end at center cx, cy when overridden`, () => {
       const s = path[shape](10, 10, 50, 0, 270, false).toArray();
       expect(s[s.length - 1]).not.toBe('M10 10');
     });
   });
 
   ['star', 'radialLines'].forEach((shape) => {
-    it(`${shape} ends at center cx, cy`, () => {
+    test(`${shape} ends at center cx, cy`, () => {
       const s = path[shape](100, 50, 5, 10, 10).toArray();
       expect(s[s.length - 1]).toBe('M10 10');
     });
   });
 
   ['star', 'radialLines'].forEach((shape) => {
-    it(`${shape} does not end at center cx, cy when overridden`, () => {
+    test(`${shape} does not end at center cx, cy when overridden`, () => {
       const s = path[shape](100, 50, 5, 10, 10, false).toArray();
       expect(s[s.length - 1]).not.toBe('M10 10');
     });
   });
 
   ['regPolygon', 'polygram'].forEach((shape) => {
-    it(`${shape} ends at center cx, cy`, () => {
+    test(`${shape} ends at center cx, cy`, () => {
       const s = path[shape](100, 5, 10, 10).toArray();
       expect(s[s.length - 1]).toBe('M10 10');
     });
   });
 
-  it(`regPolygon does not end at center cx, cy when overridden`, () => {
+  test(`regPolygon does not end at center cx, cy when overridden`, () => {
     const s = path.regPolygon(100, 5, 10, 10, false).toArray();
     expect(s[s.length - 1]).not.toBe('M10 10');
   });
 
-  it(`polygram does not end at center cx, cy when overridden`, () => {
+  test(`polygram does not end at center cx, cy when overridden`, () => {
     const s = path.polygram(100, 5, 10, 10, null, false).toArray();
     expect(s[s.length - 1]).not.toBe('M10 10');
   });
 
-  it('returns valid positions', () => {
+  test('returns valid positions', () => {
     const size = 10;
     const s = Path.positionByArray(size, [[1], [0, 1]], 0, 0);
     expect(s[0].size).toEqual(size);
@@ -248,7 +235,7 @@ describe('Path', () => {
     expect(s[0].cy).toEqual(size / 2);
   });
 
-  it('returns valid omino', () => {
+  test('returns valid omino', () => {
     const shape = [
       [1, 1],
       [1, 0],
@@ -262,7 +249,7 @@ describe('Path', () => {
     expect(s[0]).toBe('M0 0');
   });
 
-  it('toElement', () => {
+  test('toElement', () => {
     expect(path.left(5).toElement().getAttribute('d')).toBe('h-5');
     expect(path.left(5).toElement({ stroke: 10 }).getAttribute('stroke')).toBe(
       '10',
