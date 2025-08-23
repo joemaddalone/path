@@ -1,6 +1,0 @@
-{
-  "imports": {
-    "@joemaddalone/path": "./@joemaddalone/path.js",
-    "dagre": "./dagre.js"
-  }
-}
