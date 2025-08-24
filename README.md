@@ -9,7 +9,7 @@ npm install --save @joemaddalone/path
 ## Basic Usage
 
 ```js
-import Path from 'path';
+import Path from '@joemaddalone/path';
 
 const Square = ({ x, y, size }) => {
   const path = new Path()
