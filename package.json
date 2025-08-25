@@ -1,14 +1,23 @@
 {
   "name": "@joemaddalone/path",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "a simple svg path generation utility",
-  "type": "module",
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
+  "cjs": "dist/index.cjs",
   "iife": "dist/iife/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.js"
+    }
+  },
   "scripts": {
     "build": "tsup",
+    "postbuild": "cp dist/index.js dist/index.cjs",
     "dev": "tsup --watch",
     "test": "vitest run",
     "test:watch": "vitest",

@@ -4,7 +4,7 @@ export default defineConfig({
   entry: ["src/index.ts"],
   clean: true,
   format: ["cjs", "esm", "iife"],
-  minify: true,
+  minify: false, // Disable minification to prevent variable naming conflicts
   dts: true,
   legacyOutput: true,
   target: "es2020",
